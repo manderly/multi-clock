@@ -63,7 +63,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
           onChange={handleChange}
           value={timeZone}
         />
-          <span>{currentTime}</span>
+          <span className="timestamp">{currentTime}</span>
       </div>
     )
 }

@@ -15,6 +15,10 @@
   justify-content: center;
 }
 
+.timestamp {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
 .blue-border {
   border: 1px solid blue;
 }
