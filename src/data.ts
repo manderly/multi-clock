@@ -5,15 +5,15 @@ export interface TimezoneOption {
 
 export const NorthAmerica: readonly TimezoneOption[] = [
   {value: 'America/Chicago', label: 'US Eastern (UTC-5)'},
-  {value: 'America/NewYork', label: 'US Central (UTC-6)'},
-  {value: 'America/Montana', label: 'US Mountain (UTC-7)'},
-  {value: 'America/LosAngeles', label: 'US Pacific (UTC-8)'}
+  {value: 'America/New_York', label: 'US Central (UTC-6)'},
+  {value: 'America/Boise', label: 'US Mountain (UTC-7)'},
+  {value: 'America/Los_Angeles', label: 'US Pacific (UTC-8)'}
 ]
 
 export const Europe: readonly TimezoneOption[] = [
-  {value: 'London', label: 'British (UTC+1)'},
-  {value: 'Madrid', label: 'Central European (UTC+2)'},
-  {value: 'Eastern', label: 'Eastern European (UTC+3)'}
+  {value: 'Europe/London', label: 'British (UTC+1)'},
+  {value: 'Europe/Madrid', label: 'Central European (UTC+2)'},
+  {value: 'Europe/Moscow', label: 'Eastern European (UTC+3)'}
 ]
 
 export interface GroupedOption {

@@ -1,9 +1,15 @@
-import React, { CSSProperties, useState } from 'react';
-import { getTimezoneOffset } from 'date-fns-tz'
+import React, { CSSProperties, useState, useEffect } from 'react';
+import { format, utcToZonedTime, getTimezoneOffset } from 'date-fns-tz'
 import Select from 'react-select';
-import { NorthAmerica, Europe, TimezoneOption, GroupedOption, groupedOptions } from './data';
+import { NorthAmerica, Europe, TimezoneOption, GroupedOption, groupedOptions } from '../../data';
+import enUS from 'date-fns/locale/en-US';
+import enGB from 'date-fns/locale/en-GB';
+interface IClockDisplay {
+  defaultTimeZone:TimezoneOption;
+}
 
-const ClockDisplay: React.FC = () => {
+const ClockDisplay: React.FC<IClockDisplay> = ({ defaultTimeZone }) => {
+
   const groupBadgeStyles: CSSProperties = {
     backgroundColor: '#EBECF0',
     borderRadius: '2em',
@@ -17,8 +23,10 @@ const ClockDisplay: React.FC = () => {
     textAlign: 'center',
   };
 
-  const [timeZone, setTimeZone] = useState();
-  
+  const [timeZone, setTimeZone] = useState(defaultTimeZone);
+  const [locale, setLocale] = useState(enUS);
+  const [currentTime, setCurrentTime] = useState(new Date().toLocaleString());
+
   const formatGroupLabel = (data: GroupedOption) => (
     <div style={groupBadgeStyles}>
       <span>{data.label}</span>
@@ -26,12 +34,26 @@ const ClockDisplay: React.FC = () => {
     </div>
   );
 
+  const dateFormat = 'MM/dd/yyyy HH:mm:ss zzz';
+
+  useEffect(() => {
+    let date = new Date();
+    let now = utcToZonedTime(date, 'America/New_York');
+
+    const interval = setInterval(() => setCurrentTime(
+      format(now, dateFormat, {timeZone: timeZone.value, locale: locale})), 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
     return (
       <div className="blue-border clock-container">
         <Select<TimezoneOption, false, GroupedOption>
-          defaultValue={NorthAmerica[1]}
+          defaultValue={defaultTimeZone}
           options={groupedOptions}
           formatGroupLabel={formatGroupLabel}/>
+          <span>{currentTime}</span>
       </div>
     )
 }

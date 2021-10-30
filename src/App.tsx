@@ -1,7 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import ClockDisplay from './components/ClockDisplay/ClockDisplay';
+import { Europe, NorthAmerica } from './data';
 
 function App() {
 
@@ -13,10 +13,10 @@ function App() {
       </header>
       
       <div className="container">
-        <ClockDisplay/>
-        <ClockDisplay/>
-        <ClockDisplay/>
-        <ClockDisplay/>
+        <ClockDisplay defaultTimeZone={NorthAmerica[0]}/>
+        <ClockDisplay defaultTimeZone={NorthAmerica[2]}/>
+        <ClockDisplay defaultTimeZone={Europe[1]}/>
+        <ClockDisplay defaultTimeZone={Europe[2]}/>
       </div>
     </div>
   );
