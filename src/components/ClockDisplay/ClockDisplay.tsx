@@ -1,14 +1,14 @@
-import React, { CSSProperties, useState, useEffect } from 'react';
+import { FC, CSSProperties, useState, useEffect, ChangeEvent } from 'react';
 import { format, utcToZonedTime, getTimezoneOffset } from 'date-fns-tz'
 import Select from 'react-select';
 import { NorthAmerica, Europe, TimezoneOption, GroupedOption, groupedOptions } from '../../data';
 import enUS from 'date-fns/locale/en-US';
 import enGB from 'date-fns/locale/en-GB';
 interface IClockDisplay {
-  defaultTimeZone:TimezoneOption;
+  defaultTimeZone: TimezoneOption;
 }
 
-const ClockDisplay: React.FC<IClockDisplay> = ({ defaultTimeZone }) => {
+const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
 
   const groupBadgeStyles: CSSProperties = {
     backgroundColor: '#EBECF0',
@@ -27,6 +27,10 @@ const ClockDisplay: React.FC<IClockDisplay> = ({ defaultTimeZone }) => {
   const [locale, setLocale] = useState(enUS);
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleString());
 
+  const handleChange = (option: any) => {
+    setTimeZone(option);
+  }
+
   const formatGroupLabel = (data: GroupedOption) => (
     <div style={groupBadgeStyles}>
       <span>{data.label}</span>
@@ -34,25 +38,31 @@ const ClockDisplay: React.FC<IClockDisplay> = ({ defaultTimeZone }) => {
     </div>
   );
 
-  const dateFormat = 'MM/dd/yyyy HH:mm:ss zzz';
+  const dateFormat = 'MM/dd/yyyy h:mm:ssaa zzz';
 
   useEffect(() => {
-    let date = new Date();
-    let now = utcToZonedTime(date, 'America/New_York');
+    const interval = setInterval(() => {
+      const date = new Date();
+      const now = utcToZonedTime(date, timeZone.value);
 
-    const interval = setInterval(() => setCurrentTime(
-      format(now, dateFormat, {timeZone: timeZone.value, locale: locale})), 1000);
+      setCurrentTime(
+        format(now, dateFormat, {timeZone: timeZone.value, locale: locale})
+      )
+    }, 1000);
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [timeZone]);
 
     return (
       <div className="blue-border clock-container">
         <Select<TimezoneOption, false, GroupedOption>
           defaultValue={defaultTimeZone}
           options={groupedOptions}
-          formatGroupLabel={formatGroupLabel}/>
+          formatGroupLabel={formatGroupLabel}
+          onChange={handleChange}
+          value={timeZone}
+        />
           <span>{currentTime}</span>
       </div>
     )

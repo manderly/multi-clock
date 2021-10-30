@@ -4,10 +4,10 @@ export interface TimezoneOption {
 }
 
 export const NorthAmerica: readonly TimezoneOption[] = [
-  {value: 'America/Chicago', label: 'US Eastern (UTC-5)'},
-  {value: 'America/New_York', label: 'US Central (UTC-6)'},
+  {value: 'America/Los_Angeles', label: 'US Pacific (UTC-8)'},
   {value: 'America/Boise', label: 'US Mountain (UTC-7)'},
-  {value: 'America/Los_Angeles', label: 'US Pacific (UTC-8)'}
+  {value: 'America/Chicago', label: 'US Central (UTC-6)'},
+  {value: 'America/New_York', label: 'US Eastern (UTC-5)'}
 ]
 
 export const Europe: readonly TimezoneOption[] = [
