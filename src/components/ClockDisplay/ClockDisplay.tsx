@@ -4,11 +4,25 @@ import Select from 'react-select';
 import { NorthAmerica, Europe, TimezoneOption, GroupedOption, groupedOptions } from '../../data';
 import enUS from 'date-fns/locale/en-US';
 import enGB from 'date-fns/locale/en-GB';
+import { daysToWeeks } from 'date-fns';
 interface IClockDisplay {
   defaultTimeZone: TimezoneOption;
 }
 
 const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
+  const dateFormat = 'PPPP';
+  const timeFormat = 'h:mm:ssaaa';
+
+  const makeDate = (timeProp: Date, formatProp: string) => {
+    return format(timeProp, formatProp, {timeZone: timeZone.value, locale: locale})
+  }
+
+  const getNow = () => {
+    const date = new Date();
+    const now = utcToZonedTime(date, timeZone.value);
+
+    return now;
+  }
 
   const groupBadgeStyles: CSSProperties = {
     backgroundColor: '#EBECF0',
@@ -25,8 +39,8 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
 
   const [timeZone, setTimeZone] = useState(defaultTimeZone);
   const [locale, setLocale] = useState(enUS);
-  const [currentDate, setCurrentDate] = useState(new Date().toLocaleString());
-  const [currentTime, setCurrentTime] = useState(new Date().toLocaleString());
+  const [currentDate, setCurrentDate] = useState(makeDate(getNow(), dateFormat));
+  const [currentTime, setCurrentTime] = useState(makeDate(getNow(), timeFormat));
 
   const handleChange = (option: any) => {
     setTimeZone(option);
@@ -39,18 +53,15 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
     </div>
   );
 
-  const dateFormat = 'PPPP';
-  const timeFormat = 'h:mm:ssaa zzz';
-
   useEffect(() => {
     const interval = setInterval(() => {
-      const date = new Date();
-      const now = utcToZonedTime(date, timeZone.value);
+      let now = getNow();
+      
       setCurrentDate(
-        format(now, dateFormat, {timeZone: timeZone.value, locale: locale})
+        makeDate(now, dateFormat)
       )
       setCurrentTime(
-        format(now, timeFormat, {timeZone: timeZone.value, locale: locale})
+        makeDate(now, timeFormat)
       )
     }, 1000);
     return () => {
@@ -67,9 +78,9 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
           onChange={handleChange}
           value={timeZone}
         />
-        <div className="container">
-            <div className="timestamp timeItem">{currentDate}</div> 
-            <div className="timestamp timeItem">{currentTime}</div>
+        <div className="time-col-container">
+            <div className="timestamp time-item">{currentDate}</div> 
+            <div className="timestamp time-item">{currentTime}</div>
           </div>
       </div>
     )

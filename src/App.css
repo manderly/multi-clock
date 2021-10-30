@@ -15,12 +15,18 @@
   justify-content: center;
 }
 
-.timeContainer {
-  display:flex;
-  flex-direction: column;
+.clock-container {
+  flex-grow:1;
+  padding:10px;
 }
 
-.timeItem {
+.time-col-container {
+  display:flex;
+  flex-direction: column;
+  padding:5px;
+}
+
+.time-item {
   flex-grow:1;
 }
 
@@ -32,9 +38,7 @@
   border: 1px solid blue;
 }
 
-.clock-container {
-  flex-grow:1;
-}
+
 
 .App-header {
   background-color: #282c34;
