@@ -25,6 +25,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
 
   const [timeZone, setTimeZone] = useState(defaultTimeZone);
   const [locale, setLocale] = useState(enUS);
+  const [currentDate, setCurrentDate] = useState(new Date().toLocaleString());
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleString());
 
   const handleChange = (option: any) => {
@@ -38,15 +39,18 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
     </div>
   );
 
-  const dateFormat = 'MM/dd/yyyy h:mm:ssaa zzz';
+  const dateFormat = 'PPPP';
+  const timeFormat = 'h:mm:ssaa zzz';
 
   useEffect(() => {
     const interval = setInterval(() => {
       const date = new Date();
       const now = utcToZonedTime(date, timeZone.value);
-
-      setCurrentTime(
+      setCurrentDate(
         format(now, dateFormat, {timeZone: timeZone.value, locale: locale})
+      )
+      setCurrentTime(
+        format(now, timeFormat, {timeZone: timeZone.value, locale: locale})
       )
     }, 1000);
     return () => {
@@ -63,7 +67,10 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
           onChange={handleChange}
           value={timeZone}
         />
-          <span className="timestamp">{currentTime}</span>
+        <div className="container">
+            <div className="timestamp timeItem">{currentDate}</div> 
+            <div className="timestamp timeItem">{currentTime}</div>
+          </div>
       </div>
     )
 }

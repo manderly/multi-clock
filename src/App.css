@@ -8,11 +8,20 @@
   }
 }
 
-.container {
+.clocks-row-container {
   display: flex;
   flex-flow:row wrap;
   flex-direction: row;
   justify-content: center;
+}
+
+.timeContainer {
+  display:flex;
+  flex-direction: column;
+}
+
+.timeItem {
+  flex-grow:1;
 }
 
 .timestamp {

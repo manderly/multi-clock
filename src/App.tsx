@@ -12,7 +12,7 @@ function App() {
           
       </header>
       
-      <div className="container">
+      <div className="clocks-row-container">
         <ClockDisplay defaultTimeZone={NorthAmerica[0]}/>
         <ClockDisplay defaultTimeZone={NorthAmerica[2]}/>
         <ClockDisplay defaultTimeZone={Europe[1]}/>
