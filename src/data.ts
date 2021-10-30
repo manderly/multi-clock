@@ -23,12 +23,13 @@ export const Europe: readonly TimezoneOption[] = [
 ]
 
 export const Australia: readonly TimezoneOption[] = [
-  {value: 'Australia', label: '🇦🇺 Australian Western (UTC+8:00)'},
-  {value: 'Australia', label: '🇦🇺 Australian Central Western (UTC+8:00)'},
-  {value: 'Australia', label: '🇦🇺 Australian Central Standard (UTC+9:30)'},
-  {value: 'Australia', label: '🇦🇺 Australian Eastern Standard (UTC+10:00)'},
-  {value: 'Australia', label: '🇦🇺 Lord Howe Standard (UTC+10:30)'},
+  {value: 'Australia/Perth', label: '🇦🇺 Australian Western (UTC+8:00)'},
+  {value: 'Australia/North', label: '🇦🇺 Australian Central Standard (UTC+9:30)'},
+  {value: 'Australia/Canberra', label: '🇦🇺 Australian Eastern Standard (UTC+10:00)'},
+  {value: 'Australia/LHI', label: '🇦🇺 Lord Howe Standard (UTC+10:30)'},
 ]
+
+export const defaultTimeZones = [NorthAmerica[0], NorthAmerica[1],Europe[1],Australia[2]];
 export interface GroupedOption {
   readonly label: string;
   readonly options: readonly TimezoneOption[] | readonly TimezoneOption[];
@@ -42,5 +43,9 @@ export const groupedOptions: readonly GroupedOption[] = [
   {
     label: 'Europe',
     options: Europe,
+  },
+  {
+    label: 'Australia',
+    options: Australia,
   },
 ];

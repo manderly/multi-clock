@@ -1,7 +1,7 @@
 import { FC, CSSProperties, useState, useEffect, ChangeEvent } from 'react';
 import { format, utcToZonedTime, getTimezoneOffset } from 'date-fns-tz'
 import Select from 'react-select';
-import { NorthAmerica, Europe, TimezoneOption, GroupedOption, groupedOptions } from '../../data';
+import { NorthAmerica, Europe, Australia, TimezoneOption, GroupedOption, groupedOptions } from '../../data';
 import enUS from 'date-fns/locale/en-US';
 import enGB from 'date-fns/locale/en-GB';
 import { daysToWeeks } from 'date-fns';
