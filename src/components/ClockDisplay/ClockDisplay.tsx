@@ -1,17 +1,18 @@
-import { FC, CSSProperties, useState, useEffect, ChangeEvent } from 'react';
-import { format, utcToZonedTime, getTimezoneOffset } from 'date-fns-tz'
+import { FC, CSSProperties, useState, useEffect, useContext } from 'react';
+import { format, utcToZonedTime } from 'date-fns-tz'
 import Select from 'react-select';
-import { NorthAmerica, Europe, Australia, TimezoneOption, GroupedOption, groupedOptions } from '../../data';
+import { TimezoneOption, GroupedOption, groupedOptions } from '../../data';
 import enUS from 'date-fns/locale/en-US';
-import enGB from 'date-fns/locale/en-GB';
-import { daysToWeeks } from 'date-fns';
+import { SettingsContext } from '../../contexts/SettingsContext';
 interface IClockDisplay {
   defaultTimeZone: TimezoneOption;
 }
 
 const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
+  const { hoursPref } = useContext(SettingsContext);
+
   const dateFormat = 'PPPP';
-  const timeFormat = 'h:mm:ssaaa';
+  const timeFormat = hoursPref === 12 ? 'h:mm:ssaaa' : 'H:mm:ss';
 
   const makeDate = (timeProp: Date, formatProp: string) => {
     return format(timeProp, formatProp, {timeZone: timeZone.value, locale: locale})
@@ -38,7 +39,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
   };
 
   const [timeZone, setTimeZone] = useState(defaultTimeZone);
-  const [locale, setLocale] = useState(enUS);
+  const [locale] = useState(enUS);
   const [currentDate, setCurrentDate] = useState(makeDate(getNow(), dateFormat));
   const [currentTime, setCurrentTime] = useState(makeDate(getNow(), timeFormat));
 
@@ -67,7 +68,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
     return () => {
       clearInterval(interval);
     };
-  }, [timeZone]);
+  }, [timeZone, timeFormat]);
 
     return (
       <div className="blue-border clock-container">

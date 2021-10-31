@@ -8,6 +8,32 @@
   }
 }
 
+.navigation-bar {
+  width:100%;
+}
+
+.navigation-bar a {
+  font-size:0.6em;
+  color:white;
+  text-decoration: none;
+}
+
+.navigation-bar a:visited {
+  color:white;
+}
+
+.navigation-bar ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: right;
+  gap:20px;
+  margin-right:50px;
+}
+
+.navigation-bar ul li {
+  display: inline;
+}
+
 .clocks-row-container {
   display: flex;
   flex-flow:row wrap;
