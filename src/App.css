@@ -64,8 +64,6 @@
   border: 1px solid blue;
 }
 
-
-
 .App-header {
   background-color: #282c34;
   min-height: 10vh;
@@ -79,6 +77,23 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.footer {
+  padding:10px;
+}
+
+.counter-container {
+  display:flex;
+  flex-direction:column;
+}
+
+.counter-item {
+  flex:1;
+}
+
+.red-btn {
+  color:red;
 }
 
 @keyframes App-logo-spin {
