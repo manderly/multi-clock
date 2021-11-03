@@ -1,29 +1,28 @@
 import { FC, CSSProperties, useState, useEffect, useContext } from 'react';
-import { format, utcToZonedTime } from 'date-fns-tz'
 import Select from 'react-select';
 import { TimezoneOption, GroupedOption, groupedOptions } from '../../data';
-import enUS from 'date-fns/locale/en-US';
 import { SettingsContext } from '../../contexts/SettingsContext';
+import { utcToZonedTime } from 'date-fns-tz';
+import useFormatDate from '../../hooks/useFormatDate';
+import { Button } from 'react-bootstrap';
 interface IClockDisplay {
   defaultTimeZone: TimezoneOption;
 }
 
+const getNow = (timeZone: TimezoneOption) => {
+  const date = new Date();
+  const now = utcToZonedTime(date, timeZone.value);
+  return now;
+}
+
 const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
   const { hoursPref } = useContext(SettingsContext);
+  const [nickname, setNickname] = useState('');
+  const [editingNickname, setEditingNickname] = useState(false);
+  const [now, setNow] = useState(new Date())
+  const [timeZone, setTimeZone] = useState(defaultTimeZone);
 
-  const dateFormat = 'PPPP';
-  const timeFormat = hoursPref === 12 ? 'h:mm:ssaaa' : 'H:mm:ss';
-
-  const makeDate = (timeProp: Date, formatProp: string) => {
-    return format(timeProp, formatProp, {timeZone: timeZone.value, locale: locale})
-  }
-
-  const getNow = () => {
-    const date = new Date();
-    const now = utcToZonedTime(date, timeZone.value);
-
-    return now;
-  }
+  const { formattedDate, formattedTime } = useFormatDate(now, timeZone.value, hoursPref);
 
   const groupBadgeStyles: CSSProperties = {
     backgroundColor: '#EBECF0',
@@ -38,13 +37,28 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
     textAlign: 'center',
   };
 
-  const [timeZone, setTimeZone] = useState(defaultTimeZone);
-  const [locale] = useState(enUS);
-  const [currentDate, setCurrentDate] = useState(makeDate(getNow(), dateFormat));
-  const [currentTime, setCurrentTime] = useState(makeDate(getNow(), timeFormat));
-
   const handleChange = (option: any) => {
     setTimeZone(option);
+  }
+
+  const handleNicknameChange = (e: any) => {
+    setNickname(e.target.value as string);
+  }
+  const handleNicknameKeyPress = (e: any) => {
+    //e.stopPropagation()
+    if (e.key === 'Enter') {
+      setEditingNickname(false);
+    } else if (e.key === 'Escape') {
+      setNickname('');
+      setEditingNickname(false);
+    } else {
+      setNickname(e.target.value);
+    } 
+    //setNickname(e.target.value);
+  }
+
+  const handleEditingNicknameClick = (e: any) => {
+    setEditingNickname(!editingNickname);
   }
 
   const formatGroupLabel = (data: GroupedOption) => (
@@ -54,24 +68,28 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
     </div>
   );
 
+  // could move to context 
   useEffect(() => {
+    setNow(getNow(timeZone));
     const interval = setInterval(() => {
-      let now = getNow();
-      
-      setCurrentDate(
-        makeDate(now, dateFormat)
-      )
-      setCurrentTime(
-        makeDate(now, timeFormat)
-      )
+      setNow(getNow(timeZone));
     }, 1000);
     return () => {
       clearInterval(interval);
     };
-  }, [timeZone, timeFormat]);
+  }, [timeZone]);
 
     return (
       <div className="blue-border clock-container">
+
+        {editingNickname ? 
+          <input type="text" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange}/>
+          : 
+          nickname === '' ? 
+            <Button type='button' size="sm" variant="link" className="name-clock-link" onClick={handleEditingNicknameClick}>Name clock...</Button>
+            : <Button type='button' size="sm" variant="link" className="name-clock-link" onClick={handleEditingNicknameClick}>{nickname}</Button>
+        }
+
         <Select<TimezoneOption, false, GroupedOption>
           defaultValue={defaultTimeZone}
           options={groupedOptions}
@@ -80,9 +98,10 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
           value={timeZone}
         />
         <div className="time-col-container">
-            <div className="timestamp time-item">{currentDate}</div> 
-            <div className="timestamp time-item">{currentTime}</div>
-          </div>
+          <div className="timestamp time-item">{formattedDate}</div> 
+          <div className="timestamp time-item time-stamp-display">{formattedTime}</div>
+        </div>
+
       </div>
     )
 }

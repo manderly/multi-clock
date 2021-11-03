@@ -9,7 +9,7 @@ interface ICounterButton {
 const CounterButton: FC<ICounterButton> = ({label, onClickMethod}) => {
 
   return (
-    <Button className="red-btn" variant="primary" size="lg" onClick={onClickMethod}>{label}</Button>
+    <Button className="red-btn" variant="outline-primary" onClick={onClickMethod}>{label}</Button>
   );
 }
 
