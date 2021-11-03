@@ -8,6 +8,49 @@
   }
 }
 
+/* evening, dawn, morning, afternoon, sunset */
+.bg-evening {
+  background-color:#3E4A70;
+  color:white;
+}
+
+.bg-evening button {
+  color:white;
+}
+
+.bg-dawn {
+  background-color:#56658E;
+  color:black;
+}
+
+.bg-morning {
+  background-color:#6ed0fe;
+  color:black;
+}
+
+.bg-afternoon {
+  background-color:#f3ce7f;
+  color:black;
+}
+
+.bg-sunset {
+  background-color:#ec915c;
+  color:black;
+}
+
+.bg-sunset button {
+  color:black;
+}
+
+.bg-night {
+  background-color:#282c34;
+  color:white;
+}
+
+.bg-night button {
+  color:white;
+}
+
 .navigation-bar {
   width:100%;
 }

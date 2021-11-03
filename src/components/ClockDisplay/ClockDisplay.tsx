@@ -22,7 +22,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
   const [now, setNow] = useState(new Date())
   const [timeZone, setTimeZone] = useState(defaultTimeZone);
 
-  const { formattedDate, formattedTime } = useFormatDate(now, timeZone.value, hoursPref);
+  const { formattedDate, formattedTime, timePalette } = useFormatDate(now, timeZone.value, hoursPref);
 
   const groupBadgeStyles: CSSProperties = {
     backgroundColor: '#EBECF0',
@@ -80,7 +80,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
   }, [timeZone]);
 
     return (
-      <div className="blue-border clock-container">
+      <div className={`clock-container bg-${timePalette}`}>
 
         {editingNickname ? 
           <input type="text" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange}/>
