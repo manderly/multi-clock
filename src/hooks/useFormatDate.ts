@@ -9,7 +9,7 @@ const getNow = (now: Date, timeZone: string) => {
 
 const useFormatDate = (date: Date, timeZone: string, hoursPref: number) => {
   const dateFormat = 'PPPP';
-  const timeFormat = hoursPref === 12 ? 'h:mmaaa' : 'H:mm';
+  const timeFormat = hoursPref === 12 ? 'h:mm aaa' : 'H:mm';
 
   const [formattedDate, setFormattedDate] = useState('');
   const [formattedTime, setFormattedTime] = useState(''); 
@@ -33,8 +33,10 @@ const useFormatDate = (date: Date, timeZone: string, hoursPref: number) => {
       setTimePalette('night');
     } else if (hourOfDay >= 6 && hourOfDay <= 7) {
       setTimePalette('dawn');
-    } else if (hourOfDay >= 8 && hourOfDay <= 11) {
-      setTimePalette('morning');
+    } else if (hourOfDay >= 8 && hourOfDay <= 9) {
+      setTimePalette('earlyMorning');
+    } else if (hourOfDay >= 10 && hourOfDay <= 11) {
+      setTimePalette('lateMorning');
     } else if (hourOfDay >= 12 && hourOfDay <= 14) {
       setTimePalette('afternoon'); 
     } else if (hourOfDay >= 15 && hourOfDay <= 18) {

@@ -1,4 +1,4 @@
-import { FC, useState, useContext, useEffect } from 'react';
+import { FC, useState, useContext } from 'react';
 import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
 import Clocks from './routes/Clocks/Clocks';
 import Settings from './routes/Settings/Settings';
@@ -23,19 +23,21 @@ const Routes: FC = () => {
     setCount(count+1);
   }
 
-  const { formattedDate: browserDate, formattedTime: browserTime } = useFormatDate(now, getBrowserTZ(), hoursPref)
+  const { formattedDate: browserDate, formattedTime: browserTime, timePalette } = useFormatDate(now, getBrowserTZ(), hoursPref)
 
   return (
     <Router>
       <div className="App">
-        <header className="App-header">
+        <header className={`bg-${timePalette}`}>
           <div className="header-row-container">
             <div className="header-row-item">
-              <h1>Multi Clock</h1>
+              <h1 className="app-title">Multi Clock</h1>
+              <h2 className="app-subtitle">v. 0.1</h2>
             </div>
 
             <div className="header-row-item">
-              <p>{browserDate} {browserTime}</p>
+              <div className="browser-date">{browserDate}</div> 
+              <div className="browser-time">{browserTime}</div>
             </div>
 
             <div className="header-row-item">

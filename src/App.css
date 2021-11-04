@@ -2,6 +2,15 @@
   text-align: left;
 }
 
+.app-title {
+  font-size:1em;
+}
+
+.app-subtitle {
+  font-size:.6em;
+  line-height:.6em;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -19,6 +28,16 @@
   padding:10px;
 }
 
+.browser-date {
+  text-align:center;
+  font-size:1em;
+}
+
+.browser-time {
+  text-align:center;
+  font-size:2em;
+}
+
 /* evening, dawn, morning, afternoon, sunset */
 .bg-evening {
   background-color:#3E4A70;
@@ -34,13 +53,18 @@
   color:black;
 }
 
-.bg-morning {
+.bg-earlyMorning {
   background-color:#95cbe4;
   color:black;
 }
 
+.bg-lateMorning {
+  background-color:#cfe495;
+  color:black;
+}
+
 .bg-afternoon {
-  background-color:#f3ce7f;
+  background-color:#f7cf79;
   color:black;
 }
 
@@ -63,13 +87,13 @@
 }
 
 .navigation-links a {
-  font-size:0.6em;
-  color:white;
+  font-size:1em;
+  color:black;
   text-decoration: none;
 }
 
 .navigation-links a:visited {
-  color:white;
+  color:black;
 }
 
 .navigation-links ul {
