@@ -9,9 +9,10 @@ import { SettingsContext } from '../../contexts/SettingsContext';
 import { TimeContext } from '../../contexts/TimeContext';
 interface IClockDisplay {
   defaultTimeZone: TimezoneOption;
+  handleRemoveClock: (e: any) => void;
 }
 
-const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
+const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone, handleRemoveClock }) => {
   const { hoursPref } = useContext(SettingsContext);
   const { now } = useContext(TimeContext);
 
@@ -77,15 +78,20 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
 
     return (
       <div className={`clock-container bg-${timePalette}`}>
+        <div className="clock-top-row-container">
+          
+          <div className="clock-top-row-item">
+          {editingNickname ? 
+            <input ref={nicknameRef} type="text" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange}/>
+            : 
+            nickname === '' ? 
+              <Button type='button' size="sm" variant="link" className="name-clock-link" onClick={handleEditingNicknameClick}>Name clock...</Button>
+              : <Button type='button' size="sm" variant="link" className="name-clock-link" onClick={handleEditingNicknameClick}>{nickname}</Button>
+          }
+          </div>
 
-        {editingNickname ? 
-          <input ref={nicknameRef} type="text" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange}/>
-          : 
-          nickname === '' ? 
-            <Button type='button' size="sm" variant="link" className="name-clock-link" onClick={handleEditingNicknameClick}>Name clock...</Button>
-            : <Button type='button' size="sm" variant="link" className="name-clock-link" onClick={handleEditingNicknameClick}>{nickname}</Button>
-        }
-
+          <div className="clock-top-row-item"><Button size="sm" variant="outline" onClick={handleRemoveClock}>x</Button></div>
+        </div>
         <Select<TimezoneOption, false, GroupedOption>
           defaultValue={defaultTimeZone}
           options={groupedOptions}

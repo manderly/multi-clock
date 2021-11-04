@@ -21,6 +21,13 @@ const Clocks: FC = () => {
     }
   }
 
+  const removeClock = (idxToRemove: number) => {
+    let newArr = clocks.filter((clock, i) => {
+      return i !== idxToRemove ? clock : null;
+    });
+    setClocks(newArr);
+  }
+
   return (
     <>
       <div className="clocks-quick-options">
@@ -30,7 +37,7 @@ const Clocks: FC = () => {
 
       <div className="clocks-row-container">
         {clocks.map((tz, idx) => (
-          <ClockDisplay key={`clock-display-${idx}-${JSON.stringify(tz)}`} defaultTimeZone={tz}/>
+          <ClockDisplay key={`clock-display-${idx}-${JSON.stringify(tz)}`} defaultTimeZone={tz} handleRemoveClock={() => removeClock(idx)}/>
         ))}
       </div>
       
