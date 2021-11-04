@@ -1,11 +1,22 @@
 .App {
-  text-align: center;
+  text-align: left;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.header-row-container {
+  width:100%;
+  display:flex;
+  flex-flow:row;
+  justify-content:space-between;
+}
+
+.header-row-item {
+  padding:10px;
 }
 
 /* evening, dawn, morning, afternoon, sunset */
@@ -51,21 +62,17 @@
   color:white;
 }
 
-.navigation-bar {
-  width:100%;
-}
-
-.navigation-bar a {
+.navigation-links a {
   font-size:0.6em;
   color:white;
   text-decoration: none;
 }
 
-.navigation-bar a:visited {
+.navigation-links a:visited {
   color:white;
 }
 
-.navigation-bar ul {
+.navigation-links ul {
   list-style-type: none;
   display: flex;
   justify-content: right;
@@ -73,7 +80,7 @@
   margin-right:50px;
 }
 
-.navigation-bar ul li {
+.navigation-links ul li {
   display: inline;
 }
 

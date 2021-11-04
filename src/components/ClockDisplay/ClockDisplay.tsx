@@ -1,28 +1,29 @@
 import { FC, CSSProperties, useState, useEffect, useContext } from 'react';
 import Select from 'react-select';
 import { TimezoneOption, GroupedOption, groupedOptions } from '../../data';
-import { SettingsContext } from '../../contexts/SettingsContext';
-import { utcToZonedTime } from 'date-fns-tz';
+
 import useFormatDate from '../../hooks/useFormatDate';
 import { Button } from 'react-bootstrap';
+
+import { SettingsContext } from '../../contexts/SettingsContext';
+import { TimeContext } from '../../contexts/TimeContext';
 interface IClockDisplay {
   defaultTimeZone: TimezoneOption;
 }
 
-const getNow = (timeZone: TimezoneOption) => {
-  const date = new Date();
-  const now = utcToZonedTime(date, timeZone.value);
-  return now;
-}
-
 const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
   const { hoursPref } = useContext(SettingsContext);
+  const { now } = useContext(TimeContext);
+
   const [nickname, setNickname] = useState('');
   const [editingNickname, setEditingNickname] = useState(false);
-  const [now, setNow] = useState(new Date())
   const [timeZone, setTimeZone] = useState(defaultTimeZone);
 
   const { formattedDate, formattedTime, timePalette } = useFormatDate(now, timeZone.value, hoursPref);
+
+  useEffect(() => {
+    
+  }, [now]);
 
   const groupBadgeStyles: CSSProperties = {
     backgroundColor: '#EBECF0',
@@ -67,17 +68,6 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
       <span style={groupBadgeStyles}>{data.options.length}</span>
     </div>
   );
-
-  // could move to context 
-  useEffect(() => {
-    setNow(getNow(timeZone));
-    const interval = setInterval(() => {
-      setNow(getNow(timeZone));
-    }, 1000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [timeZone]);
 
     return (
       <div className={`clock-container bg-${timePalette}`}>

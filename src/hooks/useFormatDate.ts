@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import enUS from 'date-fns/locale/en-US';
 import { format } from 'date-fns-tz';
+import { utcToZonedTime } from 'date-fns-tz';
+
+const getNow = (now: Date, timeZone: string) => {
+  return utcToZonedTime(now, timeZone);
+}
 
 const useFormatDate = (date: Date, timeZone: string, hoursPref: number) => {
   const dateFormat = 'PPPP';
@@ -13,18 +18,18 @@ const useFormatDate = (date: Date, timeZone: string, hoursPref: number) => {
   const [locale] = useState(enUS);
 
   const makeDate = (timeProp: Date, formatProp: string) => {
-    return format(timeProp, formatProp, {timeZone: timeZone, locale: locale})
+    return format(timeProp, formatProp, {locale: locale})
   }
 
   useEffect(() => {
-    setFormattedDate(makeDate(date, dateFormat))  // make the date part
-    setFormattedTime(makeDate(date, timeFormat))  // make the time part
+    const convertedDate = getNow(date, timeZone);
+    setFormattedDate(makeDate(convertedDate, dateFormat))  // make the date part
+    setFormattedTime(makeDate(convertedDate, timeFormat))  // make the time part
 
     // set "time palette", ie: morning, afternoon, night background color
-    let hourOfDay = parseInt(format(date, 'H'));
-    console.log(hourOfDay);
+    let hourOfDay = parseInt(format(convertedDate, 'H'));
 
-    if (hourOfDay >= 0 && hourOfDay <= 5 || hourOfDay === 23) {
+    if ((hourOfDay >= 0 && hourOfDay <= 5) || hourOfDay === 23) {
       setTimePalette('night');
     } else if (hourOfDay >= 6 && hourOfDay <= 7) {
       setTimePalette('dawn');
@@ -37,7 +42,7 @@ const useFormatDate = (date: Date, timeZone: string, hoursPref: number) => {
     } else if (hourOfDay >= 19 && hourOfDay <= 22) {
       setTimePalette('evening');
     }
-  }, [date]);
+  }, [date, timeZone]);
 
   return {
     formattedDate,
