@@ -86,6 +86,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
           formatGroupLabel={formatGroupLabel}
           onChange={handleChange}
           value={timeZone}
+          className="select-timezone"
         />
         <div className="time-col-container">
           <div className="timestamp time-item">{formattedDate}</div> 
