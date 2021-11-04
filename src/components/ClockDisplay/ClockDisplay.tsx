@@ -1,4 +1,4 @@
-import { FC, CSSProperties, useState, useEffect, useContext } from 'react';
+import { FC, CSSProperties, useState, useEffect, useContext, useRef } from 'react';
 import Select from 'react-select';
 import { TimezoneOption, GroupedOption, groupedOptions } from '../../data';
 
@@ -20,6 +20,8 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
   const [timeZone, setTimeZone] = useState(defaultTimeZone);
 
   const { formattedDate, formattedTime, timePalette } = useFormatDate(now, timeZone.value, hoursPref);
+
+  const nicknameRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     
@@ -46,7 +48,6 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
     setNickname(e.target.value as string);
   }
   const handleNicknameKeyPress = (e: any) => {
-    //e.stopPropagation()
     if (e.key === 'Enter') {
       setEditingNickname(false);
     } else if (e.key === 'Escape') {
@@ -55,8 +56,13 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
     } else {
       setNickname(e.target.value);
     } 
-    //setNickname(e.target.value);
   }
+
+  useEffect(() => {
+    if (nicknameRef && nicknameRef.current) {
+      nicknameRef.current.focus();
+    }
+  }, [editingNickname]);
 
   const handleEditingNicknameClick = (e: any) => {
     setEditingNickname(!editingNickname);
@@ -73,7 +79,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone }) => {
       <div className={`clock-container bg-${timePalette}`}>
 
         {editingNickname ? 
-          <input type="text" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange}/>
+          <input ref={nicknameRef} type="text" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange}/>
           : 
           nickname === '' ? 
             <Button type='button' size="sm" variant="link" className="name-clock-link" onClick={handleEditingNicknameClick}>Name clock...</Button>
