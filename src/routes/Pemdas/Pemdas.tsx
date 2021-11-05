@@ -6,7 +6,6 @@ const Pemdas: FC = () => {
   const [result, setResult] = useState<number>(0);
 
   const processInput = () => {
-    console.log(userInput);
     const exp = /[0-9]+/;
     let stack = new Array<number>();
 
@@ -18,7 +17,6 @@ const Pemdas: FC = () => {
     if (userInput.length) {
       for (let i = 0; i < userInput.length; i++) {
         let char = userInput[i];
-        console.log("result so far: " + result);
         if (char === "(") {
           // save our work so far (on the stack)
           stack.push(result);
@@ -27,19 +25,11 @@ const Pemdas: FC = () => {
           sign = 1;
         } else if (char.match(exp)) {
           operand = 10*operand+(+char);
-          console.log("operand is now: " + operand);
         } else if (char === "+") {
           result += sign*operand;
           sign = 1;
           operand = 0;
-        } else if (char === "*") {
-          console.log("Encountered a * ");
-          result *= (sign*operand);
-          console.log("result is now: " + result);
-          sign = 1;
-          operand = 0;
         } else if (char === "-") {
-          //console.log("encountered a minus sign");
           result += sign*operand;
           sign = -1;
           operand = 0;
@@ -72,7 +62,7 @@ const Pemdas: FC = () => {
 
   return (
     <div className="calculator-container">
-      <h2>PEMDAS calculator</h2>
+      <h2>Addition/Subtraction with parenthesis calculator</h2>
       <p>Give it an expression containing addition and/or subtraction and press "Calculate"</p>
       <p>Example: 12+(8+9)</p>
       <input aria-label="calculator-input" value={userInput} onChange={handleInputChange} />
