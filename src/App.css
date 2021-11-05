@@ -196,6 +196,13 @@
   color:red;
 }
 
+.calculator-container {
+  width:50%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  margin:auto auto;
+}
 @media only screen and (max-width: 900px) {
   .clock-container {
     width:50%;
