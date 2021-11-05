@@ -7,16 +7,18 @@ const Pemdas: FC = () => {
 
   const processInput = () => {
     console.log(userInput);
-    
+    const exp = /[0-9]+/;
+    let stack = new Array<number>();
+
     let result = 0;
     let operand = 0;
-    let stack = new Array();
-    let exp = /[0-9]+/;
-    let sign = 1; // for handling negative and positive numbers
+
+    let sign = 1; // positive by default
 
     if (userInput.length) {
       for (let i = 0; i < userInput.length; i++) {
         let char = userInput[i];
+        console.log("result so far: " + result);
         if (char === "(") {
           // save our work so far (on the stack)
           stack.push(result);
@@ -25,23 +27,33 @@ const Pemdas: FC = () => {
           sign = 1;
         } else if (char.match(exp)) {
           operand = 10*operand+(+char);
+          console.log("operand is now: " + operand);
         } else if (char === "+") {
           result += sign*operand;
           sign = 1;
           operand = 0;
+        } else if (char === "*") {
+          console.log("Encountered a * ");
+          result *= (sign*operand);
+          console.log("result is now: " + result);
+          sign = 1;
+          operand = 0;
         } else if (char === "-") {
-          result -= sign*operand;
+          //console.log("encountered a minus sign");
+          result += sign*operand;
           sign = -1;
           operand = 0;
         } else if (char === ")") {
           // finished a ( ) expression
-          result+= sign*operand;
+          result += sign*operand;
           
-          // use the sign from the stack
-          result*=stack.pop();
+          // use the sign from the stack (or 1 if none exists)
+          let signFromStack = stack.pop();
+          result *= signFromStack === undefined ? 1 : signFromStack;
 
-          // add the digit on the top of the stack
-          result+=stack.pop();
+          // add the digit on the top of the stack (or 0 if none exists)
+          let digit = stack.pop();
+          result += digit === undefined ? 0 : digit;
 
           // reset operand
           operand = 0;
@@ -63,9 +75,9 @@ const Pemdas: FC = () => {
       <h2>PEMDAS calculator</h2>
       <p>Give it an expression containing addition and/or subtraction and press "Calculate"</p>
       <p>Example: 12+(8+9)</p>
-      <input value={userInput} onChange={handleInputChange} />
-      <button onClick={processInput}>Calculate</button>
-      <p>{result}</p>
+      <input aria-label="calculator-input" value={userInput} onChange={handleInputChange} />
+      <button aria-label="calculator-button" onClick={processInput}>Calculate</button>
+      <span>{result}</span>
     </div>
   )
 }
