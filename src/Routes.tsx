@@ -2,7 +2,7 @@ import { FC, useState, useContext } from 'react';
 import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
 import Clocks from './routes/Clocks/Clocks';
 import Settings from './routes/Settings/Settings';
-import Pemdas from './routes/Pemdas/Pemdas';
+import Utils from './routes/Utils/Utils';
 import CounterButton from './components/CounterButton/CounterButton';
 import useFormatDate from './hooks/useFormatDate';
 
@@ -51,7 +51,7 @@ const Routes: FC = () => {
                     <Link to="/settings">Settings</Link>
                   </li>
                   <li>
-                    <Link to="/pemdas">Pemdas</Link>
+                    <Link to="/utils">Utils</Link>
                   </li>
                 </ul>
               </nav>
@@ -68,8 +68,8 @@ const Routes: FC = () => {
             <Settings />
           </Route>
 
-          <Route path="/pemdas">
-            <Pemdas />
+          <Route path="/utils">
+            <Utils />
           </Route>
 
         </Switch>

@@ -1,11 +1,11 @@
 import {} from 'react';
 import '@testing-library/jest-dom';
 import { fireEvent, getByText, render, screen } from '@testing-library/react';
-import Pemdas from './Pemdas';
+import Utils from './Utils';
 import userEvent from '@testing-library/user-event';
 
 const setup = () => {
-  const utils = render(<Pemdas />);
+  const utils = render(<Utils />);
   const input = utils.getByRole("textbox", {name: "calculator-input"});
   const button = utils.getByRole("button", {name: "calculator-button"});
   return {
@@ -15,7 +15,7 @@ const setup = () => {
   }
 }
 
-describe('PEMDAS page', () => {
+describe('Utils page', () => {
 
   it('Should have a calculator interface when rendered', () => {
     const { getByRole } = setup();

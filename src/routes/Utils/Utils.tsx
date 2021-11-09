@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 
-const Pemdas: FC = () => {
+const Utils: FC = () => {
 
   const [userInput, setUserInput] = useState<string[]>([]);
   const [result, setResult] = useState<number>(0);
@@ -72,4 +72,4 @@ const Pemdas: FC = () => {
   )
 }
 
-export default Pemdas;
+export default Utils;
