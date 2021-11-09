@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { FormControl, InputGroup, Button } from 'react-bootstrap';
 
 const Utils: FC = () => {
 
@@ -63,11 +64,18 @@ const Utils: FC = () => {
   return (
     <div className="calculator-container">
       <h2>Addition/Subtraction with parenthesis calculator</h2>
-      <p>Give it an expression containing addition and/or subtraction and press "Calculate"</p>
-      <p>Example: 12+(8+9)</p>
-      <input aria-label="calculator-input" value={userInput} onChange={handleInputChange} />
-      <button aria-label="calculator-button" onClick={processInput}>Calculate</button>
-      <span>{result}</span>
+      <p>Enter an expression containing addition and/or subtraction and press "Calculate"</p>
+      <div className="calculator-buttons-container">
+        <InputGroup>
+          <FormControl
+            placeholder="Example: 12+(8+9)"
+            aria-label="calculator-input" 
+            value={userInput} 
+            onChange={handleInputChange} />
+          <Button aria-label="calculator-button" variant="primary" onClick={processInput}>Calculate</Button>
+          {result ? <div className="calculator-result-item">= {result}</div> : <div className="calculator-result-item"></div>}
+        </InputGroup>
+      </div>
     </div>
   )
 }

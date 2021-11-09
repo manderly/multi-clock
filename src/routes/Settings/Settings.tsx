@@ -11,7 +11,7 @@ const Settings: FC = () => {
   }
 
   return (
-    <div>
+    <div className="settings-container">
       <h2>Settings & Preferences</h2>
       <Form>
         <Form.Check 
