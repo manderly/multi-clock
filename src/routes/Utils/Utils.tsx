@@ -5,6 +5,7 @@ const Utils: FC = () => {
 
   const [userInput, setUserInput] = useState<string[]>([]);
   const [result, setResult] = useState<number>(0);
+  const [resultHistory, setResultHistory] = useState<string[]>([]);
 
   const processInput = () => {
     const exp = /[0-9]+/;
@@ -54,6 +55,18 @@ const Utils: FC = () => {
       // add any remaining operand to result
       let final = result + (sign*operand);
       setResult(final);
+
+      let finalExpression = `${userInput} = ${final}`;
+      let previousExpressions = resultHistory;
+      // add to the array of previous expressions
+      previousExpressions.unshift(finalExpression);
+
+      if (resultHistory.length > 10) {
+        // remove the oldest one
+        resultHistory.pop();
+      }
+
+      setResultHistory(previousExpressions);
     }
   }
 
@@ -75,6 +88,15 @@ const Utils: FC = () => {
           <Button aria-label="calculator-button" variant="primary" onClick={processInput}>Calculate</Button>
           {result ? <div className="calculator-result-item">= {result}</div> : <div className="calculator-result-item"></div>}
         </InputGroup>
+      </div>
+      <div>
+        <h4 className="previous-calculations-title">Previous calculations</h4>
+        {resultHistory.length > 0 ? 
+          resultHistory.map((expression, idx) => {
+            return <p key={`${expression}-${idx}`}>{expression}</p>
+          })
+          : <div>No history yet</div>
+        }
       </div>
     </div>
   )
