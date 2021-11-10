@@ -28,7 +28,7 @@ describe('Utils page', () => {
     const testExpression = "(8+1)+2";
     fireEvent.change(input, {target: {value: testExpression}});
     userEvent.click(button);
-    getByText('11');
+    getByText('= 11');
   })
 
   it('Should evaluate a subtraction expression correctly', () => {
@@ -36,7 +36,7 @@ describe('Utils page', () => {
     const testExpression = "(8-1)-2";
     fireEvent.change(input, {target: {value: testExpression}});
     userEvent.click(button);
-    getByText('5');
+    getByText('= 5');
   })
 
 })

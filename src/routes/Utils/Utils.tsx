@@ -1,5 +1,6 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useState } from 'react';
 import { FormControl, InputGroup, Button } from 'react-bootstrap';
+import { calculatorMath } from './calculator';
 
 const Utils: FC = () => {
 
@@ -8,66 +9,20 @@ const Utils: FC = () => {
   const [resultHistory, setResultHistory] = useState<string[]>([]);
 
   const processInput = () => {
-    const exp = /[0-9]+/;
-    let stack = new Array<number>();
+    let res = calculatorMath(userInput);
 
-    let result = 0;
-    let operand = 0;
+    // update "history log" below calculator
+    let finalExpression = `${userInput} = ${res}`;
+    let previousExpressions = resultHistory;
 
-    let sign = 1; // positive by default
-
-    if (userInput.length) {
-      for (let i = 0; i < userInput.length; i++) {
-        let char = userInput[i];
-        if (char === "(") {
-          // save our work so far (on the stack)
-          stack.push(result);
-          stack.push(sign);
-          result = 0;
-          sign = 1;
-        } else if (char.match(exp)) {
-          operand = 10*operand+(+char);
-        } else if (char === "+") {
-          result += sign*operand;
-          sign = 1;
-          operand = 0;
-        } else if (char === "-") {
-          result += sign*operand;
-          sign = -1;
-          operand = 0;
-        } else if (char === ")") {
-          // finished a ( ) expression
-          result += sign*operand;
-          
-          // use the sign from the stack (or 1 if none exists)
-          let signFromStack = stack.pop();
-          result *= signFromStack === undefined ? 1 : signFromStack;
-
-          // add the digit on the top of the stack (or 0 if none exists)
-          let digit = stack.pop();
-          result += digit === undefined ? 0 : digit;
-
-          // reset operand
-          operand = 0;
-        }
-      }
-
-      // add any remaining operand to result
-      let final = result + (sign*operand);
-
-      let finalExpression = `${userInput} = ${final}`;
-      let previousExpressions = resultHistory;
-      // add to the array of previous expressions
-      previousExpressions.unshift(finalExpression);
-
-      if (previousExpressions.length > 5) {
-        // remove the oldest one
-        resultHistory.pop();
-      }
-
-      setResult(final);
-      setResultHistory([...previousExpressions]);
+    // add to front of the array of previous expressions and remove oldest if list is getting long
+    previousExpressions.unshift(finalExpression);
+    if (previousExpressions.length > 5) {
+      resultHistory.pop();
     }
+
+    setResult(res);
+    setResultHistory([...previousExpressions]);
   }
 
   const handleInputChange = (e: any) => {
