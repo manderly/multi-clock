@@ -19,6 +19,7 @@ const Settings: FC = () => {
           onChange={handleFormChange}
           checked={hoursPref === 12}
           value={12}
+          aria-label='option-12-hours'
           label='12 hour clock'
           name='group1'
           type='radio'
@@ -29,6 +30,7 @@ const Settings: FC = () => {
           onChange={handleFormChange}
           checked={hoursPref === 24}
           value={24}
+          aria-label='option-24-hours'
           label='24 hour clock'
           name='group1'
           type='radio'
