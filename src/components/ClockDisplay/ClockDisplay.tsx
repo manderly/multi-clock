@@ -13,14 +13,14 @@ interface IClockDisplay {
 }
 
 const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone, handleRemoveClock }) => {
-  const { hoursPref } = useContext(SettingsContext);
+  const { hoursPref, showSecondsPref } = useContext(SettingsContext);
   const { now } = useContext(TimeContext);
 
   const [nickname, setNickname] = useState('');
   const [editingNickname, setEditingNickname] = useState(false);
   const [timeZone, setTimeZone] = useState(defaultTimeZone);
 
-  const { formattedDate, formattedTime, timePalette } = useFormatDate(now, timeZone.value, hoursPref);
+  const { formattedDate, formattedTime, timePalette } = useFormatDate(now, timeZone.value, hoursPref, showSecondsPref);
 
   const nicknameRef = useRef<HTMLInputElement | null>(null);
 

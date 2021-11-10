@@ -22,14 +22,10 @@ const Clocks: FC = () => {
   }
 
   const removeClock = (idxToRemove: number) => {
-    console.log("Before:")
-    console.log(clocks);
     let newArr = clocks.filter((clock, i) => {
       return i !== idxToRemove ? clock : null;
     });
     setClocks(newArr);
-    console.log("After:")
-    console.log(newArr);
   }
 
   return (

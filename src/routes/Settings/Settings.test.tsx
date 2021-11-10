@@ -19,4 +19,10 @@ describe('Settings page', () => {
     expect(displayOption24Hours).toBeInTheDocument();
   })
 
+  it('Should have a checkbox for toggling the "show seconds" setting when rendered', () => {
+    const { getByRole } = setup();
+    const showSecondsCheckbox = getByRole("checkbox", {name: 'option-show-seconds'});
+    expect(showSecondsCheckbox).toBeInTheDocument();
+  })
+
 })

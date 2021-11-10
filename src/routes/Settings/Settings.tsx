@@ -5,9 +5,14 @@ import { SettingsContext } from '../../contexts/SettingsContext';
 const Settings: FC = () => {
 
   const { hoursPref, handleSetHours } = useContext(SettingsContext);
+  const { showSecondsPref, handleShowSeconds } = useContext(SettingsContext);
 
   const handleFormChange = (e: any) => {
     handleSetHours(Number(e?.target?.value));
+  }
+
+  const handleSecondsCheckbox = (e: any) => {
+    handleShowSeconds(!showSecondsPref);
   }
 
   return (
@@ -35,6 +40,16 @@ const Settings: FC = () => {
           name='group1'
           type='radio'
           id='clock-type-24-hour'
+        />
+      </Form>
+
+      <Form>
+        <Form.Check 
+          onChange={handleSecondsCheckbox}
+          checked={showSecondsPref}
+          aria-label='option-show-seconds'
+          label='Show seconds'
+          type='checkbox'
         />
       </Form>
     </div>

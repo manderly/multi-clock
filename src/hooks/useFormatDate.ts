@@ -7,9 +7,9 @@ const getNow = (now: Date, timeZone: string) => {
   return utcToZonedTime(now, timeZone);
 }
 
-const useFormatDate = (date: Date, timeZone: string, hoursPref: number) => {
+const useFormatDate = (date: Date, timeZone: string, hoursPref: number, showSecondsPref: boolean) => {
   const dateFormat = 'PPPP';
-  const timeFormat = hoursPref === 12 ? 'h:mm aaa' : 'H:mm';
+  const timeFormat = hoursPref === 12 ? `h:mm${showSecondsPref ? ':ss' :''} aaa` : `H:mm${showSecondsPref ? ':ss' : ''}`;
 
   const [formattedDate, setFormattedDate] = useState('');
   const [formattedTime, setFormattedTime] = useState(''); 

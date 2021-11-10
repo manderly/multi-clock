@@ -16,7 +16,7 @@ const getBrowserTZ = () => {
 
 const Routes: FC = () => {
 
-  const { hoursPref } = useContext(SettingsContext);
+  const { hoursPref, showSecondsPref } = useContext(SettingsContext);
   const { now } = useContext(TimeContext);
 
   const [count, setCount] = useState(0);
@@ -24,7 +24,7 @@ const Routes: FC = () => {
     setCount(count+1);
   }
 
-  const { formattedDate: browserDate, formattedTime: browserTime, timePalette } = useFormatDate(now, getBrowserTZ(), hoursPref)
+  const { formattedDate: browserDate, formattedTime: browserTime, timePalette } = useFormatDate(now, getBrowserTZ(), hoursPref, showSecondsPref)
 
   return (
     <Router>
