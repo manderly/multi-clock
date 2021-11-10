@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { FormControl, InputGroup, Button } from 'react-bootstrap';
 
 const Utils: FC = () => {
@@ -54,19 +54,19 @@ const Utils: FC = () => {
 
       // add any remaining operand to result
       let final = result + (sign*operand);
-      setResult(final);
 
       let finalExpression = `${userInput} = ${final}`;
       let previousExpressions = resultHistory;
       // add to the array of previous expressions
       previousExpressions.unshift(finalExpression);
 
-      if (resultHistory.length > 10) {
+      if (previousExpressions.length > 5) {
         // remove the oldest one
         resultHistory.pop();
       }
 
-      setResultHistory(previousExpressions);
+      setResult(final);
+      setResultHistory([...previousExpressions]);
     }
   }
 
