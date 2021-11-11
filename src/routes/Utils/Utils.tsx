@@ -31,8 +31,8 @@ const Utils: FC = () => {
 
   return (
     <div className="calculator-container">
-      <h2>Addition/Subtraction with parenthesis calculator</h2>
-      <p>Enter an expression containing addition and/or subtraction and press "Calculate"</p>
+      <h2>Simple calculator</h2>
+      <p>Addition, subtraction, multiplication, division and exponents with/without parenthesis.</p>
       <div className="calculator-buttons-container">
         <InputGroup>
           <FormControl
