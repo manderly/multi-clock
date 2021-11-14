@@ -1,5 +1,5 @@
 const numberExpression = /[0-9]+/;
-const operatorsExpression = /[+\-\/*^]/;
+const operatorsExpression = /[+-/*^]/;
 
 const precedence = (op: string): number => {
   if (op === "+" || op === "-") {
@@ -31,7 +31,7 @@ const infixToPostfix = (input: string[]): string => {
     } else if (char === "^") {
       stack.push("^");
     } else if (char === ")") {
-      while (stack.length > 0 && stack[stack.length-1] != "(") {
+      while (stack.length > 0 && stack[stack.length-1] !== "(") {
         postfix+=stack.pop()
       }
       // pop the remaining "("

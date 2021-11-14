@@ -1,27 +1,19 @@
-import {} from 'react';
 import '@testing-library/jest-dom';
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import Settings from './Settings';
-
-const setup = () => {
-  const utils = render(<Settings />);
-  return {
-    ...utils,
-  }
-}
 
 describe('Settings page', () => {
   it('Should have two radio buttons, one for 12-hour clock and 24-hour clock, when rendered', () => {
-    const { getByRole } = setup();
-    const displayOption12Hours = getByRole("radio", {name: 'option-12-hours'});
-    const displayOption24Hours  = getByRole("radio", {name: 'option-24-hours'});
+    render(<Settings />);
+    const displayOption12Hours = screen.getByRole("radio", { name: 'option-12-hours'});
+    const displayOption24Hours  = screen.getByRole("radio", {name: 'option-24-hours'});
     expect(displayOption12Hours).toBeInTheDocument();
     expect(displayOption24Hours).toBeInTheDocument();
   })
 
   it('Should have a checkbox for toggling the "show seconds" setting when rendered', () => {
-    const { getByRole } = setup();
-    const showSecondsCheckbox = getByRole("checkbox", {name: 'option-show-seconds'});
+    render(<Settings />);
+    const showSecondsCheckbox = screen.getByRole("checkbox", {name: 'option-show-seconds'});
     expect(showSecondsCheckbox).toBeInTheDocument();
   })
 

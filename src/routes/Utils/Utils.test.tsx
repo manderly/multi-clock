@@ -1,4 +1,3 @@
-import {} from 'react';
 import '@testing-library/jest-dom';
 import { fireEvent, getByText, render, screen } from '@testing-library/react';
 import Utils from './Utils';
@@ -6,8 +5,8 @@ import userEvent from '@testing-library/user-event';
 
 const setup = () => {
   const utils = render(<Utils />);
-  const input = utils.getByRole("textbox", {name: "calculator-input"});
-  const button = utils.getByRole("button", {name: "calculator-button"});
+  const input = screen.getByRole("textbox", {name: "calculator-input"});
+  const button = screen.getByRole("button", {name: "calculator-button"});
   return {
     input,
     button,
@@ -38,5 +37,31 @@ describe('Utils page', () => {
     userEvent.click(button);
     getByText('= 5');
   })
+
+  it('Should evaluate a multiplication expression correctly', () => {
+    const {input, button, getByText} = setup();
+    const testExpression = "(2*3)*5";
+    fireEvent.change(input, {target: {value: testExpression}});
+    userEvent.click(button);
+    getByText('= 30');
+  })
+
+  it('Should evaluate a division expression correctly', () => {
+    const {input, button, getByText} = setup();
+    const testExpression = "(9/3)/3";
+    fireEvent.change(input, {target: {value: testExpression}});
+    userEvent.click(button);
+    getByText('= 1');
+  })
+
+  it('Should evaluate a complicated expression correctly', () => {
+    const {input, button, getByText} = setup();
+    const testExpression = "8*(5+2)/(5-1)";
+    fireEvent.change(input, {target: {value: testExpression}});
+    userEvent.click(button);
+    getByText('= 14');
+  })
+
+
 
 })
