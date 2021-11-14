@@ -62,6 +62,20 @@ describe('Utils page', () => {
     getByText('= 14');
   })
 
+  it('Should evaluate a double digit expression correctly', () => {
+    const {input, button, getByText} = setup();
+    const testExpression = "10*5";
+    fireEvent.change(input, {target: {value: testExpression}});
+    userEvent.click(button);
+    getByText('= 50');
+  })
 
+  it('Should evaluate a complicated double digit expression correctly', () => {
+    const {input, button, getByText} = setup();
+    const testExpression = "(((10*5)/2)+5)*10";
+    fireEvent.change(input, {target: {value: testExpression}});
+    userEvent.click(button);
+    getByText('= 300');
+  })
 
 })
