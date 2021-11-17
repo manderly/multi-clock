@@ -114,6 +114,7 @@
   justify-content:right;
   padding:10px;
   gap:20px;
+  justify-content:space-between;
 }
 
 .clocks-row-container {
@@ -132,6 +133,11 @@
   display:flex;
   flex-direction:row;
   justify-content: space-between;
+}
+
+.clock-display-date {
+  font-size:1.1em;
+  font-weight:normal;
 }
 
 .time-col-container {

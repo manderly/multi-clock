@@ -29,7 +29,8 @@ export const Australia: readonly TimezoneOption[] = [
   {value: 'Australia/LHI', label: '🇦🇺 Lord Howe Standard (UTC+10:30)'},
 ]
 
-export const defaultTimeZones = [NorthAmerica[0], NorthAmerica[1],Europe[1],Australia[2]];
+export const usTimeZones = [NorthAmerica[0],NorthAmerica[1],NorthAmerica[2],NorthAmerica[3]];
+export const defaultTimeZones = [NorthAmerica[0], NorthAmerica[1], Europe[1], Australia[2]];
 export interface GroupedOption {
   readonly label: string;
   readonly options: readonly TimezoneOption[] | readonly TimezoneOption[];

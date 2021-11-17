@@ -8,15 +8,17 @@ import { Button } from 'react-bootstrap';
 import { SettingsContext } from '../../contexts/SettingsContext';
 import { TimeContext } from '../../contexts/TimeContext';
 interface IClockDisplay {
+  name: string,
+  uniqueID: number;
   defaultTimeZone: TimezoneOption;
   handleRemoveClock: (e: any) => void;
 }
 
-const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone, handleRemoveClock }) => {
+const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, handleRemoveClock }) => {
   const { hoursPref, showSecondsPref } = useContext(SettingsContext);
   const { now } = useContext(TimeContext);
 
-  const [nickname, setNickname] = useState('');
+  const [nickname, setNickname] = useState(name);
   const [editingNickname, setEditingNickname] = useState(false);
   const [timeZone, setTimeZone] = useState(defaultTimeZone);
 
@@ -25,7 +27,6 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone, handleRemoveClock })
   const nicknameRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    
   }, [now]);
 
   const groupBadgeStyles: CSSProperties = {
@@ -101,10 +102,9 @@ const ClockDisplay: FC<IClockDisplay> = ({ defaultTimeZone, handleRemoveClock })
           className="select-timezone"
         />
         <div className="time-col-container">
-          <div className="timestamp time-item">{formattedDate}</div> 
-          <div className="timestamp time-item time-stamp-display">{formattedTime}</div>
+          <h2 className="clock-display-date time-item" aria-label="clock date display">{formattedDate}</h2> 
+          <label className="timestamp time-item time-stamp-display">{formattedTime}</label>
         </div>
-
       </div>
     )
 }
