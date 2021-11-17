@@ -4,7 +4,7 @@ import Clocks from './routes/Clocks/Clocks';
 import Settings from './routes/Settings/Settings';
 import Utils from './routes/Utils/Utils';
 import CounterButton from './components/CounterButton/CounterButton';
-import useFormatDate from './hooks/useFormatDate';
+import { useFormatDate } from './hooks/useFormatDate';
 
 import { TimeContext } from './contexts/TimeContext';
 import { SettingsContext } from './contexts/SettingsContext';

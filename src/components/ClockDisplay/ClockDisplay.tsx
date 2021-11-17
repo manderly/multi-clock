@@ -2,7 +2,7 @@ import { FC, CSSProperties, useState, useEffect, useContext, useRef } from 'reac
 import Select from 'react-select';
 import { TimezoneOption, GroupedOption, groupedOptions } from '../../data';
 
-import useFormatDate from '../../hooks/useFormatDate';
+import {getMinuteOfDay, useFormatDate } from '../../hooks/useFormatDate';
 import { Button } from 'react-bootstrap';
 
 import { SettingsContext } from '../../contexts/SettingsContext';
@@ -78,7 +78,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
   );
 
     return (
-      <div className={`clock-container bg-${timePalette}`}>
+      <div className={`clock-container`} style={{backgroundColor: timePalette}}>
         <div className="clock-top-row-container">
           
           <div className="clock-top-row-item">
@@ -104,6 +104,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
         <div className="time-col-container">
           <h2 className="clock-display-date time-item" aria-label="clock date display">{formattedDate}</h2> 
           <label className="timestamp time-item time-stamp-display">{formattedTime}</label>
+          <label>{timePalette}</label>
         </div>
       </div>
     )

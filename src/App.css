@@ -38,39 +38,8 @@
   font-size:2em;
 }
 
-/* evening, dawn, morning, afternoon, sunset */
-.bg-evening {
-  background-color:#3E4A70;
-  color:white;
-}
-
 .bg-evening button {
   color:white;
-}
-
-.bg-dawn {
-  background-color:#7b8cb9;
-  color:black;
-}
-
-.bg-earlyMorning {
-  background-color:#95cbe4;
-  color:black;
-}
-
-.bg-lateMorning {
-  background-color:#cfe495;
-  color:black;
-}
-
-.bg-afternoon {
-  background-color:#f7cf79;
-  color:black;
-}
-
-.bg-sunset {
-  background-color:#ec915c;
-  color:black;
 }
 
 .bg-sunset button {
