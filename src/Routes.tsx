@@ -1,4 +1,4 @@
-import { FC, useState, useContext } from 'react';
+import { FC, CSSProperties, useState, useContext } from 'react';
 import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
 import Clocks from './routes/Clocks/Clocks';
 import Settings from './routes/Settings/Settings';
@@ -26,10 +26,15 @@ const Routes: FC = () => {
 
   const { formattedDate: browserDate, formattedTime: browserTime, timePalette } = useFormatDate(now, getBrowserTZ(), hoursPref, showSecondsPref)
 
+  const clockTimePaletteStyles: CSSProperties = {
+    backgroundColor: timePalette.bg,
+    color: timePalette.text,
+  };
+
   return (
     <Router>
       <div className="App">
-        <header className={`bg-${timePalette}`}>
+        <header style={clockTimePaletteStyles}>
           <div className="header-row-container">
             <div className="header-row-item">
               <h1 className="app-title">Multi Clock</h1>
