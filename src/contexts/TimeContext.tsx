@@ -9,7 +9,7 @@ export const TimeContext = createContext<ITimeContext>({
 });
 
 const TimeProvider: FC = ({children}) => {
-  const [now, setNow] = useState<Date>(new Date);
+  const [now, setNow] = useState<Date>(new Date());
 
   useEffect(() => {
     setNow(new Date());

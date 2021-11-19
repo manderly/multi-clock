@@ -30,7 +30,7 @@ const infixToPostfix = (input: string[]): string[] => {
       // it's 0-9, add it to the postfix string
       // also: to handle numbers greater than 1 digit, 
       // look at what's in the last index - if it's a number, add to that number. If it's not a number, push as a new element.
-      console.log("adding " + char + " to postfix array");
+      //console.log("adding " + char + " to postfix array");
       if (postfix.length > 0 && !pushedOperator) {
         const last = postfix[postfix.length-1];
         // last is a number and we didn't just push an operator, we can fuse this new number onto it
@@ -51,7 +51,7 @@ const infixToPostfix = (input: string[]): string[] => {
       // pop the remaining "("
       stack.pop();
     } else {
-      console.log("handling " + char);
+      //console.log("handling " + char);
       if (precedence(char) > precedence(stack[stack.length-1])) {
         stack.push(char); // push only if precedence is higher
       } else {
@@ -69,7 +69,7 @@ const infixToPostfix = (input: string[]): string[] => {
     postfix.push(stack.pop());
   }
 
-  console.log(postfix);
+  //console.log(postfix);
   return postfix;
 }
 

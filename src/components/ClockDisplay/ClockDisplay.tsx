@@ -96,7 +96,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
           }
           </div>
 
-          <div className="clock-top-row-item"><Button size="sm" variant="outline" onClick={handleRemoveClock}>x</Button></div>
+          <div className="clock-top-row-item"><Button size="sm" variant="outline" aria-label="delete clock button" onClick={handleRemoveClock}>x</Button></div>
         </div>
         <Select<TimezoneOption, false, GroupedOption>
           defaultValue={defaultTimeZone}

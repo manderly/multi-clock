@@ -26,8 +26,6 @@ const getDayPeriodHexValue = (minOfDay: number): IHexPalette => {
   let percentOfDay = (minOfDay/1440);
   // find the corresponding index in the palette array (the palette array is much shorter than 1440 so use percentages)
   let idx = Math.floor(colorPalette.length*percentOfDay);
-
-  console.log(colorPalette[idx]);
   return colorPalette[idx];
 }
 
