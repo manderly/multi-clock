@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import enUS from 'date-fns/locale/en-US';
 import { format } from 'date-fns-tz';
 import { utcToZonedTime } from 'date-fns-tz';
-import { colorPalette } from './backgroundColors';
+import { IHexPalette, colorPalette } from './backgroundColors';
 
 const getNow = (now: Date, timeZone: string) => {
   return utcToZonedTime(now, timeZone);
@@ -14,13 +14,20 @@ export const getMinuteOfDay = (date: Date): number => {
   return (hours*60)+minutes;
 }
 
-const getDayPeriodHexValue = (minOfDay: number): string => {
+const paletteDefaults = {
+  bg: "#ededed",
+  text: "#00ff00"
+}
+
+const getDayPeriodHexValue = (minOfDay: number): IHexPalette => {
   // minOfDay: every day consists of 1440 minutes
   // map the current "minute of the day" to a percentage, ie: "what percentage of the day is completed?" 
   // example: 6am is 25%, a quarter of the day has been completed by 6am
   let percentOfDay = (minOfDay/1440);
   // find the corresponding index in the palette array (the palette array is much shorter than 1440 so use percentages)
   let idx = Math.floor(colorPalette.length*percentOfDay);
+
+  console.log(colorPalette[idx]);
   return colorPalette[idx];
 }
 
@@ -31,7 +38,7 @@ export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, s
 
   const [formattedDate, setFormattedDate] = useState('');
   const [formattedTime, setFormattedTime] = useState(''); 
-  const [timePalette, setTimePalette] = useState('');
+  const [timePalette, setTimePalette] = useState<IHexPalette>(paletteDefaults);
 
   const [locale] = useState(enUS);
 

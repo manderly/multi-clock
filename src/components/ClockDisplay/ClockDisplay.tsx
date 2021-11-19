@@ -2,7 +2,7 @@ import { FC, CSSProperties, useState, useEffect, useContext, useRef } from 'reac
 import Select from 'react-select';
 import { TimezoneOption, GroupedOption, groupedOptions } from '../../data';
 
-import {getMinuteOfDay, useFormatDate } from '../../hooks/useFormatDate';
+import { useFormatDate } from '../../hooks/useFormatDate';
 import { Button } from 'react-bootstrap';
 
 import { SettingsContext } from '../../contexts/SettingsContext';
@@ -28,6 +28,11 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
 
   useEffect(() => {
   }, [now]);
+
+  const clockTimePaletteStyles: CSSProperties = {
+    backgroundColor: timePalette.bg,
+    color: timePalette.text,
+  };
 
   const groupBadgeStyles: CSSProperties = {
     backgroundColor: '#EBECF0',
@@ -78,7 +83,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
   );
 
     return (
-      <div className={`clock-container`} style={{backgroundColor: timePalette}}>
+      <div className={`clock-container`} style={clockTimePaletteStyles}>
         <div className="clock-top-row-container">
           
           <div className="clock-top-row-item">
@@ -86,7 +91,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
             <input ref={nicknameRef} type="text" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange}/>
             : 
             nickname === '' ? 
-              <Button type='button' size="sm" variant="link" className="name-clock-link" onClick={handleEditingNicknameClick}>Name clock...</Button>
+              <Button type='button' size="sm" variant="link" style={clockTimePaletteStyles} className="name-clock-link" onClick={handleEditingNicknameClick}>Name clock...</Button>
               : <Button type='button' size="sm" variant="link" className="name-clock-link" onClick={handleEditingNicknameClick}>{nickname}</Button>
           }
           </div>
@@ -104,7 +109,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
         <div className="time-col-container">
           <h2 className="clock-display-date time-item" aria-label="clock date display">{formattedDate}</h2> 
           <label className="timestamp time-item time-stamp-display">{formattedTime}</label>
-          <label>{timePalette}</label>
+          <label>{timePalette.bg}</label>
         </div>
       </div>
     )

@@ -1,22 +1,53 @@
 import Color from 'colorjs.io';
+export interface IHexPalette {
+  bg: string;
+  text: string;
+}
 
-const gradientStops : { [key: string]: string }= {
-  "180": "#20255B",
-  "360": "#9999CC",
-  "540": "#8FD1BC",
-  "720": "#F3C052",
-  "900": "#d78e5d",
-  "1080": "#CF7646",
-  "1260": "#9A5FB3",
-  "1440": "#413899",
+const gradientStops : { [key: string]: IHexPalette } = {
+  "180": {          // 3am
+    bg:"#20255B",
+    text:"#ffffff" 
+  },
+  "360": {          // 6am
+    bg:"#20255B",
+    text:"#ffffff"
+  },
+  "540": {          // 9 am
+    bg:"#8FD1BC",
+    text:"#ffffff"
+  },
+  "720": {          // 12pm noon
+    bg:"#F3C052",
+    text:"#000000"
+  },
+  "900": {          // 3pm
+    bg:"#d78e5d",
+    text:"#000000"
+  },
+  "1080": {         // 6pm
+    bg:"#CF7646",
+    text:"#000000"
+  },
+  "1260": {         // 9pm
+    bg:"#9A5FB3",
+    text:"#ffffff"
+  },
+  "1440": {         // 12am midnight
+    bg:"#150d2b",
+    text:"#ffffff"
+  }
 }
 
 // build interoplation arrays from these colors
 const STEPS_COUNT = 32;
 
 const getSteps = (start: string, end: string) => {
-  const colorsArr = Color.steps(Color.range(gradientStops[start], gradientStops[end]), {steps:STEPS_COUNT});
-  const colorHexValues = colorsArr.map((c: any) => c.hex );
+  // get an array of all the steps of colors between color A and color B
+  const colorsArr = Color.steps(Color.range(gradientStops[start].bg, gradientStops[end].bg), {steps:STEPS_COUNT});
+  // take just the hex
+  // return a tuple of the interpolation color and the text color from color A
+  const colorHexValues = colorsArr.map((c: any) => ( {bg: c.hex, text: gradientStops[start].text} ));
   return colorHexValues;
 }
 
