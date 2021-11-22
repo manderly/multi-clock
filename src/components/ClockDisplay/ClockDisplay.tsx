@@ -92,7 +92,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
             : 
             nickname === '' ? 
               <Button type='button' size="sm" variant="link" style={clockTimePaletteStyles} className="name-clock-link" onClick={handleEditingNicknameClick}>Name clock...</Button>
-              : <Button type='button' size="sm" variant="link" className="name-clock-link" onClick={handleEditingNicknameClick}>{nickname}</Button>
+              : <Button type='button' size="sm" variant="link" className="name-clock-link" style={clockTimePaletteStyles} onClick={handleEditingNicknameClick}>{nickname}</Button>
           }
           </div>
 
