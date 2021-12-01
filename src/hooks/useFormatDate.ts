@@ -31,10 +31,12 @@ const getDayPeriodHexValue = (minOfDay: number): IHexPalette => {
 
 export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, showSecondsPref: boolean) => {
   // still in user's local time here
-  const dateFormat = 'PPPP';
+  const dateFormatHeader = 'PPPP'; // Wednesday, December 1st, 2021
+  const dateFormatClock = 'eee, MMM Lo'; // Wed, Dec 1st
   const timeFormat = hoursPref === 12 ? `h:mm${showSecondsPref ? ':ss' :''} aaa` : `H:mm${showSecondsPref ? ':ss' : ''}`;
 
-  const [formattedDate, setFormattedDate] = useState('');
+  const [formattedDateHeader, setFormattedDateHeader] = useState('');
+  const [formattedDateClock, setFormattedDateClock] = useState('');
   const [formattedTime, setFormattedTime] = useState(''); 
   const [timePalette, setTimePalette] = useState<IHexPalette>(paletteDefaults);
 
@@ -46,8 +48,9 @@ export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, s
 
   useEffect(() => {
     const convertedDate = getNow(date, timeZone);
-    setFormattedDate(makeDate(convertedDate, dateFormat))  // make the date part
-    setFormattedTime(makeDate(convertedDate, timeFormat))  // make the time part
+    setFormattedDateHeader(makeDate(convertedDate, dateFormatHeader));
+    setFormattedDateClock(makeDate(convertedDate, dateFormatClock));  // make the date part
+    setFormattedTime(makeDate(convertedDate, timeFormat));  // make the time part
 
     // set "time palette", ie: morning, afternoon, night background color
     const minuteOfDay = getMinuteOfDay(convertedDate);
@@ -55,7 +58,8 @@ export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, s
   }, [date, timeZone]);
 
   return {
-    formattedDate,
+    formattedDateHeader,
+    formattedDateClock,
     formattedTime,
     timePalette
   }

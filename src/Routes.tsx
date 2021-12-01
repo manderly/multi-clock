@@ -24,7 +24,7 @@ const Routes: FC = () => {
     setCount(count+1);
   }
 
-  const { formattedDate: browserDate, formattedTime: browserTime, timePalette } = useFormatDate(now, getBrowserTZ(), hoursPref, showSecondsPref)
+  const { formattedDateHeader: browserDate, formattedTime: browserTime, timePalette } = useFormatDate(now, getBrowserTZ(), hoursPref, showSecondsPref)
 
   const clockTimePaletteStyles: CSSProperties = {
     backgroundColor: timePalette.bg,
@@ -64,20 +64,22 @@ const Routes: FC = () => {
           </div>
         </header>
 
-        <Switch>
-          <Route exact path="/">
-            <Clocks />
-          </Route>
+        <div className="page">
+          <Switch>
+            <Route exact path="/">
+              <Clocks />
+            </Route>
 
-          <Route path="/settings">
-            <Settings />
-          </Route>
+            <Route path="/settings">
+              <Settings />
+            </Route>
 
-          <Route path="/utils">
-            <Utils />
-          </Route>
+            <Route path="/utils">
+              <Utils />
+            </Route>
 
-        </Switch>
+          </Switch>
+        </div>
 
         <footer className="footer">
           <div className="counter-container">

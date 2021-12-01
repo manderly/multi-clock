@@ -7,6 +7,8 @@ import { Button } from 'react-bootstrap';
 
 import { SettingsContext } from '../../contexts/SettingsContext';
 import { TimeContext } from '../../contexts/TimeContext';
+
+import PublicIcon from '@mui/icons-material/Public';
 interface IClockDisplay {
   name: string,
   uniqueID: number;
@@ -22,7 +24,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
   const [editingNickname, setEditingNickname] = useState(false);
   const [timeZone, setTimeZone] = useState(defaultTimeZone);
 
-  const { formattedDate, formattedTime, timePalette } = useFormatDate(now, timeZone.value, hoursPref, showSecondsPref);
+  const { formattedDateHeader, formattedDateClock, formattedTime, timePalette } = useFormatDate(now, timeZone.value, hoursPref, showSecondsPref);
 
   const nicknameRef = useRef<HTMLInputElement | null>(null);
 
@@ -107,9 +109,9 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
           className="select-timezone"
         />
         <div className="time-col-container">
-          <h2 className="clock-display-date time-item" aria-label="clock date display">{formattedDate}</h2> 
           <label className="timestamp time-item time-stamp-display">{formattedTime}</label>
-          <label>{timePalette.bg}</label>
+          <h2 className="clock-display-date time-item" aria-label="clock date display">{formattedDateClock}</h2>
+          <label className="timezone-select-link">UTC+8<PublicIcon/></label>
         </div>
       </div>
     )
