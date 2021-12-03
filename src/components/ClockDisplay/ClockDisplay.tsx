@@ -87,34 +87,41 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
     return (
       <div className={`clock-container`} style={clockTimePaletteStyles}>
         <div className="clock-top-row-container">
-          
           <div className="clock-top-row-item">
           {editingNickname ? 
             <input ref={nicknameRef} type="text" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange}/>
             : 
             nickname === '' ? 
-              <Button type='button' size="sm" variant="link" style={clockTimePaletteStyles} className="name-clock-link" onClick={handleEditingNicknameClick}>Name clock...</Button>
+              <Button type='button' size="sm" variant="link" style={clockTimePaletteStyles} className="name-clock-link" onClick={handleEditingNicknameClick}>{timeZone.value} UTC {timeZone.utc}</Button>
               : <Button type='button' size="sm" variant="link" className="name-clock-link" style={clockTimePaletteStyles} onClick={handleEditingNicknameClick}>{nickname}</Button>
           }
           </div>
-
-          <div className="clock-top-row-item"><Button size="sm" variant="outline" aria-label="delete clock button" onClick={handleRemoveClock}>x</Button></div>
         </div>
-        <Select<TimezoneOption, false, GroupedOption>
-          defaultValue={defaultTimeZone}
-          options={groupedOptions}
-          formatGroupLabel={formatGroupLabel}
-          onChange={handleChange}
-          value={timeZone}
-          className="select-timezone"
-        />
+       
         <div className="time-col-container">
           <label className="timestamp time-item time-stamp-display">{formattedTime}</label>
           <h2 className="clock-display-date time-item" aria-label="clock date display">{formattedDateClock}</h2>
-          <label className="timezone-select-link">UTC+8<PublicIcon/></label>
+          <Button size="sm" variant="outline-dark" className="timezone-select-button">UTC {timeZone.utc}<PublicIcon/></Button>
+          <div className="timezone-select-menu"> 
+          
+        </div>
+        <div className="clock-top-row-item"><Button size="sm" variant="outline" aria-label="delete clock button" onClick={handleRemoveClock}>x</Button></div>
         </div>
       </div>
     )
 }
 
 export default ClockDisplay;
+
+/* 
+
+<Select<TimezoneOption, false, GroupedOption>
+            defaultValue={defaultTimeZone}
+            options={groupedOptions}
+            formatGroupLabel={formatGroupLabel}
+            onChange={handleChange}
+            value={timeZone}
+            className="select-timezone"
+          />
+
+          */

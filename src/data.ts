@@ -1,32 +1,33 @@
 export interface TimezoneOption {
   readonly value: string;
   readonly label: string;
+  readonly utc: string;
 }
 
 export const NorthAmerica: readonly TimezoneOption[] = [
-  {value: 'America/Los_Angeles', label: '🇺🇸 US Pacific (UTC-8:00)'},
-  {value: 'America/Boise', label: '🇺🇸 US Mountain (UTC-7:00)'},
-  {value: 'America/Chicago', label: '🇺🇸 US Central (UTC-6:00)'},
-  {value: 'America/New_York', label: '🇺🇸 US Eastern (UTC-5:00)'},
-  {value: 'Canada/Pacific', label: '🇨🇦 Canada Pacific (UTC-7:00)'},
-  {value: 'Canada/Mountain', label: '🇨🇦 Canada Mountain (UTC-6:00'},
-  {value: 'Canada/Central', label: '🇨🇦 Canada Central (UTC-5:00'},
-  {value: 'Canada/Atlantic', label: '🇨🇦 Canada Atlantic (UTC-3:00'},
-  {value: 'Canada/Newfoundland', label: '🇨🇦 Canada Newfoundland (UTC-2:30'},
+  {value: 'America/Los_Angeles', label: '🇺🇸 US Pacific (UTC-8:00)', utc: '-8'},
+  {value: 'America/Boise', label: '🇺🇸 US Mountain (UTC-7:00)', utc: '-7'},
+  {value: 'America/Chicago', label: '🇺🇸 US Central (UTC-6:00)', utc: '-6'},
+  {value: 'America/New_York', label: '🇺🇸 US Eastern (UTC-5:00)', utc: '-5'},
+  {value: 'Canada/Pacific', label: '🇨🇦 Canada Pacific (UTC-7:00)', utc: '-7'},
+  {value: 'Canada/Mountain', label: '🇨🇦 Canada Mountain (UTC-6:00', utc: '-6'},
+  {value: 'Canada/Central', label: '🇨🇦 Canada Central (UTC-5:00', utc: '-5'},
+  {value: 'Canada/Atlantic', label: '🇨🇦 Canada Atlantic (UTC-3:00', utc: '-3'},
+  {value: 'Canada/Newfoundland', label: '🇨🇦 Canada Newfoundland (UTC-2:30', utc: '-2:30'},
 ]
 
 export const Europe: readonly TimezoneOption[] = [
-  {value: 'Europe/London', label: 'Western European (UTC+0:00)'},
-  {value: 'Europe/Madrid', label: 'Central European (UTC+1:00)'},
-  {value: 'Europe/Romania', label: 'Eastern European (UTC+2:00)'},
-  {value: 'Europe/Moscow', label: 'Further Eastern European (UTC+3:00)'}
+  {value: 'Europe/London', label: 'Western European (UTC+0:00)', utc: '+0'},
+  {value: 'Europe/Madrid', label: 'Central European (UTC+1:00)', utc: '+1'},
+  {value: 'Europe/Romania', label: 'Eastern European (UTC+2:00)', utc: '+2'},
+  {value: 'Europe/Moscow', label: 'Further Eastern European (UTC+3:00)', utc: '+3'}
 ]
 
 export const Australia: readonly TimezoneOption[] = [
-  {value: 'Australia/Perth', label: '🇦🇺 Australian Western (UTC+8:00)'},
-  {value: 'Australia/North', label: '🇦🇺 Australian Central Standard (UTC+9:30)'},
-  {value: 'Australia/Canberra', label: '🇦🇺 Australian Eastern Standard (UTC+10:00)'},
-  {value: 'Australia/LHI', label: '🇦🇺 Lord Howe Standard (UTC+10:30)'},
+  {value: 'Australia/Perth', label: '🇦🇺 Australian Western (UTC+8:00)', utc: '+8'},
+  {value: 'Australia/North', label: '🇦🇺 Australian Central Standard (UTC+9:30)', utc: '+9:30'},
+  {value: 'Australia/Canberra', label: '🇦🇺 Australian Eastern Standard (UTC+10:00)', utc: '+10'},
+  {value: 'Australia/LHI', label: '🇦🇺 Lord Howe Standard (UTC+10:30)', utc: '+10:30'},
 ]
 
 export const usTimeZones = [NorthAmerica[0],NorthAmerica[1],NorthAmerica[2],NorthAmerica[3]];

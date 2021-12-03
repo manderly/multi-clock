@@ -119,12 +119,12 @@
   font-weight:normal;
 }
 
-.timezone-select-link {
+.timezone-select-button {
+  width:100px;
   font-size:0.8em;
 }
 
 .time-col-container {
-  display:flex;
   flex-direction: column;
   padding:5px;
 }
