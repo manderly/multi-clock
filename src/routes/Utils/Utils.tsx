@@ -42,6 +42,7 @@ const Utils: FC = () => {
       <div className="calculator-buttons-container">
         <InputGroup>
           <FormControl
+            className="calculator-input"
             placeholder="Example: 12+(8+9)"
             aria-label="calculator-input" 
             value={userInput} 

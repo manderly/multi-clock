@@ -204,6 +204,10 @@
   margin: 10px;
 }
 
+.calculator-input {
+  width:80% !important;
+}
+
 .calculator-buttons-container {
   display:flex;
   justify-content:center;
