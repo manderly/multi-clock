@@ -5,6 +5,8 @@ import Routes from './Routes';
 
 import './App.css';
 
+import * as $ from 'jquery';
+
 function App() {
   return (
     <SettingsProvider>

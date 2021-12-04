@@ -122,11 +122,19 @@
 .timezone-select-button {
   width:100px;
   font-size:0.8em;
+  display:flex !important;
+  align-items:center;
+  justify-content:space-between;
 }
 
 .time-col-container {
   flex-direction: column;
   padding:5px;
+}
+
+.clock-manage-button-container {
+  display:flex;
+  justify-content:center;
 }
 
 .select-timezone {
@@ -151,6 +159,7 @@
 
 .name-clock-link {
   font-size:0.6em;
+  border:none !important;
 }
 
 .App-header {
