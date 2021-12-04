@@ -96,8 +96,9 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
     return (
       <>
         <div className={`clock-container`} style={clockTimePaletteStyles}>
-          <div className="clock-top-row-container">
-            <div className="clock-top-row-item">
+          <div className="time-col-container">
+            {/* Nickname box */}
+            <div>
             {editingNickname ? 
               <input ref={nicknameRef} type="text" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange}/>
               : 
@@ -106,21 +107,19 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
                 : <Button type='button' size="sm" variant="link" className="name-clock-link" style={clockTimePaletteStyles} onClick={handleEditingNicknameClick}>{nickname}</Button>
             }
             </div>
-          </div>
-        
-          <div className="time-col-container">
-            <label className="timestamp time-item time-stamp-display">{formattedTime}</label>
-            <h2 className="clock-display-date time-item" aria-label="clock date display">{formattedDateClock}</h2>
-            <div className="clock-manage-button-container">
-              <Button 
+            
+            {/* Time of day */}
+            <Button 
                 style={clockTimePaletteStyles}
                 size="sm" 
                 className="timezone-select-button"
                 onClick={() => setShowMapModal(true)}
-                >
-                  UTC {timeZone.utc}<PublicIcon/>
-              </Button>
-            </div>
+                ><label className="timestamp time-item time-stamp-display">{formattedTime}</label>
+            </Button>
+
+            {/* Date */}
+            <h2 className="clock-display-date time-item" aria-label="clock date display">{formattedDateClock}</h2>
+
           </div>
         </div>
 

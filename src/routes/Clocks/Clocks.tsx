@@ -72,7 +72,7 @@ const Clocks: FC = () => {
         {clocks.map((data) => (
           <ClockDisplay 
             name={data.name}
-            key={data.uniqueID} //{`clock-display-${idx}-${JSON.stringify(data.timezone)}`}
+            key={data.uniqueID}
             uniqueID={data.uniqueID}
             defaultTimeZone={data.timezone} 
             handleRemoveClock={() => removeClock(data.uniqueID)}/>
