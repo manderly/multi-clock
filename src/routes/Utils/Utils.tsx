@@ -1,12 +1,18 @@
 import { FC, useState } from 'react';
 import { FormControl, InputGroup, Button } from 'react-bootstrap';
 import { calculatorMath } from './calculator';
+import CounterButton from '../../components/CounterButton/CounterButton';
 
 const Utils: FC = () => {
 
   const [userInput, setUserInput] = useState<string[]>([]);
   const [result, setResult] = useState<number>(0);
   const [resultHistory, setResultHistory] = useState<string[]>([]);
+
+  const [count, setCount] = useState(0);
+  const increaseCount = () => {
+    setCount(count+1);
+  }
 
   const processInput = () => {
     let res = calculatorMath(userInput);
@@ -53,6 +59,16 @@ const Utils: FC = () => {
           : <div>No history yet</div>
         }
       </div>
+
+      <div className="counter-container">
+        <div className="counter-item">
+          <CounterButton label="Increase Counter" onClickMethod={increaseCount} />
+        </div>
+        <div className="counter-item">
+          <span>Counter: {count}</span>
+        </div>
+        </div>
+
     </div>
   )
 }

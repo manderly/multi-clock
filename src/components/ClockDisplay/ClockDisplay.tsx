@@ -121,10 +121,6 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
                   UTC {timeZone.utc}<PublicIcon/>
               </Button>
             </div>
-            <div className="timezone-select-menu"> 
-            
-          </div>
-          <div className="clock-top-row-item"><Button size="sm" variant="outline" aria-label="delete clock button" onClick={handleRemoveClock}>x</Button></div>
           </div>
         </div>
 
@@ -136,10 +132,11 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
       >
         <Modal.Header closeButton>
           <Modal.Title id="example-custom-modal-styling-title">
-            Choose timezone
+            Manage clock
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+            
             <div id="attach-map-here">
               <Select<TimezoneOption, false, GroupedOption>
                 defaultValue={defaultTimeZone}
@@ -149,6 +146,10 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
                 value={timeZone}
                 className="select-timezone"
               />
+            </div>
+            
+            <div>
+              <Button size="sm" variant="link" aria-label="delete clock button" onClick={handleRemoveClock}>Delete clock</Button>
             </div>
         </Modal.Body>
       </Modal>

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
 import Clocks from './routes/Clocks/Clocks';
 import Settings from './routes/Settings/Settings';
 import Utils from './routes/Utils/Utils';
-import CounterButton from './components/CounterButton/CounterButton';
 import { useFormatDate } from './hooks/useFormatDate';
 
 import { TimeContext } from './contexts/TimeContext';
@@ -19,11 +18,6 @@ const Routes: FC = () => {
   const { hoursPref, showSecondsPref } = useContext(SettingsContext);
   const { now } = useContext(TimeContext);
 
-  const [count, setCount] = useState(0);
-  const increaseCount = () => {
-    setCount(count+1);
-  }
-
   const { formattedDateHeader: browserDate, formattedTime: browserTime, timePalette } = useFormatDate(now, getBrowserTZ(), hoursPref, showSecondsPref)
 
   const clockTimePaletteStyles: CSSProperties = {
@@ -37,7 +31,7 @@ const Routes: FC = () => {
         <header style={clockTimePaletteStyles}>
           <div className="header-row-container">
             <div className="header-row-item">
-              <h1 className="app-title">Multi Clock</h1>
+              <h1 className="app-title"><Link to="/">Multi Clock</Link></h1>
               <h2 className="app-subtitle">v. 0.1</h2>
             </div>
 
@@ -50,13 +44,10 @@ const Routes: FC = () => {
               <nav className="navigation-links">
                 <ul>
                   <li>
-                    <Link to="/">Home</Link>
-                  </li>
-                  <li>
                     <Link to="/settings">Settings</Link>
                   </li>
                   <li>
-                    <Link to="/utils">Utils</Link>
+                    <Link to="/utils">Utilities</Link>
                   </li>
                 </ul>
               </nav>
@@ -82,14 +73,7 @@ const Routes: FC = () => {
         </div>
 
         <footer className="footer">
-          <div className="counter-container">
-            <div className="counter-item">
-              <CounterButton label="Increase Counter" onClickMethod={increaseCount} />
-            </div>
-            <div className="counter-item">
-              <span>Counter: {count}</span>
-            </div>
-          </div>
+          2021
         </footer>
 
       </div>
