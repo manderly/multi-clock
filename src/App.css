@@ -2,8 +2,24 @@
   text-align: left;
 }
 
+.narrow-screen {
+  display:none;
+}
+
 .app-title {
   font-size:1em;
+}
+
+.app-title-tiny {
+  margin:0px;
+  padding: 6px 6px 0px 6px;
+  font-size:0.8em;
+  display:flex;
+  justify-content:space-between;
+}
+
+.header-button {
+  padding-left:15px;
 }
 
 .app-subtitle {
@@ -15,21 +31,19 @@
   padding:10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.header-row-container {
+.header-clock-container {
   width:100%;
   display:flex;
   flex-flow:row;
-  justify-content:space-between;
+  justify-content:center;
 }
 
-.header-row-item {
-  padding:10px;
+.header-clock-and-date {
+  padding-bottom:10px;
+}
+
+.header-row-item a {
+  text-decoration: none;
 }
 
 .browser-date {
@@ -295,6 +309,7 @@
 
 /* Two columns of clocks */
 @media only screen and (max-width:450px) {
+
   .name-clock-link {
     width:160px;
   }
@@ -302,10 +317,6 @@
 
 /* Narrowest screen - clocks are 100% of screen width */
 @media only screen and (max-width: 360px) {
-  .browser-time {
-    font-size:1.2em;
-    font-weight:bold;
-  }
 
   .clock-container {
     flex-basis:100%;

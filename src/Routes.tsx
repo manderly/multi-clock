@@ -8,6 +8,8 @@ import { useFormatDate } from './hooks/useFormatDate';
 import { TimeContext } from './contexts/TimeContext';
 import { SettingsContext } from './contexts/SettingsContext';
 
+import SettingsIcon from '@mui/icons-material/Settings';
+import CalculateIcon from '@mui/icons-material/Calculate';
 
 const getBrowserTZ = () => {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -29,30 +31,23 @@ const Routes: FC = () => {
     <Router>
       <div className="App">
         <header style={clockTimePaletteStyles}>
-          <div className="header-row-container">
-            <div className="header-row-item">
-              <h1 className="app-title"><Link to="/">Multi Clock</Link></h1>
-              <h2 className="app-subtitle">v. 0.1</h2>
+          <div className="app-title-tiny">
+            <div>
+            <Link to="/" style={clockTimePaletteStyles}>Multi Clock</Link>
             </div>
 
-            <div className="header-row-item">
-              <div className="browser-date">{browserDate}</div> 
-              <div className="browser-time">{browserTime}</div>
-            </div>
-
-            <div className="header-row-item">
-              <nav className="navigation-links">
-                <ul>
-                  <li>
-                    <Link to="/settings">Settings</Link>
-                  </li>
-                  <li>
-                    <Link to="/utils">Utilities</Link>
-                  </li>
-                </ul>
-              </nav>
+            <div>
+              <Link to="/settings" style={clockTimePaletteStyles} className="header-button"><SettingsIcon/></Link>
+              <Link to="/utils" style={clockTimePaletteStyles} className="header-button"><CalculateIcon/></Link>
             </div>
           </div>
+          <div className="header-clock-container">
+            <div className="header-clock-and-date">
+              <div className="browser-time">{browserTime}</div>
+              <div className="browser-date">{browserDate}</div> 
+            </div>
+          </div>
+
         </header>
 
         <div className="page">
@@ -73,7 +68,7 @@ const Routes: FC = () => {
         </div>
 
         <footer className="footer">
-          2021
+          Mandi Burley 2021
         </footer>
 
       </div>
