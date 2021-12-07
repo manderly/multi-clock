@@ -135,8 +135,22 @@
   justify-content:center;
 }
 
+.modal-line {
+  height:42px;
+}
+
+.delete-clock-div {
+  display:flex;
+  justify-content:right;
+}
+
 .select-timezone {
   color:black;
+}
+
+.edit-clock-name-buttons {
+  display:flex;
+  justify-content:space-between;
 }
 
 .time-item {
