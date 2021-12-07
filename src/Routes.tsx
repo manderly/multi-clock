@@ -10,6 +10,7 @@ import { SettingsContext } from './contexts/SettingsContext';
 
 import SettingsIcon from '@mui/icons-material/Settings';
 import CalculateIcon from '@mui/icons-material/Calculate';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 const getBrowserTZ = () => {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -68,7 +69,8 @@ const Routes: FC = () => {
         </div>
 
         <footer className="footer">
-          Mandi Burley 2021
+          <div>Mandi Burley 2021</div> 
+          <div><a href="https://github.com/manderly/multi-clock"><GitHubIcon/></a></div>
         </footer>
 
       </div>
