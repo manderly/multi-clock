@@ -21,6 +21,8 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
-, "colorjs.d.ts"  ]
+    "src",
+    "colorjs.d.ts",
+    "glyphicons.d.ts"
+  ]
 }

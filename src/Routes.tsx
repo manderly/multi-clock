@@ -3,12 +3,14 @@ import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
 import Clocks from './routes/Clocks/Clocks';
 import Settings from './routes/Settings/Settings';
 import Utils from './routes/Utils/Utils';
-import CounterButton from './components/CounterButton/CounterButton';
 import { useFormatDate } from './hooks/useFormatDate';
 
 import { TimeContext } from './contexts/TimeContext';
 import { SettingsContext } from './contexts/SettingsContext';
 
+import SettingsIcon from '@mui/icons-material/Settings';
+import CalculateIcon from '@mui/icons-material/Calculate';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 const getBrowserTZ = () => {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -19,12 +21,7 @@ const Routes: FC = () => {
   const { hoursPref, showSecondsPref } = useContext(SettingsContext);
   const { now } = useContext(TimeContext);
 
-  const [count, setCount] = useState(0);
-  const increaseCount = () => {
-    setCount(count+1);
-  }
-
-  const { formattedDate: browserDate, formattedTime: browserTime, timePalette } = useFormatDate(now, getBrowserTZ(), hoursPref, showSecondsPref)
+  const { formattedDateHeader: browserDate, formattedTime: browserTime, timePalette } = useFormatDate(now, getBrowserTZ(), hoursPref, showSecondsPref)
 
   const clockTimePaletteStyles: CSSProperties = {
     backgroundColor: timePalette.bg,
@@ -35,59 +32,44 @@ const Routes: FC = () => {
     <Router>
       <div className="App">
         <header style={clockTimePaletteStyles}>
-          <div className="header-row-container">
-            <div className="header-row-item">
-              <h1 className="app-title">Multi Clock</h1>
-              <h2 className="app-subtitle">v. 0.1</h2>
+          <div className="app-title-tiny">
+            <div>
+              <Link to="/" style={clockTimePaletteStyles}>Multi Clock</Link>
             </div>
-
-            <div className="header-row-item">
-              <div className="browser-date">{browserDate}</div> 
-              <div className="browser-time">{browserTime}</div>
-            </div>
-
-            <div className="header-row-item">
-              <nav className="navigation-links">
-                <ul>
-                  <li>
-                    <Link to="/">Home</Link>
-                  </li>
-                  <li>
-                    <Link to="/settings">Settings</Link>
-                  </li>
-                  <li>
-                    <Link to="/utils">Utils</Link>
-                  </li>
-                </ul>
-              </nav>
+            <div>
+              <Link to="/settings" style={clockTimePaletteStyles} className="header-button"><SettingsIcon/></Link>
+              <Link to="/utils" style={clockTimePaletteStyles} className="header-button"><CalculateIcon/></Link>
             </div>
           </div>
+          <div className="header-clock-container">
+            <div className="header-clock-and-date">
+              <div className="browser-time">{browserTime}</div>
+              <div className="browser-date">{browserDate}</div> 
+            </div>
+          </div>
+
         </header>
 
-        <Switch>
-          <Route exact path="/">
-            <Clocks />
-          </Route>
+        <div className="page">
+          <Switch>
+            <Route exact path="/">
+              <Clocks />
+            </Route>
 
-          <Route path="/settings">
-            <Settings />
-          </Route>
+            <Route path="/settings">
+              <Settings />
+            </Route>
 
-          <Route path="/utils">
-            <Utils />
-          </Route>
+            <Route path="/utils">
+              <Utils />
+            </Route>
 
-        </Switch>
+          </Switch>
+        </div>
 
         <footer className="footer">
-          <div className="counter-container">
-            <div className="counter-item">
-              <CounterButton label="Increase Counter" onClickMethod={increaseCount} />
-            </div>
-            <div className="counter-item">
-              <span>Counter: {count}</span>
-            </div>
-          </div>
+          <div>Mandi Burley 2021</div> 
+          <div><a href="https://github.com/manderly/multi-clock"><GitHubIcon/></a></div>
         </footer>
 
       </div>
