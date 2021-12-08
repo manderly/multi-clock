@@ -14,15 +14,24 @@ export const SettingsContext = createContext<ISettingsContext>({
 });
 
 const SettingsProvider: FC = ({children}) => {
-  const [hoursPref, setHoursPref] = useState(12);
-  const [showSecondsPref, setShowSecondsPref] = useState(false);
+  const [hoursPref, setHoursPref] = useState(() => {
+    const saved = localStorage.getItem("hoursPref") as string;
+    return parseInt(saved) || 12;
+  });
+
+  const [showSecondsPref, setShowSecondsPref] = useState(() => {
+    const saved = localStorage.getItem("showSecondsPref") as string;
+    return JSON.parse(saved) || false;
+  });
 
   const handleSetHours = (newPref: number) => {
     setHoursPref(newPref);
+    localStorage.setItem("hoursPref", JSON.stringify(newPref));
   }
 
   const handleShowSeconds = (newPref: boolean) => {
     setShowSecondsPref(newPref);
+    localStorage.setItem("showSecondsPref", JSON.stringify(newPref));
   }
 
   const value = {
