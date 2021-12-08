@@ -34,9 +34,8 @@ const Routes: FC = () => {
         <header style={clockTimePaletteStyles}>
           <div className="app-title-tiny">
             <div>
-            <Link to="/" style={clockTimePaletteStyles}>Multi Clock</Link>
+              <Link to="/" style={clockTimePaletteStyles}>Multi Clock</Link>
             </div>
-
             <div>
               <Link to="/settings" style={clockTimePaletteStyles} className="header-button"><SettingsIcon/></Link>
               <Link to="/utils" style={clockTimePaletteStyles} className="header-button"><CalculateIcon/></Link>

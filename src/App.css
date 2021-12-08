@@ -286,6 +286,10 @@
     flex-basis:50%;
   }
 
+  .clock-container:hover {
+    filter: brightness(115%);
+  }
+
   .name-clock-link {
     text-align:left !important;
     width:180px;

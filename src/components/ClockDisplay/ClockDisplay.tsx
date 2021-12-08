@@ -100,7 +100,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
 
     return (
       <>
-        <div className={`clock-container`} style={clockTimePaletteStyles}>
+        <div className='clock-container' style={clockTimePaletteStyles}>
           <div className="time-col-container">
             {/* Nickname box */}
             <div>
