@@ -32,12 +32,38 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
 
   const [showMapModal, setShowMapModal] = useState(false);
 
-  const { formattedDateHeader, formattedDateClock, formattedTime, timePalette } = useFormatDate(now, timeZone.value, hoursPref, showSecondsPref);
+  const { formattedDateClock, formattedTime, timePalette } = useFormatDate(now, timeZone.value, hoursPref, showSecondsPref);
 
   const nicknameRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-  }, [now]);
+    if (nickname) {
+      try {
+        const saved = localStorage.getItem("clocks") as string;
+        const parsed = JSON.parse(saved);
+        const indexToEdit = parsed.findIndex((clock: any) => clock.uniqueID === uniqueID);
+        parsed[indexToEdit].name = nickname;
+        localStorage.setItem("clocks", JSON.stringify(parsed));
+      } catch(e) {
+        console.log(e);
+      }
+      
+    }
+  }, [nickname]);
+
+  useEffect(() => {
+    if (timeZone) {
+      try {
+        const saved = localStorage.getItem("clocks") as string;
+        const parsed = JSON.parse(saved);
+        const indexToEdit = parsed.findIndex((clock: any) => clock.uniqueID === uniqueID);
+        parsed[indexToEdit].timezone = timeZone;
+        localStorage.setItem("clocks", JSON.stringify(parsed));
+      } catch(e) {
+        console.log(e);
+      }
+    }
+  }, [timeZone]);
 
   const clockTimePaletteStyles: CSSProperties = {
     backgroundColor: timePalette.bg,

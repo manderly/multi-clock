@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import ClockDisplay from '../../components/ClockDisplay/ClockDisplay';
 import { NorthAmerica, usTimeZones, defaultTimeZones, TimezoneOption } from '../../data';
 import { Button } from 'react-bootstrap';
+import { useEffect } from 'react';
 interface IClock {
   timezone: TimezoneOption;
   name: string;
@@ -29,7 +30,18 @@ const createClock = (tz: TimezoneOption, name?: string, uniqueID?: number): IClo
 
 const Clocks: FC = () => {
   // create an array of clock objects, feeding it default time zones
-  const [clocks, setClocks] = useState(createDefaultClocks);
+  // createDefaultClocks
+  const [clocks, setClocks] = useState(() => {
+    // get from localstorage if possible
+    const saved = localStorage.getItem("clocks") as string;
+    const initialValue = JSON.parse(saved);
+    return initialValue || createDefaultClocks();
+  });
+
+  useEffect(() => {
+    console.log("re-writing localstorage clock data");
+    localStorage.setItem("clocks", JSON.stringify(clocks));
+  }, [clocks])
 
   const handleSetAllToUSClick = () => {
     // set existing clocks or create new ones to get to 4 clocks representing 4 US time zones
@@ -47,7 +59,7 @@ const Clocks: FC = () => {
 
   const addClock = () => {
     if (clocks.length < 10) {
-      setClocks((prev) => {
+      setClocks((prev: any) => {
         // concat on new clock
         return [...prev, createClock(usTimeZones[0])];
       })
@@ -55,7 +67,7 @@ const Clocks: FC = () => {
   }
 
   const removeClock = (removeID: number) => {
-    let newArr = clocks.filter((clock) => {
+    let newArr = clocks.filter((clock: any) => {
       return clock.uniqueID !== removeID ? clock : null;
     }); 
     setClocks(newArr);
@@ -69,7 +81,7 @@ const Clocks: FC = () => {
       </div>  
 
       <div className="clocks-row-container">
-        {clocks.map((data) => (
+        {clocks.map((data: any) => (
           <ClockDisplay 
             name={data.name}
             key={data.uniqueID}
