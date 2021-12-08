@@ -1,5 +1,6 @@
 import { FC, CSSProperties, useState, useEffect, useContext, useRef } from 'react';
 
+
 import Select from 'react-select';
 
 import { TimezoneOption, GroupedOption, groupedOptions } from '../../data';
@@ -22,7 +23,7 @@ interface IClockDisplay {
 
 const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, handleRemoveClock }) => {
 
-  const { hoursPref, showSecondsPref } = useContext(SettingsContext);
+  const { hoursPref, showOtherSecondsPref } = useContext(SettingsContext);
   const { now } = useContext(TimeContext);
 
   const [nickname, setNickname] = useState(name);
@@ -31,7 +32,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
 
   const [showMapModal, setShowMapModal] = useState(false);
 
-  const { formattedDateClock, formattedTime, timePalette } = useFormatDate(now, timeZone.value, hoursPref, showSecondsPref);
+  const { formattedDateClock, formattedTime, timePalette } = useFormatDate(now, timeZone.value, hoursPref, showOtherSecondsPref);
 
   const nicknameRef = useRef<HTMLInputElement | null>(null);
 

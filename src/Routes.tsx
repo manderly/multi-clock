@@ -12,16 +12,13 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
-const getBrowserTZ = () => {
-  return Intl.DateTimeFormat().resolvedOptions().timeZone;
-}
-
 const Routes: FC = () => {
 
-  const { hoursPref, showSecondsPref } = useContext(SettingsContext);
+  const { hoursPref, showMySecondsPref } = useContext(SettingsContext);
+  const { userTimezone } = useContext(SettingsContext);
   const { now } = useContext(TimeContext);
 
-  const { formattedDateHeader: browserDate, formattedTime: browserTime, timePalette } = useFormatDate(now, getBrowserTZ(), hoursPref, showSecondsPref)
+  const { formattedDateHeader: browserDate, formattedTime: browserTime, timePalette } = useFormatDate(now, userTimezone.value, hoursPref, showMySecondsPref)
 
   const clockTimePaletteStyles: CSSProperties = {
     backgroundColor: timePalette.bg,
@@ -43,6 +40,7 @@ const Routes: FC = () => {
           </div>
           <div className="header-clock-container">
             <div className="header-clock-and-date">
+              <div className="browser-date">{userTimezone.label}</div>
               <div className="browser-time">{browserTime}</div>
               <div className="browser-date">{browserDate}</div> 
             </div>
