@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import ClockDisplay from '../../components/ClockDisplay/ClockDisplay';
-import { NorthAmerica, usTimeZones, defaultTimeZones, TimezoneOption } from '../../data';
+import { usTimeZones, defaultTimeZones, TimezoneOption } from '../../data';
 import { Button } from 'react-bootstrap';
 import { useEffect } from 'react';
 interface IClock {

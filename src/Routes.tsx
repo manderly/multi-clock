@@ -1,4 +1,4 @@
-import { FC, CSSProperties, useState, useContext } from 'react';
+import { FC, CSSProperties, useContext } from 'react';
 import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
 import Clocks from './routes/Clocks/Clocks';
 import Settings from './routes/Settings/Settings';

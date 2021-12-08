@@ -1,5 +1,4 @@
 import { FC, CSSProperties, useState, useEffect, useContext, useRef } from 'react';
-import ReactDOM from 'react-dom';
 
 import Select from 'react-select';
 

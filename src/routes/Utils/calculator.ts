@@ -1,5 +1,4 @@
 const numberExpression = /[0-9]+/;
-const digitExpression = /\d/;
 const operatorsExpression = /[+-/*^]/;
 
 const precedence = (op: string): number => {
