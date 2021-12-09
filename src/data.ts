@@ -129,16 +129,17 @@ export const NorthAmerica: readonly TimezoneOption[] = [
   {value: 'America/Denver', label: '🇺🇸 Mountain Time', utc: '-7:00'},
   {value: 'America/Phoenix', label: '🇺🇸 Mountain Time - Arizona', utc: '-7:00'},
   {value: 'America/Chicago', label: '🇺🇸 Central Time', utc: '-6:00'},
-  {value: 'America/New_York', label: '🇺🇸 US Eastern (UTC-5:00)', utc: '-5:00'},
+  {value: 'America/New_York', label: '🇺🇸 US Eastern', utc: '-5:00'},
   {value: 'America/Tijuana', label: '🇲🇽 Pacific Time - Tijuana', utc: '-8:00'},
   {value: 'America/Mazatlan', label: '🇲🇽 Mountain Time - Chihuahua, Mazatlan', utc: '-7:00'},
   {value: 'America/Mexico_City', label: '🇲🇽 Central Time - Mexico City', utc: '-6:00'},
   {value: 'America/Regina', label: '🇨🇦 Central Time - Regina', utc: '-6:00'},
-  {value: 'Canada/Pacific', label: '🇨🇦 Canada Pacific (UTC-7:00)', utc: '-7:00'},
-  {value: 'Canada/Mountain', label: '🇨🇦 Canada Mountain (UTC-6:00', utc: '-6:00'},
-  {value: 'Canada/Central', label: '🇨🇦 Canada Central (UTC-5:00', utc: '-5:00'},
-  {value: 'Canada/Atlantic', label: '🇨🇦 Canada Atlantic (UTC-3:00', utc: '-3:00'},
-  {value: 'Canada/Newfoundland', label: '🇨🇦 Canada Newfoundland (UTC-2:30', utc: '-2:30'},
+  {value: 'Canada/Pacific', label: '🇨🇦 Canada Pacific', utc: '-7:00'},
+  {value: 'Canada/Mountain', label: '🇨🇦 Canada Mountain', utc: '-6:00'},
+  {value: 'Canada/Central', label: '🇨🇦 Canada Central', utc: '-5:00'},
+  {value: 'Canada/Atlantic', label: '🇨🇦 Canada Atlantic', utc: '-3:00'},
+  {value: 'Canada/Newfoundland', label: '🇨🇦 Canada Newfoundland', utc: '-2:30'},
+  {value: 'America/Godthab', label: '🇬🇱 West Greenland Standard Time', utc: '-3:00'},
 ]
 
 export const CentralAmerica: readonly TimezoneOption[] = [
@@ -154,7 +155,6 @@ export const SouthAmerica: readonly TimezoneOption[] = [
   {value: 'America/Guyana', label: 'Guyana', utc: '-4:00'},
   {value: 'America/La_Paz', label: 'La Paz', utc: '-4:00'},
   {value: 'America/Argentina/Buenos_Aires', label: 'Buenos Aires', utc: '-3:00'},
-  {value: 'America/America/Godthab', label: 'Godthab', utc: '-3:00'},
   {value: 'America/Montevideo', label: 'Montevideo', utc: '-3:00'},
   {value: 'America/Santiago', label: 'Santiago', utc: '-3:00'},
   {value: 'America/Sao_Paulo', label: 'Sao_Paulo', utc: '-2:00'}

@@ -3,7 +3,7 @@ import { NorthAmerica, TimezoneOption, allTimezones } from '../data';
 
 interface ISettingsContext {
   userTimezone: TimezoneOption;
-  handleSetUserTimezone: () => void;
+  handleSetUserTimezone: (tz: TimezoneOption) => void;
   hoursPref: number;
   handleSetHours: (newPref: number) => void;
   showMySecondsPref: boolean;
@@ -54,8 +54,9 @@ const SettingsProvider: FC = ({children}) => {
     return JSON.parse(saved) || false;
   });
 
-  const handleSetUserTimezone = () => {
-    setUserTimezone(NorthAmerica[1]);
+  const handleSetUserTimezone = (tz: TimezoneOption) => {
+    setUserTimezone(tz);
+    // todo: save this to localstorage 
   }
 
   const handleSetHours = (newPref: number) => {

@@ -2,6 +2,7 @@ import { FC, useContext, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { SettingsContext } from '../../contexts/SettingsContext';
 
+import { TimezoneOption } from '../../data';
 import TimezonePicker from '../../components/TimezonePicker/TimezonePicker';
 
 import PublicIcon from '@mui/icons-material/Public';
@@ -31,8 +32,8 @@ const Settings: FC = () => {
     setShowTimezoneModal(!showTimezoneModal);
   }
 
-  const handleTimezoneChange = (tz: string) => {
-    console.log(tz);
+  const handleTimezoneChange = (tz: TimezoneOption) => {
+    handleSetUserTimezone(tz);
   }
 
   return (

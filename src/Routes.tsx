@@ -33,6 +33,9 @@ const Routes: FC = () => {
             <div>
               <Link to="/" style={clockTimePaletteStyles}>Multi Clock</Link>
             </div>
+            <div className="browser-date">
+              {userTimezone.label}
+            </div>
             <div>
               <Link to="/settings" style={clockTimePaletteStyles} className="header-button"><SettingsIcon/></Link>
               <Link to="/utils" style={clockTimePaletteStyles} className="header-button"><CalculateIcon/></Link>
@@ -40,7 +43,6 @@ const Routes: FC = () => {
           </div>
           <div className="header-clock-container">
             <div className="header-clock-and-date">
-              <div className="browser-date">{userTimezone.label}</div>
               <div className="browser-time">{browserTime}</div>
               <div className="browser-date">{browserDate}</div> 
             </div>

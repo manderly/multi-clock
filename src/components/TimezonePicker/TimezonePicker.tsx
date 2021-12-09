@@ -5,7 +5,7 @@ import { listTimeZones, findTimeZone } from 'timezone-support';
 import { TimezoneOption, allTimezones } from '../../data';
 
 interface ITimezonePicker {
-  changeTimezone: (tz: string) => void;
+  changeTimezone: (tz: TimezoneOption) => void;
   defaultTimezone: TimezoneOption;
 }
 
@@ -16,16 +16,27 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
+  const handleSelectTimezone = (tz: TimezoneOption) => {
+    changeTimezone(tz);
+    setUserInput(tz.label);
+  }
+
   const timezones = Object.values(allTimezones).map((zone, idx) => {
     return (
-      <li>{`(GMT ${zone.utc}) ${zone.label}`}</li>
+      <li 
+        key={`tz-${zone.label}-${idx}`}
+        className="timezone-picker-list-item"
+        onMouseDown={() => { handleSelectTimezone(zone); }}
+      >
+        {`(GMT ${zone.utc}) ${zone.label}`}
+      </li>
     )
   })
 
   useEffect(() => {
     console.log("Searching for: " + userInput);
     const timeZones = listTimeZones();
-    console.log(timeZones);
+    //console.log(timeZones);
   }, [userInput])
 
   useEffect(() => {
@@ -70,7 +81,7 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
       placeholder={timezone.label}
     />
     {isOpen && (
-      <ul className='list-class'>
+      <ul className='timezone-picker-list'>
         {timezones}
       </ul>
     )}
