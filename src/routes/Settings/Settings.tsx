@@ -119,7 +119,7 @@ const Settings: FC = () => {
             <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={userTimezone}/>
           </div>
           <br/>
-          <Button className="timezone-use-browser-button" onClick={handleSetToBrowserTimezone}>Use Browser Timezone</Button>
+          <Button onClick={handleSetToBrowserTimezone}>Use Browser Timezone</Button>
           </div>
       </Modal.Body>
     </Modal>

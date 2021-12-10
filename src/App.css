@@ -273,7 +273,6 @@
   padding-left:0px;
   border: 1px solid #e6ebec;
   border-radius: 0 0 3px 3px;
-  z-index:1000;
   background-color:white;
 }
 
@@ -281,20 +280,14 @@
   padding: 3px 12px;
   margin-left:0;
   background:white;
-  z-index:1000;
 }
 
 .timezone-picker-list-item:hover {
   background: #ececec;
-  z-index:1000;
 }
 
 .timezone-picker-list li {
   list-style:none;
-}
-
-.timezone-use-browser-button {
-  z-index:-1;
 }
 
 /* Two columns of clocks */
