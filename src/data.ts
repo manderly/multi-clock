@@ -125,53 +125,83 @@ export const Pacific: readonly TimezoneOption[] = [
 ]
 
 export const NorthAmerica: readonly TimezoneOption[] = [
-  {value: 'America/Los_Angeles', label: '🇺🇸 Pacific Time', utc: '-8:00'},
-  {value: 'America/Denver', label: '🇺🇸 Mountain Time', utc: '-7:00'},
-  {value: 'America/Phoenix', label: '🇺🇸 Mountain Time - Arizona', utc: '-7:00'},
-  {value: 'America/Chicago', label: '🇺🇸 Central Time', utc: '-6:00'},
-  {value: 'America/New_York', label: '🇺🇸 US Eastern', utc: '-5:00'},
-  {value: 'America/Tijuana', label: '🇲🇽 Pacific Time - Tijuana', utc: '-8:00'},
-  {value: 'America/Mazatlan', label: '🇲🇽 Mountain Time - Chihuahua, Mazatlan', utc: '-7:00'},
-  {value: 'America/Mexico_City', label: '🇲🇽 Central Time - Mexico City', utc: '-6:00'},
-  {value: 'America/Regina', label: '🇨🇦 Central Time - Regina', utc: '-6:00'},
-  {value: 'Canada/Pacific', label: '🇨🇦 Canada Pacific', utc: '-7:00'},
-  {value: 'Canada/Mountain', label: '🇨🇦 Canada Mountain', utc: '-6:00'},
-  {value: 'Canada/Central', label: '🇨🇦 Canada Central', utc: '-5:00'},
-  {value: 'Canada/Atlantic', label: '🇨🇦 Canada Atlantic', utc: '-3:00'},
-  {value: 'Canada/Newfoundland', label: '🇨🇦 Canada Newfoundland', utc: '-2:30'},
-  {value: 'America/Godthab', label: '🇬🇱 West Greenland Standard Time', utc: '-3:00'},
+  {value: 'America/Los_Angeles', label: '🇺🇸 U.S. Pacific Time', utc: '-08:00'},
+  {value: 'America/Denver', label: '🇺🇸 U.S. Mountain Time', utc: '-07:00'},
+  {value: 'America/Phoenix', label: '🇺🇸 U.S. Mountain Time - Arizona', utc: '-07:00'},
+  {value: 'America/Chicago', label: '🇺🇸 U.S. Central Time', utc: '-06:00'},
+  {value: 'America/New_York', label: '🇺🇸 U.S. Eastern', utc: '-05:00'},
+  {value: 'America/Tijuana', label: '🇲🇽 Pacific Time - Tijuana', utc: '-08:00'},
+  {value: 'America/Mazatlan', label: '🇲🇽 Mountain Time - Chihuahua, Mazatlan', utc: '-07:00'},
+  {value: 'America/Mexico_City', label: '🇲🇽 Central Time - Mexico City', utc: '-06:00'},
+  {value: 'America/Regina', label: '🇨🇦 Central Time - Regina', utc: '-06:00'},
+  {value: 'Canada/Pacific', label: '🇨🇦 Canada Pacific', utc: '-07:00'},
+  {value: 'Canada/Mountain', label: '🇨🇦 Canada Mountain', utc: '-06:00'},
+  {value: 'Canada/Central', label: '🇨🇦 Canada Central', utc: '-05:00'},
+  {value: 'America/Halifax', label: '🇨🇦 Atlantic Time - Halifax', utc: '-04:00'},
+  {value: 'Canada/Atlantic', label: '🇨🇦 Canada Atlantic', utc: '-03:00'},
+  {value: 'Canada/Newfoundland', label: '🇨🇦 Canada Newfoundland', utc: '-02:30'},
+  {value: 'America/Godthab', label: '🇬🇱 West Greenland Standard Time', utc: '-03:00'},
 ]
 
 export const CentralAmerica: readonly TimezoneOption[] = [
-  {value: 'America/Guatemala', label: '🇬🇹 Guatemala', utc: '-6:00'},
-  {value: 'America/Panama', label: '🇵🇦 Panama', utc: '-5:00'},
+  {value: 'America/Guatemala', label: '🇬🇹 Guatemala', utc: '-06:00'},
+  {value: 'America/Panama', label: '🇵🇦 Panama', utc: '-05:00'},
 ]
 
 export const SouthAmerica: readonly TimezoneOption[] = [
-  {value: 'America/Bogota', label: '🇨🇴 Bogota', utc: '-6:00'},
-  {value: 'America/Lima', label: '🇵🇪 Lima', utc: '-5:00'},
-  {value: 'America/Caracas', label: '🇻🇪 Caracas', utc: '-4:30'},
-  {value: 'America/Halifax', label: 'Atlantic Time - Halifax', utc: '-4:00'},
-  {value: 'America/Guyana', label: 'Guyana', utc: '-4:00'},
-  {value: 'America/La_Paz', label: 'La Paz', utc: '-4:00'},
-  {value: 'America/Argentina/Buenos_Aires', label: 'Buenos Aires', utc: '-3:00'},
-  {value: 'America/Montevideo', label: 'Montevideo', utc: '-3:00'},
-  {value: 'America/Santiago', label: 'Santiago', utc: '-3:00'},
-  {value: 'America/Sao_Paulo', label: 'Sao_Paulo', utc: '-2:00'}
+  {value: 'America/Bogota', label: '🇨🇴 Bogota', utc: '-06:00'},
+  {value: 'America/Lima', label: '🇵🇪 Lima', utc: '-05:00'},
+  {value: 'America/Caracas', label: '🇻🇪 Caracas', utc: '-04:30'},
+  {value: 'America/Guyana', label: '🇬🇾 Guyana', utc: '-04:00'},
+  {value: 'America/La_Paz', label: '🇧🇴 La Paz', utc: '-04:00'},
+  {value: 'America/Argentina/Buenos_Aires', label: '🇦🇷 Buenos Aires', utc: '-03:00'},
+  {value: 'America/Montevideo', label: '🇺🇾 Montevideo', utc: '-03:00'},
+  {value: 'America/Santiago', label: '🇨🇱 Santiago', utc: '-03:00'},
+  {value: 'America/Sao_Paulo', label: '🇧🇷 Sao_Paulo', utc: '-02:00'}
 ]
 
 export const Europe: readonly TimezoneOption[] = [
-  {value: 'Europe/London', label: 'Western European', utc: '+0:00'},
-  {value: 'Europe/Madrid', label: 'Central European', utc: '+1:00'},
-  {value: 'Europe/Romania', label: 'Eastern European', utc: '+2:00'},
-  {value: 'Europe/Moscow', label: 'Further Eastern European', utc: '+3:00'}
+  {value: 'Europe/Dublin', label: '🇮🇪 Dublin', utc: '+00:00'},
+  {value: 'Europe/Lisbon', label: '🇵🇹 Lisbon', utc: '+00:00'},
+  {value: 'Europe/London', label: '🇬🇧 London', utc: '+00:00'},
+  {value: 'Europe/Amsterdam', label: '🇳🇱 Amsterdam', utc: '+01:00'},
+  {value: 'Europe/Berlin', label: '🇩🇪 Berlin', utc: '+01:00'},
+  {value: 'Europe/Brussels', label: '🇧🇪 Brussels', utc: '+01:00'},
+  {value: 'Europe/Budapest', label: '🇭🇺 Budapest', utc: '+01:00'},
+  {value: 'Europe/Belgrade', label: '🇷🇸 Central European Time - Belgrade', utc: '+01:00'},
+  {value: 'Europe/Prague', label: '🇨🇿 Central European Time - Prague', utc: '+01:00'},
+  {value: 'Europe/Copenhagen', label: '🇩🇰 Copenhagen', utc: '+01:00'},
+  {value: 'Europe/Madrid', label: 'Central European', utc: '+01:00'},
+  {value: 'Europe/Paris', label: 'Paris', utc: '+01:00'},
+  {value: 'Europe/Rome', label: 'Rome', utc: '+01:00'},
+  {value: 'Europe/Stockholm', label: 'Stockholm', utc: '+01:00'},
+  {value: 'Europe/Vienna', label: 'Vienna', utc: '+01:00'},
+  {value: 'Europe/Warsaw', label: 'Warsaw', utc: '+01:00'},
+  {value: 'Europe/Athens', label: 'Athens', utc: '+02:00'},
+  {value: 'Europe/Bucharest', label: 'Bucharest', utc: '+02:00'},
+  {value: 'Europe/Romania', label: 'Eastern European', utc: '+02:00'},
+  {value: 'Europe/Moscow', label: 'Further Eastern European', utc: '+03:00'}
 ]
 
 export const Australia: readonly TimezoneOption[] = [
-  {value: 'Australia/Perth', label: '🇦🇺 Australian Western', utc: '+8:00'},
-  {value: 'Australia/North', label: '🇦🇺 Australian Central Standard', utc: '+9:30'},
+  {value: 'Australia/Perth', label: '🇦🇺 Australian Western', utc: '+08:00'},
+  {value: 'Australia/North', label: '🇦🇺 Australian Central Standard', utc: '+09:30'},
   {value: 'Australia/Canberra', label: '🇦🇺 Australian Eastern Standard', utc: '+10:00'},
   {value: 'Australia/LHI', label: '🇦🇺 Lord Howe Standard', utc: '+10:30'},
+]
+
+export const Atlantic: readonly TimezoneOption[] = [
+  {value: 'Atlantic/South_Georgia', label: 'South Georgia', utc: '-02:00'},
+  {value: 'Atlantic/Azores', label: 'Azores', utc: '-01:00'},
+  {value: 'Atlantic/Cape_Verde', label: 'Cape Verde', utc: '-01:00'},
+]
+
+export const Africa: readonly TimezoneOption[] = [
+  {value: 'Africa/Casablanca', label: 'Casablanca', utc: '+00:00'},
+  {value: 'Africa/Monrovia', label: 'Monrovia', utc: '+00:00'},
+  {value: 'Africa/Algiers', label: 'Agliers', utc: '+01:00'},
+  {value: 'Africa/Cairo', label: 'Cairo', utc: '+02:00'},
+  {value: 'Africa/Johannesburg', label: 'Johannesburg', utc: '+02:00'},
 ]
 
 export const usTimeZones = [NorthAmerica[0],NorthAmerica[1],NorthAmerica[3],NorthAmerica[4]];
@@ -181,7 +211,7 @@ export interface GroupedOption {
   readonly options: readonly TimezoneOption[] | readonly TimezoneOption[];
 }
 
-export const allTimezones: readonly TimezoneOption[] = [...NorthAmerica, ...CentralAmerica, ...SouthAmerica, ...Europe, ...Australia, ...Pacific];
+export const allTimezones: readonly TimezoneOption[] = [...NorthAmerica, ...CentralAmerica, ...SouthAmerica, ...Europe, ...Australia, ...Pacific, ...Atlantic, ...Africa];
 export const groupedOptions: readonly GroupedOption[] = [
   {
     label: 'North America',

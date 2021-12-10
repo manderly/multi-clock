@@ -11,6 +11,7 @@ interface ITimezonePicker {
 
 const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) => {
   const [userInput, setUserInput] = useState('');
+  const [placeholder, setPlaceholder] = useState(defaultTimezone);
   const [isOpen, setIsOpen] = useState(false);
   const [timezone, setTimezone] = useState(defaultTimezone);
   const [filteredTimezones, setFilteredTimezones] = useState(allTimezones);
@@ -19,7 +20,8 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
 
   const handleSelectTimezone = (tz: TimezoneOption) => {
     changeTimezone(tz);
-    setUserInput(tz.label);
+    setUserInput('');
+    setPlaceholder(tz);
   }
 
   const renderTimezoneList = Object.values(filteredTimezones).map((zone, idx) => {
@@ -85,7 +87,7 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
       onKeyPress={handleKeyPress} 
       onChange={handleInputChange} 
       onBlur={handleInputBlur} 
-      placeholder={timezone.label}
+      placeholder={`(GMT ${placeholder.utc}) ${placeholder.label}`}
     />
     {isOpen && (
       <ul className='timezone-picker-list'>
