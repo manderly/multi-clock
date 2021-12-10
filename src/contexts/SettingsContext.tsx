@@ -10,6 +10,7 @@ interface ISettingsContext {
   handleShowMySeconds: (newPref: boolean) => void;
   showOtherSecondsPref: boolean;
   handleShowOtherSeconds: (newPref: boolean) => void;
+  getBrowserTZ: () => TimezoneOption;
 }
 
 // context consumer and provider
@@ -21,7 +22,8 @@ export const SettingsContext = createContext<ISettingsContext>({
   showMySecondsPref: false,
   handleShowMySeconds: () => null,
   showOtherSecondsPref: false,
-  handleShowOtherSeconds: () => null
+  handleShowOtherSeconds: () => null,
+  getBrowserTZ: () => NorthAmerica[0],
 });
 
 const SettingsProvider: FC = ({children}) => {
@@ -82,7 +84,8 @@ const SettingsProvider: FC = ({children}) => {
     showMySecondsPref, 
     handleShowMySeconds,
     showOtherSecondsPref, 
-    handleShowOtherSeconds
+    handleShowOtherSeconds,
+    getBrowserTZ
   };
 
   return (

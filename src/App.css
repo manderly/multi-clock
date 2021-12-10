@@ -259,16 +259,26 @@
 }
 
 .timezone-modal {
-  height:500px;
+  height:420px;
+}
+
+.timezone-input::placeholder {
+  color:#282c34 !important;
 }
 
 .timezone-picker-list {
   height:300px;
   overflow-y:auto;
+  padding-left:0px;
+  border: 1px solid #e6ebec;
+  margin-top: -1px;
+  border-radius: 0 0 3px 3px;
 }
 
 .timezone-picker-list-item {
   padding: 3px 12px;
+  margin-left:0;
+  background:#ffffff;
 }
 
 .timezone-picker-list-item:hover {

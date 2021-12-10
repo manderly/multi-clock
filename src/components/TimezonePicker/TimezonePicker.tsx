@@ -49,10 +49,15 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
   }, [userInput])
 
   useEffect(() => {
+    /*
     if (inputRef && inputRef.current) {
       inputRef.current.focus();
-    }
+    }*/
   }, []);
+
+  useEffect(() => {
+    setPlaceholder(defaultTimezone);
+  }, [defaultTimezone])
 
   const handleFocus = (e: any) => {
     setIsOpen(true);
@@ -79,7 +84,8 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
 
   return (
     <>
-    <FormControl 
+    <FormControl
+      className='timezone-input' 
       ref={inputRef} 
       type="text" 
       value={userInput} 

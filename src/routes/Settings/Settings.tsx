@@ -9,10 +9,16 @@ import PublicIcon from '@mui/icons-material/Public';
 
 const Settings: FC = () => {
 
-  const { userTimezone, handleSetUserTimezone } = useContext(SettingsContext);
-  const { hoursPref, handleSetHours } = useContext(SettingsContext);
-  const { showMySecondsPref, handleShowMySeconds } = useContext(SettingsContext);
-  const { showOtherSecondsPref, handleShowOtherSeconds } = useContext(SettingsContext);
+  const { 
+    userTimezone, 
+    handleSetUserTimezone, 
+    hoursPref, 
+    handleSetHours,
+    showMySecondsPref, 
+    handleShowMySeconds,
+    showOtherSecondsPref, 
+    handleShowOtherSeconds,
+    getBrowserTZ} = useContext(SettingsContext);
 
   const [showTimezoneModal, setShowTimezoneModal] = useState(false);
 
@@ -34,6 +40,11 @@ const Settings: FC = () => {
 
   const handleTimezoneChange = (tz: TimezoneOption) => {
     handleSetUserTimezone(tz);
+  }
+
+  const handleSetToBrowserTimezone = () => {
+    const browserTZ = getBrowserTZ();
+    handleSetUserTimezone(browserTZ);
   }
 
   return (
@@ -85,7 +96,7 @@ const Settings: FC = () => {
           />
         </Form>
         <br/>
-        <Button onClick={handleTimezoneModal}><PublicIcon/>{userTimezone.label}</Button>
+        <Button onClick={handleTimezoneModal}><PublicIcon/> Change timezone</Button>
       </div>
 
       <Modal
@@ -107,6 +118,8 @@ const Settings: FC = () => {
           <div className="change-timezone modal-line">
             <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={userTimezone}/>
           </div>
+          <br/>
+          <Button onClick={handleSetToBrowserTimezone}>Use Browser Timezone</Button>
           </div>
       </Modal.Body>
     </Modal>
