@@ -113,13 +113,13 @@ const Settings: FC = () => {
       </Modal.Header>
 
       <Modal.Body>
+        <span>Current: {`(GMT ${userTimezone.utc}) ${userTimezone.label}`}</span>
         <div className="modal-line timezone-modal">
-          <label>Timezone</label>
           <div className="change-timezone modal-line">
             <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={userTimezone}/>
           </div>
           <br/>
-          <Button onClick={handleSetToBrowserTimezone}>Use Browser Timezone</Button>
+          <Button className="timezone-use-browser-button" onClick={handleSetToBrowserTimezone}>Use Browser Timezone</Button>
           </div>
       </Modal.Body>
     </Modal>

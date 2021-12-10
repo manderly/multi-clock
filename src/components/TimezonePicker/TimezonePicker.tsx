@@ -20,8 +20,7 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
 
   const handleSelectTimezone = (tz: TimezoneOption) => {
     changeTimezone(tz);
-    setUserInput('');
-    setPlaceholder(tz);
+    setUserInput(tz.label);
   }
 
   const renderTimezoneList = Object.values(filteredTimezones).map((zone, idx) => {
@@ -93,7 +92,7 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
       onKeyPress={handleKeyPress} 
       onChange={handleInputChange} 
       onBlur={handleInputBlur} 
-      placeholder={`(GMT ${placeholder.utc}) ${placeholder.label}`}
+      placeholder='Change timezone...'
     />
     {isOpen && (
       <ul className='timezone-picker-list'>
