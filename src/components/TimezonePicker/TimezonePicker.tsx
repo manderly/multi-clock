@@ -13,6 +13,7 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
   const [userInput, setUserInput] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [timezone, setTimezone] = useState(defaultTimezone);
+  const [filteredTimezones, setFilteredTimezones] = useState(allTimezones);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -21,7 +22,7 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
     setUserInput(tz.label);
   }
 
-  const timezones = Object.values(allTimezones).map((zone, idx) => {
+  const renderTimezoneList = Object.values(filteredTimezones).map((zone, idx) => {
     return (
       <li 
         key={`tz-${zone.label}-${idx}`}
@@ -34,9 +35,15 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
   })
 
   useEffect(() => {
-    console.log("Searching for: " + userInput);
-    const timeZones = listTimeZones();
-    //console.log(timeZones);
+    if (userInput) {
+      // as user input changes, filter timezones 
+      let updatedTimezones = allTimezones.filter((tz) => {
+        return tz.label.toLowerCase().includes(userInput.toLowerCase());
+      });
+      setFilteredTimezones(updatedTimezones);
+    } else {
+      setFilteredTimezones(allTimezones);
+    }
   }, [userInput])
 
   useEffect(() => {
@@ -82,7 +89,7 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
     />
     {isOpen && (
       <ul className='timezone-picker-list'>
-        {timezones}
+        {renderTimezoneList}
       </ul>
     )}
     </>
