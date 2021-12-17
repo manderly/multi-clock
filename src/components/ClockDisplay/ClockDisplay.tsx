@@ -38,10 +38,12 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
     if (nickname) {
       try {
         const saved = localStorage.getItem("clocks") as string;
-        const parsed = JSON.parse(saved);
-        const indexToEdit = parsed.findIndex((clock: any) => clock.uniqueID === uniqueID);
-        parsed[indexToEdit].name = nickname;
-        localStorage.setItem("clocks", JSON.stringify(parsed));
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          const indexToEdit = parsed.findIndex((clock: any) => clock.uniqueID === uniqueID);
+          parsed[indexToEdit].name = nickname;
+          localStorage.setItem("clocks", JSON.stringify(parsed));
+        }
       } catch(e) {
         console.log(e);
       }
@@ -53,10 +55,15 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
     if (timeZone) {
       try {
         const saved = localStorage.getItem("clocks") as string;
-        const parsed = JSON.parse(saved);
-        const indexToEdit = parsed.findIndex((clock: any) => clock.uniqueID === uniqueID);
-        parsed[indexToEdit].timezone = timeZone;
-        localStorage.setItem("clocks", JSON.stringify(parsed));
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          const indexToEdit = parsed.findIndex((clock: any) => clock.uniqueID === uniqueID);
+
+          if (~indexToEdit) {
+            parsed[indexToEdit].timezone = timeZone;
+            localStorage.setItem("clocks", JSON.stringify(parsed));
+          }
+        }
       } catch(e) {
         console.log(e);
       }

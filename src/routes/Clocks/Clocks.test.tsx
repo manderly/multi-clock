@@ -9,6 +9,8 @@ import TimeProvider from '../../contexts/TimeContext';
 describe('Clocks component', () => {
   beforeEach(() => {
     MockDate.set(new Date(1474463400000));
+
+    global.localStorage.clear();    
   })
 
   afterEach(() => {

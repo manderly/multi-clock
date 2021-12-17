@@ -39,13 +39,13 @@ const Clocks: FC = () => {
   });
 
   useEffect(() => {
-    console.log("re-writing localstorage clock data");
+    //console.log("re-writing localstorage clock data");
     localStorage.setItem("clocks", JSON.stringify(clocks));
   }, [clocks])
 
   const handleSetAllToUSClick = () => {
     // set existing clocks or create new ones to get to 4 clocks representing 4 US time zones
-    console.log("Setting first four clocks to US timezones");
+    //console.log("Setting first four clocks to US timezones");
 
     // not this idea, instead ... create new clocks from existing data? 
     const USClocks = new Array();
