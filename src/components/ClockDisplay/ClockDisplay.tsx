@@ -82,10 +82,6 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
     textAlign: 'center',
   };
 
-  const handleChange = (option: any) => {
-    setTimeZone(option);
-  }
-
   const handleNicknameChange = (e: any) => {
     setNickname(e.target.value as string);
   }
@@ -183,7 +179,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
 
           <label className="modal-label">Timezone</label>
           <div className="modal-line">
-            <span>Current: {`(GMT ${defaultTimeZone.utc}) ${defaultTimeZone.label}`}</span>
+            <span>Current: {`(GMT ${timeZone.utc}) ${timeZone.label}`}</span>
             <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={defaultTimeZone}/>
             <br/>
             <div className="delete-clock-div">
