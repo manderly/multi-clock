@@ -150,7 +150,15 @@
 }
 
 .modal-line {
-  height:42px;
+  min-height:42px;
+}
+
+.modal-label {
+  font-weight:bold;
+}
+
+.nickname-button {
+  padding:0 !important;
 }
 
 .delete-clock-div {
@@ -256,6 +264,38 @@
 
 .previous-calculations-title {
   margin-top:20px;
+}
+
+.timezone-modal {
+  height:420px;
+}
+
+.timezone-input::placeholder {
+  color:#282c34 !important;
+}
+
+.timezone-picker-list {
+  height:300px;
+  position:relative;
+  overflow-y:auto;
+  padding-left:0px;
+  border: 1px solid #e6ebec;
+  border-radius: 0 0 3px 3px;
+  background-color:white;
+}
+
+.timezone-picker-list-item {
+  padding: 3px 12px;
+  margin-left:0;
+  background:white;
+}
+
+.timezone-picker-list-item:hover {
+  background: #ececec;
+}
+
+.timezone-picker-list li {
+  list-style:none;
 }
 
 /* Two columns of clocks */

@@ -1,5 +1,7 @@
 import '@testing-library/jest-dom';
 import { fireEvent, getByText, render, screen } from '@testing-library/react';
+import  userEvent from '@testing-library/user-event';
+
 import Clocks from './Clocks';
 import MockDate from 'mockdate';
 import TimeProvider from '../../contexts/TimeContext';
@@ -7,6 +9,8 @@ import TimeProvider from '../../contexts/TimeContext';
 describe('Clocks component', () => {
   beforeEach(() => {
     MockDate.set(new Date(1474463400000));
+
+    global.localStorage.clear();    
   })
 
   afterEach(() => {
@@ -25,6 +29,14 @@ describe('Clocks component', () => {
     expect(screen.getAllByRole('heading', {name: 'clock date display'})).toHaveLength(5);
   })
 
+  it('Should rename a clock', () => {
+    render(<TimeProvider><Clocks /></TimeProvider>);
+    const clockNames = screen.getAllByRole('button', {name: 'clock nickname display'});
+    userEvent.click(clockNames[0]);
+    const clockNameInput = screen.getByRole('textbox');
+    userEvent.type((clockNameInput), "Test Name");
+  })
+/*
   it('Should delete a clock when that clock\'s X button is clicked', () => {
     const expected = '6:10 pm';
     render(<TimeProvider><Clocks /></TimeProvider>);
@@ -37,4 +49,6 @@ describe('Clocks component', () => {
     const deletedClock = screen.queryByText(expected);
     expect(deletedClock).not.toBeInTheDocument();
   })
+
+  */
 })
