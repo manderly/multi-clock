@@ -1,6 +1,6 @@
 import { FC, CSSProperties, useState, useEffect, useContext, useRef } from 'react';
 
-import { TimezoneOption, GroupedOption, groupedOptions } from '../../data';
+import { TimezoneOption, GroupedOption } from '../../data';
 
 import { useFormatDate } from '../../hooks/useFormatDate';
 import { Button, Modal } from 'react-bootstrap';
@@ -129,9 +129,9 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
             {/* Nickname box */}
             <div>
             {editingNickname ? 
-              <input ref={nicknameRef} type="text" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur} />
+              <input ref={nicknameRef} type="text" name="nickname-input" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
               : 
-              <Button type='button' variant="link" size="sm" style={clockTimePaletteStyles} className="name-clock-link" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.value} UTC ${timeZone.utc}` : `${nickname}`}</Button>
+              <Button type='button' variant="link" size="sm" aria-label="clock nickname display" style={clockTimePaletteStyles} className="name-clock-link" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.value} UTC ${timeZone.utc}` : `${nickname}`}</Button>
             }
             </div>
             
