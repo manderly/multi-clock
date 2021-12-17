@@ -1,8 +1,5 @@
 import { FC, CSSProperties, useState, useEffect, useContext, useRef } from 'react';
 
-
-import Select from 'react-select';
-
 import { TimezoneOption, GroupedOption, groupedOptions } from '../../data';
 
 import { useFormatDate } from '../../hooks/useFormatDate';
@@ -10,6 +7,7 @@ import { Button, Modal } from 'react-bootstrap';
 
 import { SettingsContext } from '../../contexts/SettingsContext';
 import { TimeContext } from '../../contexts/TimeContext';
+import TimezonePicker  from '../../components/TimezonePicker/TimezonePicker';
 
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -124,6 +122,10 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
     </div>
   );
 
+  const handleTimezoneChange = (option: any) => {
+    setTimeZone(option);
+  }
+
     return (
       <>
         <div className='clock-container' style={clockTimePaletteStyles}>
@@ -165,13 +167,13 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
         </Modal.Header>
         <Modal.Body>
       
-        <label>Clock name</label>
+        <label className="modal-label">Clock name</label>
         <div className="modal-line">
         {editingNickname ? 
               <input ref={nicknameRef} type="text" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
               : 
               <div className="edit-clock-name-buttons">
-                <Button type='button' variant="link" className="" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.value} UTC ${timeZone.utc}` : `${nickname}`}</Button>
+                <Button type='button' variant="link" className="nickname-button" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.value} UTC ${timeZone.utc}` : `${nickname}`}</Button>
                 <Button type='button' size="sm" onClick={handleEditingNicknameClick}><EditIcon/></Button>
                 
               </div>
@@ -179,20 +181,14 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
         </div>
         
 
-          <label>Timezone</label>
-          <div className="manage-clock-timezone-select modal-line">
-            <Select<TimezoneOption, false, GroupedOption>
-              defaultValue={defaultTimeZone}
-              options={groupedOptions}
-              formatGroupLabel={formatGroupLabel}
-              onChange={handleChange}
-              value={timeZone}
-              className="select-timezone"
-            />
-          </div>
-          <br/>
-          <div className="delete-clock-div">
-            <Button size="sm" variant="link" aria-label="delete clock button" onClick={handleRemoveClock}>Delete clock</Button>
+          <label className="modal-label">Timezone</label>
+          <div className="modal-line">
+            <span>Current: {`(GMT ${defaultTimeZone.utc}) ${defaultTimeZone.label}`}</span>
+            <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={defaultTimeZone}/>
+            <br/>
+            <div className="delete-clock-div">
+              <Button size="sm" variant="link" aria-label="delete clock button" onClick={handleRemoveClock}>Delete clock</Button>
+            </div>
           </div>
         </Modal.Body>
       </Modal>

@@ -32,7 +32,7 @@ const getDayPeriodHexValue = (minOfDay: number): IHexPalette => {
 export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, showSecondsPref: boolean) => {
   // still in user's local time here
   const dateFormatHeader = 'PPPP'; // Wednesday, December 1st, 2021
-  const dateFormatClock = 'eee, MMM Lo'; // Wed, Dec 1st
+  const dateFormatClock = 'eee, MMM do'; // Wed, Dec 1st
   const timeFormat = hoursPref === 12 ? `h:mm${showSecondsPref ? ':ss' :''} aaa` : `H:mm${showSecondsPref ? ':ss' : ''}`;
 
   const [formattedDateHeader, setFormattedDateHeader] = useState('');

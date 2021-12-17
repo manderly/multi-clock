@@ -150,7 +150,15 @@
 }
 
 .modal-line {
-  height:42px;
+  min-height:42px;
+}
+
+.modal-label {
+  font-weight:bold;
+}
+
+.nickname-button {
+  padding:0 !important;
 }
 
 .delete-clock-div {
