@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import  userEvent from '@testing-library/user-event';
+import  userEvent, { specialChars } from '@testing-library/user-event';
 
 import Clocks from './Clocks';
 import MockDate from 'mockdate';
@@ -29,12 +29,15 @@ describe('Clocks component', () => {
     expect(screen.getAllByRole('heading', {name: 'clock date display'})).toHaveLength(5);
   })
 
-  it('Should rename a clock', () => {
+  it('Should rename a clock from the clock face', () => {
     render(<TimeProvider><Clocks /></TimeProvider>);
     const clockNames = screen.getAllByRole('button', {name: 'clock nickname display'});
     userEvent.click(clockNames[0]);
+    // input on first clock is now available
     const clockNameInput = screen.getByRole('textbox');
-    userEvent.type((clockNameInput), "Test Name");
+    userEvent.clear(clockNameInput);
+    userEvent.type((clockNameInput), `Test Name${specialChars.enter}`);
+    expect(screen.getByText('Test Name')).toBeInTheDocument();
   })
 
   it('Should delete a clock', () => {
@@ -46,7 +49,7 @@ describe('Clocks component', () => {
     // verify the clock to delete is present
     const clockToDelete = screen.getByText(expected);
     expect(clockToDelete).toBeInTheDocument();
-    // get all the clock links
+    // get all the clock modal links
     const clockModalLinks = screen.getAllByRole('button', {name: 'clock timestamp'});
     userEvent.click(clockModalLinks[0]);
     // modal should be open now
@@ -56,6 +59,20 @@ describe('Clocks component', () => {
     expect(screen.getAllByRole('heading', {name: 'clock date display'})).toHaveLength(3);
     const deletedClock = screen.queryByText(expected);
     expect(deletedClock).not.toBeInTheDocument();
+  })
+
+  it('Should rename a clock from the clock management modal', () => {
+    render(<TimeProvider><Clocks /></TimeProvider>);
+    const clockModalLinks = screen.getAllByRole('button', {name: 'clock timestamp'});
+    userEvent.click(clockModalLinks[0]);
+    // modal should be open now
+    const changeNicknameButton = screen.getByRole('button', {name: 'edit nickname'});
+    userEvent.click(changeNicknameButton);
+    const clockNameInput = screen.getByRole('textbox', {name: 'nickname clock'});
+    userEvent.clear(clockNameInput);
+    userEvent.type((clockNameInput), `Test Name${specialChars.enter}`);
+    // check that name is changed in modal and on the clock face underneath modal
+    expect(screen.getAllByText('Test Name')).toHaveLength(2);
   })
 
 })

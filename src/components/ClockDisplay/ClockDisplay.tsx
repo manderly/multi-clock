@@ -174,11 +174,11 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
         <label className="modal-label">Clock name</label>
         <div className="modal-line">
         {editingNickname ? 
-              <input ref={nicknameRef} type="text" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
+              <input ref={nicknameRef} type="text" aria-label="nickname clock" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
               : 
               <div className="edit-clock-name-buttons">
                 <Button type='button' variant="link" className="nickname-button" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.value} UTC ${timeZone.utc}` : `${nickname}`}</Button>
-                <Button type='button' size="sm" onClick={handleEditingNicknameClick}><EditIcon/></Button>
+                <Button type='button' size="sm" aria-label="edit nickname" onClick={handleEditingNicknameClick}><EditIcon/></Button>
               </div>
             }
         </div>
