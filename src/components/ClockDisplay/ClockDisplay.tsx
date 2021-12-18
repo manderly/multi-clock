@@ -147,6 +147,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
                 style={clockTimePaletteStyles}
                 size="sm" 
                 className="timezone-select-button"
+                aria-label="clock timestamp"
                 onClick={() => setShowMapModal(true)}
                 ><label className="timestamp time-item time-stamp-display">{formattedTime}</label>
             </Button>
@@ -178,7 +179,6 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
               <div className="edit-clock-name-buttons">
                 <Button type='button' variant="link" className="nickname-button" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.value} UTC ${timeZone.utc}` : `${nickname}`}</Button>
                 <Button type='button' size="sm" onClick={handleEditingNicknameClick}><EditIcon/></Button>
-                
               </div>
             }
         </div>
