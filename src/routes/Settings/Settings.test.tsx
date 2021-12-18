@@ -11,10 +11,16 @@ describe('Settings page', () => {
     expect(displayOption24Hours).toBeInTheDocument();
   })
 
-  it('Should have a checkbox for toggling the "show seconds" setting when rendered', () => {
+  it('Should have a checkbox for toggling the "Show seconds on my clock" setting when rendered', () => {
     render(<Settings />);
-    const showSecondsCheckbox = screen.getByRole("checkbox", {name: 'option-show-seconds'});
-    expect(showSecondsCheckbox).toBeInTheDocument();
+    const showMySecondsCheckbox = screen.getByRole("checkbox", {name: 'option-show-my-seconds'});
+    expect(showMySecondsCheckbox).toBeInTheDocument();
+  })
+
+  it('Should have a checkbox for toggling the "Show seconds on other clocks" setting when rendered', () => {
+    render(<Settings />);
+    const showOtherSecondsCheckbox = screen.getByRole("checkbox", {name: 'option-show-other-seconds'});
+    expect(showOtherSecondsCheckbox).toBeInTheDocument();
   })
 
 })

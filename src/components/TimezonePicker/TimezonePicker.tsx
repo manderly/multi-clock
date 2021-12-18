@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import FormControl from 'react-bootstrap/FormControl';
 import { FC } from 'react';
-import { listTimeZones, findTimeZone } from 'timezone-support';
 import { TimezoneOption, allTimezones } from '../../data';
 
 interface ITimezonePicker {
@@ -13,7 +12,6 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
   const [userInput, setUserInput] = useState('');
   const [placeholder, setPlaceholder] = useState(defaultTimezone);
   const [isOpen, setIsOpen] = useState(false);
-  const [timezone, setTimezone] = useState(defaultTimezone);
   const [filteredTimezones, setFilteredTimezones] = useState(allTimezones);
 
   const inputRef = useRef<HTMLInputElement | null>(null);

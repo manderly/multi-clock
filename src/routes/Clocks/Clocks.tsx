@@ -13,7 +13,7 @@ const USCityNames = ["Seattle, WA", "Denver, CO", "Chicago, IL", "New York, NY"]
 
 const createDefaultClocks = () => {
   // use default clock data exported by data file
-  let clocks: IClock[] = new Array();
+  let clocks: IClock[] = [];
   defaultTimeZones.forEach((data) => {
     clocks.push(createClock(data));
   })
@@ -48,7 +48,7 @@ const Clocks: FC = () => {
     //console.log("Setting first four clocks to US timezones");
 
     // not this idea, instead ... create new clocks from existing data? 
-    const USClocks = new Array();
+    const USClocks = [];
 
     for (let i = 0; i < 4; i++) {
         let USClock = createClock(usTimeZones[i], USCityNames[i]);

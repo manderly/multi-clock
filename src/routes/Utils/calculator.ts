@@ -18,8 +18,8 @@ const infixToPostfix = (input: string[]): string[] => {
   // useful guide: 
   // https://www.tutorialspoint.com/Convert-Infix-to-Postfix-Expression
 
-  let stack = new Array();
-  let postfix = new Array();
+  const stack: string[] = [];
+  const postfix: string[] = [];
 
   // flag for ensuring numbers don't get "fused" to each other after an operator is pushed 
   let pushedOperator = false;
@@ -32,7 +32,7 @@ const infixToPostfix = (input: string[]): string[] => {
       //console.log("adding " + char + " to postfix array");
       if (postfix.length > 0 && !pushedOperator) {
         const last = postfix[postfix.length-1];
-        // last is a number and we didn't just push an operator, we can fuse this new number onto it
+        // last is a number and we didn't just push an operator, we can fuse this new number onto it (concat)
         postfix[postfix.length-1] = last+char;
       } else {
         // there is nothing in postfix yet, OR we just pushed an operator - either way, push this number
@@ -45,7 +45,7 @@ const infixToPostfix = (input: string[]): string[] => {
       stack.push("^");
     } else if (char === ")") {
       while (stack.length > 0 && stack[stack.length-1] !== "(") {
-        postfix.push(stack.pop());
+        postfix.push(stack.pop()!);
       }
       // pop the remaining "("
       stack.pop();
@@ -56,7 +56,7 @@ const infixToPostfix = (input: string[]): string[] => {
       } else {
         // precedence is not higher, store and pop until higher precedence is found 
         while (stack.length > 0 && (precedence(char) <= precedence(stack[stack.length-1]))) {
-          postfix.push(stack.pop());
+          postfix.push(stack.pop()!);
         }
         stack.push(char);
       }
@@ -65,7 +65,7 @@ const infixToPostfix = (input: string[]): string[] => {
   }
 
   while (stack.length > 0) {
-    postfix.push(stack.pop());
+    postfix.push(stack.pop()!);
   }
 
   //console.log(postfix);
@@ -73,12 +73,12 @@ const infixToPostfix = (input: string[]): string[] => {
 }
 
 const evaluatePostfix = (infix: string[]): number => {
-  let stack = new Array();
+  let stack = [];
   for (let char of infix) {
     if (char.match(operatorsExpression)) {
       // it's +, -, *, /, or ^ 
-      const a = stack.pop();
-      const b = stack.pop();
+      const a = stack.pop()!;
+      const b = stack.pop()!;
       let res:number;
       if (char === "+") {
         res = b+a;
