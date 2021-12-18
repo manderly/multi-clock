@@ -82,7 +82,8 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
   return (
     <>
     <FormControl
-      className='timezone-input' 
+      className='timezone-input'
+      aria-label='choose timezone'
       ref={inputRef} 
       type="text" 
       value={userInput} 
@@ -93,7 +94,7 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
       placeholder='Change timezone...'
     />
     {isOpen && (
-      <ul className='timezone-picker-list'>
+      <ul className='timezone-picker-list' aria-label="timezones">
         {renderTimezoneList}
       </ul>
     )}
