@@ -42,4 +42,20 @@ describe('Timezone Picker component', () => {
     const filteredTimezones = within(filteredList).getAllByRole("listitem");
     expect(filteredTimezones.length).toBeLessThan(originalTimezones.length);
   })
+
+  it('Should change the timezone by clicking a different one in the list', () => {
+    render(<TimezonePicker changeTimezone={changeTimezoneMock} defaultTimezone={testTimezone}/>);
+    const originalTimezone = screen.getByTestId('current timezone').textContent;
+    const input = screen.getByRole('textbox', {name: 'choose timezone'});
+    // display the list of options
+    userEvent.click(input);
+    const list = screen.getByRole("list", { name: 'timezones'});
+    const timezones = within(list).getAllByRole('listitem');
+    // click a different option
+    userEvent.click(timezones[3]);
+  
+    // verify the timezone has changed
+    const newTimezone = screen.getByTestId('current timezone').textContent;
+    expect(newTimezone).not.toEqual(originalTimezone);
+  })
 })

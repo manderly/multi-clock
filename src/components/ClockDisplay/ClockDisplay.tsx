@@ -186,7 +186,6 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
 
           <label className="modal-label">Timezone</label>
           <div className="modal-line">
-            <span>Current: {`(GMT ${timeZone.utc}) ${timeZone.label}`}</span>
             <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={defaultTimeZone}/>
             <br/>
             <div className="delete-clock-div">

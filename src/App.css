@@ -290,6 +290,10 @@
   background:white;
 }
 
+.timezone-picker-list-item-focused {
+  background: #ececec;
+}
+
 .timezone-picker-list-item:hover {
   background: #ececec;
 }
