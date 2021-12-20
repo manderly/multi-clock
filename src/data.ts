@@ -149,38 +149,49 @@ export const CentralAmerica: readonly TimezoneOption[] = [
 ]
 
 export const SouthAmerica: readonly TimezoneOption[] = [
-  {value: 'America/Bogota', label: '🇨🇴 Bogota', utc: '-06:00'},
-  {value: 'America/Lima', label: '🇵🇪 Lima', utc: '-05:00'},
-  {value: 'America/Caracas', label: '🇻🇪 Caracas', utc: '-04:30'},
+  {value: 'America/Bogota', label: '🇨🇴 Bogotá, Colombia', utc: '-06:00'},
+  {value: 'America/Lima', label: '🇵🇪 Lima, Peru', utc: '-05:00'},
+  {value: 'America/Caracas', label: '🇻🇪 Caracas, Venezuela', utc: '-04:30'},
   {value: 'America/Guyana', label: '🇬🇾 Guyana', utc: '-04:00'},
-  {value: 'America/La_Paz', label: '🇧🇴 La Paz', utc: '-04:00'},
-  {value: 'America/Argentina/Buenos_Aires', label: '🇦🇷 Buenos Aires', utc: '-03:00'},
-  {value: 'America/Montevideo', label: '🇺🇾 Montevideo', utc: '-03:00'},
+  {value: 'America/La_Paz', label: '🇧🇴 La Paz, Bolivia', utc: '-04:00'},
+  {value: 'America/Argentina/Buenos_Aires', label: '🇦🇷 Buenos Aires, Argentina', utc: '-03:00'},
+  {value: 'America/Montevideo', label: '🇺🇾 Montevideo, Uruguay', utc: '-03:00'},
   {value: 'America/Santiago', label: '🇨🇱 Santiago', utc: '-03:00'},
-  {value: 'America/Sao_Paulo', label: '🇧🇷 Sao_Paulo', utc: '-02:00'}
+  {value: 'America/Sao_Paulo', label: '🇧🇷 São Paulo', utc: '-02:00'}
 ]
 
 export const Europe: readonly TimezoneOption[] = [
-  {value: 'Europe/Dublin', label: '🇮🇪 Dublin', utc: '+00:00'},
-  {value: 'Europe/Lisbon', label: '🇵🇹 Lisbon', utc: '+00:00'},
-  {value: 'Europe/London', label: '🇬🇧 London', utc: '+00:00'},
-  {value: 'Europe/Amsterdam', label: '🇳🇱 Amsterdam', utc: '+01:00'},
-  {value: 'Europe/Berlin', label: '🇩🇪 Berlin', utc: '+01:00'},
-  {value: 'Europe/Brussels', label: '🇧🇪 Brussels', utc: '+01:00'},
-  {value: 'Europe/Budapest', label: '🇭🇺 Budapest', utc: '+01:00'},
+  {value: 'Europe/Dublin', label: '🇮🇪 Dublin, Ireland', utc: '+00:00'},
+  {value: 'Europe/Lisbon', label: '🇵🇹 Lisbon, Portugal', utc: '+00:00'},
+  {value: 'Europe/London', label: '🇬🇧 London, England', utc: '+00:00'},
+  {value: 'Europe/Amsterdam', label: '🇳🇱 Amsterdam, Netherlands', utc: '+01:00'},
+  {value: 'Europe/Berlin', label: '🇩🇪 Berlin, Germany', utc: '+01:00'},
+  {value: 'Europe/Brussels', label: '🇧🇪 Brussels, Belgium', utc: '+01:00'},
+  {value: 'Europe/Budapest', label: '🇭🇺 Budapest, Hungary', utc: '+01:00'},
   {value: 'Europe/Belgrade', label: '🇷🇸 Central European Time - Belgrade', utc: '+01:00'},
   {value: 'Europe/Prague', label: '🇨🇿 Central European Time - Prague', utc: '+01:00'},
-  {value: 'Europe/Copenhagen', label: '🇩🇰 Copenhagen', utc: '+01:00'},
-  {value: 'Europe/Madrid', label: 'Central European', utc: '+01:00'},
-  {value: 'Europe/Paris', label: 'Paris', utc: '+01:00'},
-  {value: 'Europe/Rome', label: 'Rome', utc: '+01:00'},
-  {value: 'Europe/Stockholm', label: 'Stockholm', utc: '+01:00'},
-  {value: 'Europe/Vienna', label: 'Vienna', utc: '+01:00'},
-  {value: 'Europe/Warsaw', label: 'Warsaw', utc: '+01:00'},
-  {value: 'Europe/Athens', label: 'Athens', utc: '+02:00'},
-  {value: 'Europe/Bucharest', label: 'Bucharest', utc: '+02:00'},
-  {value: 'Europe/Romania', label: 'Eastern European', utc: '+02:00'},
-  {value: 'Europe/Moscow', label: 'Further Eastern European', utc: '+03:00'}
+  {value: 'Europe/Copenhagen', label: '🇩🇰 Copenhagen, Denmark', utc: '+01:00'},
+  {value: 'Europe/Madrid', label: '🇪🇺 Central European', utc: '+01:00'},
+  {value: 'Europe/Paris', label: '🇫🇷 Paris, France', utc: '+01:00'},
+  {value: 'Europe/Rome', label: '🇮🇹 Rome, Italy', utc: '+01:00'},
+  {value: 'Europe/Stockholm', label: '🇸🇪 Stockholm, Sweden', utc: '+01:00'},
+  {value: 'Europe/Vienna', label: '🇦🇹 Vienna, Austria', utc: '+01:00'},
+  {value: 'Europe/Warsaw', label: '🇵🇱 Warsaw, Poland', utc: '+01:00'},
+  {value: 'Europe/Athens', label: '🇬🇷 Athens, Greece', utc: '+02:00'},
+  {value: 'Europe/Bucharest', label: '🇷🇴 Bucharest, Romania', utc: '+02:00'},
+  {value: 'Europe/Romania', label: '🇪🇺 Eastern European', utc: '+02:00'},
+  {value: 'Europe/Moscow', label: '🇪🇺 Further Eastern European', utc: '+03:00'},
+  {value: 'Europe/Helsinki', label: '🇫🇮 Helsinki, Finland', utc: '+02:00'},
+  {value: 'Europe/Kiev', label: '🇺🇦 Kiev', utc: '+02:00'},
+  {value: 'Europe/Kaliningrad', label: '🇷🇺 Moscow-01 - Kaliningrad', utc: '+02:00'},
+  {value: 'Europe/Riga', label: '🇱🇻 Riga, Latvia', utc: '+02:00'},
+  {value: 'Europe/Sofia', label: '🇧🇬 Sofia, Bulgaria', utc: '+02:00'},
+  {value: 'Europe/Tallinn', label: '🇪🇪 Tallinn, Estonia', utc: '+02:00'},
+  {value: 'Europe/Vilnius', label: '🇱🇹 Vilnius, Lithuania', utc: '+02:00'},
+  {value: 'Europe/Istanbul', label: '🇹🇷 Istanbul, not Constantinople', utc: '+03:00'},
+  {value: 'Europe/Minsk', label: '🇧🇾 Minsk, Belarus', utc: '+03:00'},
+  {value: 'Europe/Moscow', label: '🇷🇺 Moscow+00 - Moscow', utc: '+03:00'},
+  {value: 'Europe/Samara', label: '🇷🇺 Moscow+01 - Samara', utc: '+04:00'},
 ]
 
 export const Australia: readonly TimezoneOption[] = [
@@ -191,17 +202,36 @@ export const Australia: readonly TimezoneOption[] = [
 ]
 
 export const Atlantic: readonly TimezoneOption[] = [
-  {value: 'Atlantic/South_Georgia', label: 'South Georgia', utc: '-02:00'},
-  {value: 'Atlantic/Azores', label: 'Azores', utc: '-01:00'},
-  {value: 'Atlantic/Cape_Verde', label: 'Cape Verde', utc: '-01:00'},
+  {value: 'Atlantic/South_Georgia', label: '🇬🇸 South Georgia', utc: '-02:00'},
+  {value: 'Atlantic/Azores', label: '🇵🇹 Azores, Portugal', utc: '-01:00'},
+  {value: 'Atlantic/Cape_Verde', label: '🇨🇻 Cape Verde', utc: '-01:00'},
 ]
 
 export const Africa: readonly TimezoneOption[] = [
-  {value: 'Africa/Casablanca', label: 'Casablanca', utc: '+00:00'},
-  {value: 'Africa/Monrovia', label: 'Monrovia', utc: '+00:00'},
-  {value: 'Africa/Algiers', label: 'Agliers', utc: '+01:00'},
-  {value: 'Africa/Cairo', label: 'Cairo', utc: '+02:00'},
-  {value: 'Africa/Johannesburg', label: 'Johannesburg', utc: '+02:00'},
+  {value: 'Africa/Casablanca', label: '🇲🇦 Casablanca, Morocco', utc: '+00:00'},
+  {value: 'Africa/Monrovia', label: '🇱🇷 Monrovia, Liberia', utc: '+00:00'},
+  {value: 'Africa/Algiers', label: '🇩🇿 Algiers, Algeria', utc: '+01:00'},
+  {value: 'Africa/Cairo', label: '🇪🇬 Cairo, Egypt', utc: '+02:00'},
+  {value: 'Africa/Johannesburg', label: '🇿🇦 Johannesburg, South Africa', utc: '+02:00'},
+  {value: 'Africa/Nairobi', label: '🇰🇪 Nairobi, Kenya', utc: '+03:00'},
+]
+
+export const Asia: readonly TimezoneOption[] = [
+  {value: 'Asia/Jerusalem', label: '🇮🇱 Jerusalem, Israel', utc: '+02:00'},
+  {value: 'Asia/Baghdad', label: '🇮🇶 Bagdhad, Iraq', utc: '+03:00'},
+  {value: 'Asia/Riyadh', label: '🇸🇦 Riyadh, Saudi Arabia', utc: '+03:00'},
+  {value: 'Asia/Tehran', label: '🇮🇷 Tehran, Iran', utc: '+03:00'},
+  {value: 'Asia/Baku', label: '🇦🇿 Baku, Azerbaijan', utc: '+04:00'},
+  {value: 'Asia/Tbilisi', label: '🇬🇪 Tbilisi, Georgia', utc: '+04:00'},
+  {value: 'Asia/Yerevan', label: '🇦🇲 Yerevan, Armenia', utc: '+04:00'},
+  {value: 'Asia/Kabul', label: '🇦🇫 Kabul, Afghanistan', utc: '+04:30'},
+  {value: 'Asia/Karachi', label: '🇵🇰 Karachi, Pakistan', utc: '+04:30'},
+  {value: 'Asia/Yekaterinburg', label: '🇷🇺 Moscow+02 - Yekaterinburg', utc: '+05:00'},
+  {value: 'Asia/Tashkent', label: '🇺🇿 Tashkent, Uzbekistan', utc: '+05:00'},
+  {value: 'Asia/Colombo', label: '🇱🇰 Colombo, Sri Lanka', utc: '+05:30'},
+  {value: 'Asia/Almaty', label: '🇰🇿 Almaty, Kazakhstan', utc: '+06:00'},
+  {value: 'Asia/Dhaka', label: '🇧🇩 Dhaka, Bangladesh', utc: '+06:00'},
+  {value: 'Asia/Rangoon', label: '🇲🇲 Rangoon, Myanmar', utc: '+06:30'},
 ]
 
 export const usTimeZones = [NorthAmerica[0],NorthAmerica[1],NorthAmerica[3],NorthAmerica[4]];
