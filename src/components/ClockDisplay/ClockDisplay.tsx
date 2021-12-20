@@ -48,7 +48,6 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
       } catch(e) {
         console.log(e);
       }
-      
     }
   }, [nickname]);
 
@@ -113,7 +112,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
 
   const handleClearNicknameClick = (e: any) => {
     // clear nickname, use timezone label
-    setNickname(timeZone.label);
+    setNickname('');
   }
 
   const handleEditingNicknameClick = (e: any) => {
@@ -144,7 +143,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
             {editingNickname ? 
               <input ref={nicknameRef} type="text" name="nickname-input" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
               : 
-              <Button type='button' variant="link" size="sm" aria-label="clock nickname display" style={clockTimePaletteStyles} className="name-clock-link" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.value} UTC ${timeZone.utc}` : `${nickname}`}</Button>
+              <Button type='button' variant="link" size="sm" aria-label="clock nickname display" style={clockTimePaletteStyles} className="name-clock-link" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.label}` : `${nickname}`}</Button>
             }
             </div>
             
@@ -185,14 +184,14 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
               <div className="edit-clock-name-row">
 
                 <div>
-                  <Button type='button' variant="link" className="nickname-button" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.value} UTC ${timeZone.utc}` : `${nickname}`}</Button>
+                  <Button type='button' variant="link" className="nickname-button" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.label}` : `${nickname}`}</Button>
                 </div>
 
                 <div className="edit-clock-name-buttons">
                   <Button type='button' size="sm" aria-label="clear nickname" onClick={handleClearNicknameClick}><ClearIcon/></Button>
                   <Button type='button' size="sm" aria-label="edit nickname" onClick={handleEditingNicknameClick}><EditIcon/></Button>
                 </div>
-                
+
               </div>
             }
         </div>
