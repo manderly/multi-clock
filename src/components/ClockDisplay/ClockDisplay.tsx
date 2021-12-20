@@ -9,6 +9,7 @@ import { SettingsContext } from '../../contexts/SettingsContext';
 import { TimeContext } from '../../contexts/TimeContext';
 import TimezonePicker  from '../../components/TimezonePicker/TimezonePicker';
 
+import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
 
 //import * as $ from 'jquery';
@@ -110,6 +111,11 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
     }
   }, [editingNickname]);
 
+  const handleClearNicknameClick = (e: any) => {
+    // clear nickname, use timezone label
+    setNickname(timeZone.label);
+  }
+
   const handleEditingNicknameClick = (e: any) => {
     setEditingNickname(!editingNickname);
   }
@@ -176,9 +182,17 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
         {editingNickname ? 
               <input ref={nicknameRef} type="text" aria-label="nickname clock" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
               : 
-              <div className="edit-clock-name-buttons">
-                <Button type='button' variant="link" className="nickname-button" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.value} UTC ${timeZone.utc}` : `${nickname}`}</Button>
-                <Button type='button' size="sm" aria-label="edit nickname" onClick={handleEditingNicknameClick}><EditIcon/></Button>
+              <div className="edit-clock-name-row">
+
+                <div>
+                  <Button type='button' variant="link" className="nickname-button" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.value} UTC ${timeZone.utc}` : `${nickname}`}</Button>
+                </div>
+
+                <div className="edit-clock-name-buttons">
+                  <Button type='button' size="sm" aria-label="clear nickname" onClick={handleClearNicknameClick}><ClearIcon/></Button>
+                  <Button type='button' size="sm" aria-label="edit nickname" onClick={handleEditingNicknameClick}><EditIcon/></Button>
+                </div>
+                
               </div>
             }
         </div>

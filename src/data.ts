@@ -120,8 +120,18 @@ export interface TimezoneOption {
 */
 
 export const Pacific: readonly TimezoneOption[] = [
-  {value: 'Pacific/Pago_Pago', label: '🇦🇸 Pago Pago (American Samoa)', utc: '-11:00'},
-  {value: 'Pacific/Honolulu', label: '🇺🇸 Honolulu (United States)', utc: '-10:00'},
+  {value: 'Pacific/Pago_Pago', label: '🇦🇸 Pago Pago, American Samoa', utc: '-11:00'},
+  {value: 'Pacific/Honolulu', label: '🇺🇸 Honolulu, United States', utc: '-10:00'},
+  {value: 'Pacific/Guam', label: '🇬🇺 Guam', utc: '+10:00'},
+  {value: 'Pacific/Port_Moresby', label: '🇵🇬 Port Moresby, Papua New Guinea', utc: '+10:00'},
+  {value: 'Pacific/Guadalcanal', label: '🇸🇧 Guadalcanal, Solomon Islands', utc: '+11:00'},
+  {value: 'Pacific/Noumea', label: '🇳🇨 Noumea, New Caledonia', utc: '+11:00'},
+  {value: 'Pacific/Majuro', label: '🇲🇭 Majuro, Marshall Islands', utc: '+12:00'},
+  {value: 'Pacific/Auckland', label: '🇳🇿 Auckland, New Zealand', utc: '+13:00'},
+  {value: 'Pacific/Fakaofo', label: 'Fakaofo', utc: '+13:00'},
+  {value: 'Pacific/Fiji', label: '🇫🇯 Fiji', utc: '+13:00'},
+  {value: 'Pacific/Tongatapu', label: '🇹🇴 Tongatapu, Tonga', utc: '+13:00'},
+  {value: 'Pacific/Apia', label: '🇼🇸 Apia, Samoa', utc: '+14:00'},
 ]
 
 export const NorthAmerica: readonly TimezoneOption[] = [
@@ -198,6 +208,9 @@ export const Australia: readonly TimezoneOption[] = [
   {value: 'Australia/Perth', label: '🇦🇺 Australian Western', utc: '+08:00'},
   {value: 'Australia/North', label: '🇦🇺 Australian Central Standard', utc: '+09:30'},
   {value: 'Australia/Canberra', label: '🇦🇺 Australian Eastern Standard', utc: '+10:00'},
+  {value: 'Australia/Adelaide', label: '🇦🇺 Adelaide, Australia', utc: '+10:30'},
+  {value: 'Australia/Hobart', label: '🇦🇺 Hobart, Australia', utc: '+11:00'},
+  {value: 'Australia/Sydney', label: '🇦🇺 Eastern Time - Melbourne, Sydney, Australia', utc: '+11:00'},
   {value: 'Australia/LHI', label: '🇦🇺 Lord Howe Standard', utc: '+10:30'},
 ]
 
@@ -232,6 +245,21 @@ export const Asia: readonly TimezoneOption[] = [
   {value: 'Asia/Almaty', label: '🇰🇿 Almaty, Kazakhstan', utc: '+06:00'},
   {value: 'Asia/Dhaka', label: '🇧🇩 Dhaka, Bangladesh', utc: '+06:00'},
   {value: 'Asia/Rangoon', label: '🇲🇲 Rangoon, Myanmar', utc: '+06:30'},
+  {value: 'Asia/Bangkok', label: '🇹🇭 Bangkok, Thailand', utc: '+07:00'},
+  {value: 'Asia/Jakarta', label: '🇮🇩 Jakarta, Indonesia', utc: '+07:00'},
+  {value: 'Asia/Krasnoyarsk', label: '🇷🇺 Moscow+04 Krasnoyarsk', utc: '+07:00'},
+  {value: 'Asia/Shanghai', label: '🇨🇳 China Time - Beijing', utc: '+08:00'},
+  {value: 'Asia/Hong_Kong', label: '🇭🇰 Hong Kong', utc: '+08:00'},
+  {value: 'Asia/Kuala_Lumpur', label: '🇲🇾 Kuala Lumpur, Malaysia', utc: '+08:00'},
+  {value: 'Asia/Singapore', label: '🇸🇬 Singapore', utc: '+08:00'},
+  {value: 'Asia/Taipei', label: '🇹🇼 Taipei', utc: '+08:00'},
+  {value: 'Asia/Ulaanbaatar', label: '🇲🇳 Ulaanbaatar', utc: '+08:00'},
+  {value: 'Asia/Yakutsk', label: '🇷🇺 Moscow+06 Yakutsk', utc: '+09:00'},
+  {value: 'Asia/Seoul', label: '🇰🇷 Seoul', utc: '+09:00'},
+  {value: 'Asia/Tokyo', label: '🇯🇵 Tokyo, Japan', utc: '+09:00'},
+  {value: 'Asia/Magadan', label: '🇷🇺 Moscow+07 - Magadan', utc: '+10:00'},
+  {value: 'Asia/Vladivostok', label: '🇷🇺 Moscow+07 - Yuzhno-Sakhalinsk', utc: '+10:00'},
+  {value: 'Asia/Kamchatka', label: '🇷🇺 Moscow+09 - Petropavlovsk-Kamchatskiy', utc: '+12:00'},
 ]
 
 export const usTimeZones = [NorthAmerica[0],NorthAmerica[1],NorthAmerica[3],NorthAmerica[4]];

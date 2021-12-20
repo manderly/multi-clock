@@ -159,6 +159,7 @@
 
 .nickname-button {
   padding:0 !important;
+  text-decoration:none !important;
 }
 
 .delete-clock-div {
@@ -170,9 +171,14 @@
   color:black;
 }
 
-.edit-clock-name-buttons {
+.edit-clock-name-row {
   display:flex;
   justify-content:space-between;
+}
+
+.edit-clock-name-buttons {
+  display:flex;
+  gap:10px;
 }
 
 .time-item {
@@ -199,6 +205,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-decoration: none !important;
 }
 
 .App-header {
