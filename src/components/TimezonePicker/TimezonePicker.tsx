@@ -74,17 +74,19 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
   }
 
   const handleKeyDown = (e: any) => {
-    e.preventDefault();
+
     if (e.key === 'Enter') {
       setIsOpen(false);
     } else if (e.keyCode === 40) {
       // down
+      e.preventDefault();
       let newFocusedIdx = focused === allTimezones.length - 1 ? 0 : focused + 1;
       console.log("Focused: " + filteredTimezones[focused].label);
       setFocused(newFocusedIdx);
       scrollToIndex(newFocusedIdx);
     } else if (e.keyCode === 38) {
       // up
+      e.preventDefault();
       let newFocusedIdx = focused === 0 ? 0 : focused - 1;
       console.log("Focused: " + filteredTimezones[focused].label);
       setFocused(newFocusedIdx);
@@ -98,6 +100,7 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
       console.log("esc (27), do not change selected timezone");
       setIsOpen(false);
     } else {
+      console.log("key down")
       setUserInput(e.target.value);
     } 
   }
