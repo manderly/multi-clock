@@ -147,7 +147,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
                 className="timezone-select-button"
                 aria-label="clock timestamp"
                 onClick={() => setShowMapModal(true)}
-                ><label className="timestamp time-item time-stamp-display">{formattedTime}</label>
+                ><h3 aria-label="time" className="timestamp time-item time-stamp-display">{formattedTime}</h3>
             </Button>
 
             {/* Date */}

@@ -23,6 +23,27 @@ describe('Clocks component', () => {
     expect(screen.getAllByRole('heading', {name: 'clock date display'})).toHaveLength(4);
   })
 
+  it('Should create four United States clocks when the All US Clocks button is pressed', () => {
+    render(<TimeProvider><Clocks /></TimeProvider>);
+    const allUSClocksButton = screen.getByRole('button', {name: /🇺🇸 U.S. Timezones/i});
+    userEvent.click(allUSClocksButton);
+    // check that the 4 clocks have the correct city names
+    const clocks = screen.getAllByRole('button', {name: 'clock nickname display'});
+    expect(clocks).toHaveLength(4);
+    expect(clocks[0]).toHaveTextContent('Seattle, WA');
+    expect(clocks[1]).toHaveTextContent('Denver, CO');
+    expect(clocks[2]).toHaveTextContent('Chicago, IL');
+    expect(clocks[3]).toHaveTextContent('New York, NY');
+
+    // check that the 4 clocks have staggered times
+    const times = screen.getAllByRole('heading', {name: 'time'});
+    expect(times).toHaveLength(4);
+    expect(times[0]).toHaveTextContent('6:10 am');
+    expect(times[1]).toHaveTextContent('7:10 am');
+    expect(times[2]).toHaveTextContent('8:10 am');
+    expect(times[3]).toHaveTextContent('9:10 am');
+  })
+
   it('Should add another clock when Add Clock button is clicked', () => {
     render(<TimeProvider><Clocks /></TimeProvider>);
     fireEvent.click(screen.getByText('Add Clock'));
