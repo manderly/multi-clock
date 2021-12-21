@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useMemo } from 'react';
 import FormControl from 'react-bootstrap/FormControl';
 import { FC } from 'react';
-import { TimezoneOption, allTimezones, groupedOptions } from '../../data';
+import { TimezoneOption, allTimezones } from '../../data';
 
 
 const SCROLL_OFFSET = 3; 
@@ -45,6 +45,11 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
       setFilteredTimezones(allTimezones);
     }
   }, [userInput])
+
+  useEffect(() => {
+    // when the passed-in "default timezone" changes, update timezone
+    setTimezone(defaultTimezone);
+  }, [defaultTimezone])
 
   const handleSelectTimezone = (tz: TimezoneOption, idx: number) => {
     setTimezone(tz); // local label 

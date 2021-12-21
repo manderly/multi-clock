@@ -123,13 +123,6 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
     setEditingNickname(!editingNickname);
   }
 
-  const formatGroupLabel = (data: GroupedOption) => (
-    <div style={groupBadgeStyles}>
-      <span>{data.label}</span>
-      <span style={groupBadgeStyles}>{data.options.length}</span>
-    </div>
-  );
-
   const handleTimezoneChange = (option: any) => {
     setTimeZone(option);
   }

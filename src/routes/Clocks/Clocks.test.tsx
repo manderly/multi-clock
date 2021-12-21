@@ -61,7 +61,7 @@ describe('Clocks component', () => {
     expect(deletedClock).not.toBeInTheDocument();
   })
 
-  it('Should rename a clock from the clock management modal', () => {
+  it('Should rename a clock from the clock management modal with enter', () => {
     render(<TimeProvider><Clocks /></TimeProvider>);
     const clockModalLinks = screen.getAllByRole('button', {name: 'clock timestamp'});
     userEvent.click(clockModalLinks[0]);
@@ -73,6 +73,19 @@ describe('Clocks component', () => {
     userEvent.type((clockNameInput), `Test Name${specialChars.enter}`);
     // check that name is changed in modal and on the clock face underneath modal
     expect(screen.getAllByText('Test Name')).toHaveLength(2);
+  })
+
+  it('Should rename a clock from the clock management modal with escape', () => {
+    render(<TimeProvider><Clocks /></TimeProvider>);
+    const clockModalLinks = screen.getAllByRole('button', {name: 'clock timestamp'});
+    userEvent.click(clockModalLinks[0]);
+    // modal should be open now
+    const changeNicknameButton = screen.getByRole('button', {name: 'edit nickname'});
+    userEvent.click(changeNicknameButton);
+    const clockNameInput = screen.getByRole('textbox', {name: 'nickname clock'});
+    userEvent.clear(clockNameInput);
+    userEvent.type((clockNameInput), `Esc Test${specialChars.escape}`);
+    expect(screen.getAllByText('Esc Test')).toHaveLength(2);
   })
 
 })
