@@ -19,7 +19,9 @@ describe('Clocks component', () => {
 
   it('Should have four clocks by defaullt', () => {
     render(<TimeProvider><Clocks /></TimeProvider>);
-    //screen.debug();
+    // looks for names, times, and dates
+    expect(screen.getAllByRole('button', {name: 'clock nickname display'})).toHaveLength(4);
+    expect(screen.getAllByRole('heading', {name: 'time'})).toHaveLength(4);
     expect(screen.getAllByRole('heading', {name: 'clock date display'})).toHaveLength(4);
   })
 
