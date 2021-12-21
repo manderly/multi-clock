@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen, within } from '@testing-library/react';
-import  userEvent from '@testing-library/user-event';
+import  userEvent, { specialChars } from '@testing-library/user-event';
 
 import TimezonePicker from './TimezonePicker';
 import MockDate from 'mockdate';
@@ -57,5 +57,25 @@ describe('Timezone Picker component', () => {
     // verify the timezone has changed
     const newTimezone = screen.getByTestId('current timezone').textContent;
     expect(newTimezone).not.toEqual(originalTimezone);
+  })
+
+  it('Should change the timezone via keyboard (down and enter)', () => {
+    render(<TimezonePicker changeTimezone={changeTimezoneMock} defaultTimezone={testTimezone}/>);
+    const input = screen.getByRole('textbox', {name: 'choose timezone'});
+    // display the list of options
+    userEvent.click(input);
+    const list = screen.getByRole("list", { name: 'timezones'});
+    const timezones = within(list).getAllByRole('listitem');
+    const targetTimezone  = timezones[2].textContent as string;
+    // key down and key up
+    userEvent.type((input), specialChars.arrowDown);
+    userEvent.type((input), specialChars.arrowDown);
+    userEvent.type((input), specialChars.arrowUp);
+    userEvent.type((input), specialChars.arrowDown);
+    // press enter
+    userEvent.type((input), specialChars.enter);
+    // verify the timezone has changed to match selected
+    const newTimezone = screen.getByTestId('current timezone');
+    expect(newTimezone).toHaveTextContent(targetTimezone);
   })
 })

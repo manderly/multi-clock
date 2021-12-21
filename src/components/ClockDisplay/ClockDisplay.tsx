@@ -93,11 +93,11 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
     setNickname(e.target.value as string);
   }
 
-  const handleNicknameKeyPress = (e: any) => {
+  const handleNicknameKeyDown = (e: any) => {
     if (e.key === 'Enter') {
       setEditingNickname(false);
     } else if (e.key === 'Escape') {
-      setNickname('');
+      setNickname(e.target.value);
       setEditingNickname(false);
     } else {
       setNickname(e.target.value);
@@ -141,7 +141,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
             {/* Nickname box */}
             <div>
             {editingNickname ? 
-              <input ref={nicknameRef} type="text" name="nickname-input" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
+              <input ref={nicknameRef} type="text" name="nickname-input" value={nickname} onKeyDown={handleNicknameKeyDown} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
               : 
               <Button type='button' variant="link" size="sm" aria-label="clock nickname display" style={clockTimePaletteStyles} className="name-clock-link" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.label}` : `${nickname}`}</Button>
             }
@@ -179,7 +179,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
         <label className="modal-label">Clock name</label>
         <div className="modal-line">
         {editingNickname ? 
-              <input ref={nicknameRef} type="text" aria-label="nickname clock" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
+              <input ref={nicknameRef} type="text" aria-label="nickname clock" value={nickname} onKeyDown={handleNicknameKeyDown} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
               : 
               <div className="edit-clock-name-row">
 

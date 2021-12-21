@@ -151,7 +151,7 @@ export const usTimeZones = [NorthAmerica[0],NorthAmerica[1],NorthAmerica[3],Nort
 export const defaultTimeZones = [NorthAmerica[0], NorthAmerica[4], Europe[1], Australia[2]];
 export interface GroupedOption {
   readonly label: string;
-  readonly options: readonly TimezoneOption[] | readonly TimezoneOption[];
+  readonly options: readonly TimezoneOption[];
 }
 
 export const allTimezones: readonly TimezoneOption[] = [...NorthAmerica, ...CentralAmerica, ...SouthAmerica, ...Europe, ...Australia, ...Pacific, ...Atlantic, ...Africa];

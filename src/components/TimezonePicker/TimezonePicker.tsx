@@ -1,9 +1,7 @@
 import { useEffect, useState, useRef, useMemo } from 'react';
 import FormControl from 'react-bootstrap/FormControl';
 import { FC } from 'react';
-import { TimezoneOption, allTimezones, usTimeZones } from '../../data';
-import { keyBy } from 'lodash';
-import { findDOMNode } from 'react-dom';
+import { TimezoneOption, allTimezones, groupedOptions } from '../../data';
 
 
 const SCROLL_OFFSET = 3; 
@@ -77,13 +75,9 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
   }
 
   const scrollToIndex = (idx: number) => {
-    console.log("scrolling to " + idx);
     const index = Math.max(0, idx - SCROLL_OFFSET);
     if (listRef.current) {
-      console.log("using listRef.current")
       listRef.current.scrollTop = (listRef.current.children[index] as HTMLLIElement)?.offsetTop;
-    } else {
-      console.log(listRef);
     }
   }
 
@@ -96,16 +90,16 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
       let newFocusedIdx = focused === allTimezones.length - 1 ? 0 : focused + 1;
       setFocused(newFocusedIdx);
       scrollToIndex(newFocusedIdx);
-      console.log("Focused: " + filteredTimezones[newFocusedIdx].label);
+      //console.log("Focused: " + filteredTimezones[newFocusedIdx].label);
     } else if (e.keyCode === 38) {
       // up
       e.preventDefault();
       let newFocusedIdx = focused === 0 ? 0 : focused - 1;
       setFocused(newFocusedIdx);
       scrollToIndex(newFocusedIdx);
-      console.log("Focused: " + filteredTimezones[newFocusedIdx].label);
+      //console.log("Focused: " + filteredTimezones[newFocusedIdx].label);
     } else if (e.keyCode === 27) {
-      console.log("esc (27), do not change selected timezone");
+      //console.log("esc (27), do not change selected timezone");
       setIsOpen(false);
     } else {
       setUserInput(e.target.value);
