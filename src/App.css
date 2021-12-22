@@ -2,6 +2,10 @@
   text-align: left;
 }
 
+h3 {
+  font-weight:normal !important;
+}
+
 .narrow-screen {
   display:none;
 }
@@ -159,6 +163,7 @@
 
 .nickname-button {
   padding:0 !important;
+  text-decoration:none !important;
 }
 
 .delete-clock-div {
@@ -170,9 +175,14 @@
   color:black;
 }
 
-.edit-clock-name-buttons {
+.edit-clock-name-row {
   display:flex;
   justify-content:space-between;
+}
+
+.edit-clock-name-buttons {
+  display:flex;
+  gap:10px;
 }
 
 .time-item {
@@ -199,6 +209,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-decoration: none !important;
 }
 
 .App-header {
@@ -288,6 +299,10 @@
   padding: 3px 12px;
   margin-left:0;
   background:white;
+}
+
+.timezone-picker-list-item-focused {
+  background: #ececec;
 }
 
 .timezone-picker-list-item:hover {

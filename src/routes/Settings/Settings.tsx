@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from 'react';
+import { FC, useContext, useState, useEffect } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { SettingsContext } from '../../contexts/SettingsContext';
 
@@ -113,7 +113,6 @@ const Settings: FC = () => {
       </Modal.Header>
 
       <Modal.Body>
-        <span>Current: {`(GMT ${userTimezone.utc}) ${userTimezone.label}`}</span>
         <div className="modal-line timezone-modal">
           <div className="change-timezone modal-line">
             <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={userTimezone}/>

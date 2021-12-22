@@ -44,6 +44,7 @@ const Clocks: FC = () => {
   }, [clocks])
 
   const handleSetAllToUSClick = () => {
+    localStorage.removeItem("clocks");
     // set existing clocks or create new ones to get to 4 clocks representing 4 US time zones
     //console.log("Setting first four clocks to US timezones");
 

@@ -9,6 +9,7 @@ import { SettingsContext } from '../../contexts/SettingsContext';
 import { TimeContext } from '../../contexts/TimeContext';
 import TimezonePicker  from '../../components/TimezonePicker/TimezonePicker';
 
+import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
 
 //import * as $ from 'jquery';
@@ -47,7 +48,6 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
       } catch(e) {
         console.log(e);
       }
-      
     }
   }, [nickname]);
 
@@ -93,11 +93,11 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
     setNickname(e.target.value as string);
   }
 
-  const handleNicknameKeyPress = (e: any) => {
+  const handleNicknameKeyDown = (e: any) => {
     if (e.key === 'Enter') {
       setEditingNickname(false);
     } else if (e.key === 'Escape') {
-      setNickname('');
+      setNickname(e.target.value);
       setEditingNickname(false);
     } else {
       setNickname(e.target.value);
@@ -110,6 +110,11 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
     }
   }, [editingNickname]);
 
+  const handleClearNicknameClick = (e: any) => {
+    // clear nickname, use timezone label
+    setNickname('');
+  }
+
   const handleEditingNicknameClick = (e: any) => {
     setEditingNickname(!editingNickname);
   }
@@ -117,13 +122,6 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
   const handleEditingNicknameBlur = (e: any) => {
     setEditingNickname(!editingNickname);
   }
-
-  const formatGroupLabel = (data: GroupedOption) => (
-    <div style={groupBadgeStyles}>
-      <span>{data.label}</span>
-      <span style={groupBadgeStyles}>{data.options.length}</span>
-    </div>
-  );
 
   const handleTimezoneChange = (option: any) => {
     setTimeZone(option);
@@ -136,9 +134,9 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
             {/* Nickname box */}
             <div>
             {editingNickname ? 
-              <input ref={nicknameRef} type="text" name="nickname-input" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
+              <input ref={nicknameRef} type="text" name="nickname-input" value={nickname} onKeyDown={handleNicknameKeyDown} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
               : 
-              <Button type='button' variant="link" size="sm" aria-label="clock nickname display" style={clockTimePaletteStyles} className="name-clock-link" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.value} UTC ${timeZone.utc}` : `${nickname}`}</Button>
+              <Button type='button' variant="link" size="sm" aria-label="clock nickname display" style={clockTimePaletteStyles} className="name-clock-link" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.label}` : `${nickname}`}</Button>
             }
             </div>
             
@@ -149,7 +147,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
                 className="timezone-select-button"
                 aria-label="clock timestamp"
                 onClick={() => setShowMapModal(true)}
-                ><label className="timestamp time-item time-stamp-display">{formattedTime}</label>
+                ><h3 aria-label="time" className="timestamp time-item time-stamp-display">{formattedTime}</h3>
             </Button>
 
             {/* Date */}
@@ -174,11 +172,19 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
         <label className="modal-label">Clock name</label>
         <div className="modal-line">
         {editingNickname ? 
-              <input ref={nicknameRef} type="text" aria-label="nickname clock" value={nickname} onKeyPress={handleNicknameKeyPress} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
+              <input ref={nicknameRef} type="text" aria-label="nickname clock" value={nickname} onKeyDown={handleNicknameKeyDown} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
               : 
-              <div className="edit-clock-name-buttons">
-                <Button type='button' variant="link" className="nickname-button" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.value} UTC ${timeZone.utc}` : `${nickname}`}</Button>
-                <Button type='button' size="sm" aria-label="edit nickname" onClick={handleEditingNicknameClick}><EditIcon/></Button>
+              <div className="edit-clock-name-row">
+
+                <div>
+                  <Button type='button' variant="link" className="nickname-button" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.label}` : `${nickname}`}</Button>
+                </div>
+
+                <div className="edit-clock-name-buttons">
+                  <Button type='button' size="sm" aria-label="clear nickname" onClick={handleClearNicknameClick}><ClearIcon/></Button>
+                  <Button type='button' size="sm" aria-label="edit nickname" onClick={handleEditingNicknameClick}><EditIcon/></Button>
+                </div>
+
               </div>
             }
         </div>
@@ -186,7 +192,6 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
 
           <label className="modal-label">Timezone</label>
           <div className="modal-line">
-            <span>Current: {`(GMT ${timeZone.utc}) ${timeZone.label}`}</span>
             <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={defaultTimeZone}/>
             <br/>
             <div className="delete-clock-div">

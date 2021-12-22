@@ -1,32 +1,33 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import FormControl from 'react-bootstrap/FormControl';
 import { FC } from 'react';
 import { TimezoneOption, allTimezones } from '../../data';
 
+
+const SCROLL_OFFSET = 3; 
 interface ITimezonePicker {
   changeTimezone: (tz: TimezoneOption) => void;
   defaultTimezone: TimezoneOption;
 }
 
 const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) => {
+  const [focused, setFocused] = useState(0);
+  const [prevFocused, setPrevFocused] = useState(0);
   const [userInput, setUserInput] = useState('');
-  const [placeholder, setPlaceholder] = useState(defaultTimezone);
+  const [timezone, setTimezone] = useState(defaultTimezone);
   const [isOpen, setIsOpen] = useState(false);
   const [filteredTimezones, setFilteredTimezones] = useState(allTimezones);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
-
-  const handleSelectTimezone = (tz: TimezoneOption) => {
-    changeTimezone(tz);
-    setUserInput(tz.label);
-  }
+  const listRef = useRef<HTMLUListElement>(null);
 
   const renderTimezoneList = Object.values(filteredTimezones).map((zone, idx) => {
+    const focusedItem = idx === focused;
     return (
-      <li 
+      <li
         key={`tz-${zone.label}-${idx}`}
-        className="timezone-picker-list-item"
-        onMouseDown={() => { handleSelectTimezone(zone); }}
+        className={`timezone-picker-list-item ${focusedItem ? 'timezone-picker-list-item-focused' : ''}`}
+        onMouseDown={() => { handleSelectTimezone(zone, idx); }}
       >
         {`(GMT ${zone.utc}) ${zone.label}`}
       </li>
@@ -36,7 +37,7 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
   useEffect(() => {
     if (userInput) {
       // as user input changes, filter timezones 
-      let updatedTimezones = allTimezones.filter((tz) => {
+      const updatedTimezones = allTimezones.filter((tz) => {
         return tz.label.toLowerCase().includes(userInput.toLowerCase());
       });
       setFilteredTimezones(updatedTimezones);
@@ -46,18 +47,27 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
   }, [userInput])
 
   useEffect(() => {
-    /*
-    if (inputRef && inputRef.current) {
-      inputRef.current.focus();
-    }*/
-  }, []);
+    // when the passed-in "default timezone" changes, update timezone
+    setTimezone(defaultTimezone);
+  }, [defaultTimezone])
+
+  const handleSelectTimezone = (tz: TimezoneOption, idx: number) => {
+    setTimezone(tz); // local label 
+    changeTimezone(tz); // fire method passed in 
+    setFocused(idx);
+    setPrevFocused(idx);
+    setIsOpen(false);
+  }
 
   useEffect(() => {
-    setPlaceholder(defaultTimezone);
-  }, [defaultTimezone])
+    if (isOpen) {
+      scrollToIndex(focused);
+    }
+  }, [isOpen])
 
   const handleFocus = (e: any) => {
     setIsOpen(true);
+    setUserInput('');
   }
 
   const handleInputChange = (e: any) => {
@@ -65,15 +75,37 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
   }
 
   const handleInputBlur = () => {
+    setFocused(prevFocused); // reset list scrolling to match current timezone's idx
     setIsOpen(false);
   }
 
-  const handleKeyPress = (e: any) => {
+  const scrollToIndex = (idx: number) => {
+    const index = Math.max(0, idx - SCROLL_OFFSET);
+    if (listRef.current) {
+      listRef.current.scrollTop = (listRef.current.children[index] as HTMLLIElement)?.offsetTop;
+    }
+  }
+
+  const handleKeyDown = (e: any) => {
     if (e.key === 'Enter') {
-      //setEditingNickname(false);
-    } else if (e.key === 'Escape') {
-      //setNickname('');
-      //setEditingNickname(false);
+      handleSelectTimezone(filteredTimezones[focused], focused);
+    } else if (e.keyCode === 40) {
+      // down
+      e.preventDefault();
+      let newFocusedIdx = focused === allTimezones.length - 1 ? 0 : focused + 1;
+      setFocused(newFocusedIdx);
+      scrollToIndex(newFocusedIdx);
+      //console.log("Focused: " + filteredTimezones[newFocusedIdx].label);
+    } else if (e.keyCode === 38) {
+      // up
+      e.preventDefault();
+      let newFocusedIdx = focused === 0 ? 0 : focused - 1;
+      setFocused(newFocusedIdx);
+      scrollToIndex(newFocusedIdx);
+      //console.log("Focused: " + filteredTimezones[newFocusedIdx].label);
+    } else if (e.keyCode === 27) {
+      //console.log("esc (27), do not change selected timezone");
+      setIsOpen(false);
     } else {
       setUserInput(e.target.value);
     } 
@@ -81,6 +113,7 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
 
   return (
     <>
+    <label data-testid='current timezone'>Current: {`(GMT ${timezone.utc}) ${timezone.label}`}</label>
     <FormControl
       className='timezone-input'
       aria-label='choose timezone'
@@ -88,13 +121,13 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
       type="text" 
       value={userInput} 
       onFocus={handleFocus}
-      onKeyPress={handleKeyPress} 
+      onKeyDown={handleKeyDown}
       onChange={handleInputChange} 
       onBlur={handleInputBlur} 
       placeholder='Change timezone...'
     />
     {isOpen && (
-      <ul className='timezone-picker-list' aria-label="timezones">
+      <ul className='timezone-picker-list' aria-label='timezones' ref={listRef}>
         {renderTimezoneList}
       </ul>
     )}
