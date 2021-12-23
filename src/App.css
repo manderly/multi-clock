@@ -1,3 +1,7 @@
+body {
+  font-size:16px;
+}
+
 .App {
   text-align: left;
 }
@@ -52,7 +56,6 @@ h3 {
 
 .browser-date {
   text-align:center;
-  font-size:1em;
 }
 
 .browser-time {
@@ -134,7 +137,7 @@ h3 {
 }
 
 .clock-display-date {
-  font-size:1.1em;
+  font-size:1em;
   font-weight:normal;
 }
 
@@ -202,7 +205,7 @@ h3 {
 }
 
 .name-clock-link {
-  font-size:0.6em;
+  font-size:1.2em !important;
   text-align:center !important;
   border:none !important;
   width:230px;
@@ -210,6 +213,10 @@ h3 {
   overflow: hidden;
   text-overflow: ellipsis;
   text-decoration: none !important;
+}
+
+.name-clock-link.btn.btn-sm {
+  font-size: 1em;
 }
 
 .App-header {
