@@ -1,6 +1,6 @@
 import { FC, CSSProperties, useState, useEffect, useContext, useRef } from 'react';
 
-import { TimezoneOption, GroupedOption } from '../../data';
+import { TimezoneOption } from '../../data';
 
 import { useFormatDate } from '../../hooks/useFormatDate';
 import { Button, Modal } from 'react-bootstrap';
@@ -74,19 +74,6 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
     backgroundColor: timePalette.bg,
     color: timePalette.text,
     borderColor: timePalette.text,
-  };
-
-  const groupBadgeStyles: CSSProperties = {
-    backgroundColor: '#EBECF0',
-    borderRadius: '2em',
-    color: '#172B4D',
-    display: 'inline-block',
-    fontSize: 12,
-    fontWeight: 'normal',
-    lineHeight: '1',
-    minWidth: 1,
-    padding: '0.16666666666667em 0.5em',
-    textAlign: 'center',
   };
 
   const handleNicknameChange = (e: any) => {

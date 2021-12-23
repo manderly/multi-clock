@@ -1,5 +1,4 @@
 import { FC, createContext, useEffect, useState } from 'react';
-
 interface ITimeContext {
   now: Date;
 }

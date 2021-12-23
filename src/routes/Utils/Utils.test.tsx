@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { fireEvent, getByText, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import Utils from './Utils';
 import userEvent from '@testing-library/user-event';
 
