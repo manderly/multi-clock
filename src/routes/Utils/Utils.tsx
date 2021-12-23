@@ -6,7 +6,7 @@ import CounterButton from '../../components/CounterButton/CounterButton';
 const Utils: FC = () => {
 
   const [userInput, setUserInput] = useState<string[]>([]);
-  const [result, setResult] = useState<number>(0);
+  const [result, setResult] = useState<String>('');
   const [resultHistory, setResultHistory] = useState<string[]>([]);
 
   const [count, setCount] = useState(0);
@@ -27,7 +27,7 @@ const Utils: FC = () => {
       resultHistory.pop();
     }
 
-    setResult(res);
+    setResult(String(res));
     setResultHistory([...previousExpressions]);
   }
 
