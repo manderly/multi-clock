@@ -1,8 +1,7 @@
-import { useEffect, useState, useRef, useMemo } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import FormControl from 'react-bootstrap/FormControl';
 import { FC } from 'react';
 import { TimezoneOption, allTimezones } from '../../data';
-
 
 const SCROLL_OFFSET = 3; 
 interface ITimezonePicker {

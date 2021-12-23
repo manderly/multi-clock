@@ -1,6 +1,5 @@
 import { FC, createContext, useState } from 'react';
 import { NorthAmerica, TimezoneOption, allTimezones } from '../data';
-
 interface ISettingsContext {
   userTimezone: TimezoneOption;
   handleSetUserTimezone: (tz: TimezoneOption) => void;
@@ -31,11 +30,7 @@ const SettingsProvider: FC = ({children}) => {
   const getBrowserTZ = () => {
     const tzString = Intl.DateTimeFormat().resolvedOptions().timeZone;
     let match;
-    allTimezones.map((tz) => {
-      if (tzString === tz.value) {
-        match = tz;
-      }
-    });
+    allTimezones.map((tz) => tzString === tz.value ? match = tz : '')
     return match || NorthAmerica[0];
   }
 

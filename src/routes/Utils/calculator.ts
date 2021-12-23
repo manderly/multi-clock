@@ -1,16 +1,35 @@
 const numberExpression = /[0-9]+/;
-const operatorsExpression = /[+-/*^]/;
+const operatorsExpression = /[+-/*^x]/;
 
 const precedence = (op: string): number => {
   if (op === "+" || op === "-") {
     return 1;
-  } else if (op === "*" || op === "/") {
-    return 1;
+  } else if (op === "*" || op === "/" || op === "x") {
+    return 2;
   } else if (op === "^") {
     return 3;
   } else {
     return 0;
   }
+}
+
+const parse = (input: string[]): string[] => {
+  // parse the the input for "implied" multiplication
+  // example: 5(3+1) should become 5*(3+1)
+  // example: (4+2)2 should become (4+2)*2
+  for (let i = 0; i < input.length; i++) {
+    if (input[i].match(numberExpression) && input[i+1] === "(") {
+      input.splice(i+1, 0, "*");
+      i++;
+    } else if (input[i].match(numberExpression) && input[i-1] === ")") {
+      input.splice(i, 0, "*");
+      i++;
+    } else if (input[i] === ")" && input[i+1] === "(") {
+      input.splice(i+1, 0, "*");
+    }
+  }
+
+  return input;
 }
 
 const infixToPostfix = (input: string[]): string[] => {
@@ -43,6 +62,7 @@ const infixToPostfix = (input: string[]): string[] => {
       stack.push("(");
     } else if (char === "^") {
       stack.push("^");
+      pushedOperator = true;
     } else if (char === ")") {
       while (stack.length > 0 && stack[stack.length-1] !== "(") {
         postfix.push(stack.pop()!);
@@ -50,13 +70,15 @@ const infixToPostfix = (input: string[]): string[] => {
       // pop the remaining "("
       stack.pop();
     } else {
-      //console.log("handling " + char);
-      if (precedence(char) > precedence(stack[stack.length-1])) {
+      if (stack.length === 0) {
+        stack.push(char);
+      } else if (precedence(char) > precedence(stack[stack.length-1])) {
         stack.push(char); // push only if precedence is higher
       } else {
         // precedence is not higher, store and pop until higher precedence is found 
         while (stack.length > 0 && (precedence(char) <= precedence(stack[stack.length-1]))) {
-          postfix.push(stack.pop()!);
+          let popped = stack.pop();
+          postfix.push(popped!);
         }
         stack.push(char);
       }
@@ -68,30 +90,32 @@ const infixToPostfix = (input: string[]): string[] => {
     postfix.push(stack.pop()!);
   }
 
-  //console.log(postfix);
   return postfix;
 }
 
-const evaluatePostfix = (infix: string[]): number => {
+const evaluatePostfix = (postfix: string[]): number | undefined => {
   let stack = [];
-  for (let char of infix) {
+  for (let char of postfix) {
     if (char.match(operatorsExpression)) {
       // it's +, -, *, /, or ^ 
-      const a = stack.pop()!;
-      const b = stack.pop()!;
-      let res:number;
+      const a:number = stack.pop()!;
+      const b:number = stack.pop()!;
+
+      let res:number|undefined = -(Number.MAX_VALUE-1);
       if (char === "+") {
         res = b+a;
       } else if (char === "-") {
         res = b-a;
-      } else if (char === "*") {
+      } else if (char === "*" || char === "x") {
         res = b*a;
       } else if (char === "/") {
-        res = b/a;
+        if (a === 0) {
+          res = undefined;
+        } else {
+          res = b/a;
+        }
       } else if (char === "^") {
         res = Math.pow(b,a);
-      } else {
-        res = -(Number.MAX_VALUE-1);
       }
 
       stack.push(res);
@@ -103,9 +127,10 @@ const evaluatePostfix = (infix: string[]): number => {
   return stack[stack.length-1];
 }
 
-export const calculatorMath = (userInput: string[]): number => {
+export const calculatorMath = (userInput: string[]): number | undefined => {
   if (userInput.length === 0) { return 0; }
-  let postfix = infixToPostfix(userInput);
+  let parsed = parse([...userInput]); // insert * where needed 
+  let postfix = infixToPostfix(parsed);
   let result = evaluatePostfix(postfix);
   return result;
 }

@@ -2,12 +2,19 @@ import { FC, useState } from 'react';
 import { FormControl, InputGroup, Button } from 'react-bootstrap';
 import { calculatorMath } from './calculator';
 import CounterButton from '../../components/CounterButton/CounterButton';
+import { useEffect } from 'react';
 
 const Utils: FC = () => {
 
   const [userInput, setUserInput] = useState<string[]>([]);
-  const [result, setResult] = useState<number>(0);
-  const [resultHistory, setResultHistory] = useState<string[]>([]);
+  const [result, setResult] = useState<String>('');
+  //const [calculatorHistory, setCalculatorHistory] = useState<string[]>([]);
+  const [calculatorHistory, setCalculatorHistory] = useState(() => {
+    // get from localstorage if possible
+    const saved = localStorage.getItem("calculatorHistory") as string;
+    const initialValue = JSON.parse(saved);
+    return initialValue || [];
+  })
 
   const [count, setCount] = useState(0);
   const increaseCount = () => {
@@ -19,21 +26,25 @@ const Utils: FC = () => {
 
     // update "history log" below calculator
     let finalExpression = `${userInput} = ${res}`;
-    let previousExpressions = resultHistory;
+    let previousExpressions = calculatorHistory;
 
     // add to front of the array of previous expressions and remove oldest if list is getting long
     previousExpressions.unshift(finalExpression);
     if (previousExpressions.length > 5) {
-      resultHistory.pop();
+      calculatorHistory.pop();
     }
 
-    setResult(res);
-    setResultHistory([...previousExpressions]);
+    setResult(String(res));
+    setCalculatorHistory([...previousExpressions]);
   }
 
   const handleInputChange = (e: any) => {
     setUserInput(e.target.value);
   }
+
+  useEffect(() => {
+    localStorage.setItem("calculatorHistory", JSON.stringify(calculatorHistory));
+  }, [calculatorHistory])
 
   return (
     <div className="calculator-container">
@@ -53,8 +64,8 @@ const Utils: FC = () => {
       </div>
       <div>
         <h4 className="previous-calculations-title">Previous calculations</h4>
-        {resultHistory.length > 0 ? 
-          resultHistory.map((expression, idx) => {
+        {calculatorHistory.length > 0 ? 
+          calculatorHistory.map((expression : string, idx : number) => {
             return <p key={`${expression}-${idx}`}>{expression}</p>
           })
           : <div>No history yet</div>
