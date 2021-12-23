@@ -1,5 +1,7 @@
 # Multi Clock web app
 
+[See it on Heroku](https://lotsa-clocks.herokuapp.com/)
+
 <img src="https://github.com/manderly/multi-clock/blob/main/screenshots/december-2021.png" width="600">
 
 ## To run locally:
@@ -15,7 +17,7 @@
 
 ## To deploy to Heroku:
 
-Coming soon
+Just update the 'main' branch and it should redeploy automatically.
 
 ## About
 
