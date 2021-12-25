@@ -78,4 +78,49 @@ describe('Timezone Picker component', () => {
     const newTimezone = screen.getByTestId('current timezone');
     expect(newTimezone).toHaveTextContent(targetTimezone);
   })
+
+  it('Should toggle the timezone list open/closed in response to user inputs', () => {
+    render(<TimezonePicker changeTimezone={changeTimezoneMock} defaultTimezone={testTimezone}/>);
+    const input = screen.getByRole('textbox', {name: 'choose timezone'});
+    // open the list by clicking on it 
+    userEvent.click(input);
+    const list = screen.getByRole("list", { name: 'timezones'});
+    expect(list).toBeInTheDocument();
+
+    // now close the list with 'enter'
+    userEvent.type((input), specialChars.enter);
+    expect(list).not.toBeInTheDocument();
+
+    // reopen the list with 'enter'
+    userEvent.type((input), specialChars.enter);
+    const reopenedList = screen.getByRole("list", { name: 'timezones'});
+    expect(reopenedList).toBeInTheDocument();
+  })
+
+  it('Should navigate within a filtered list via the keyboard', () => {
+    render(<TimezonePicker changeTimezone={changeTimezoneMock} defaultTimezone={testTimezone}/>);
+    const input = screen.getByRole('textbox', {name: 'choose timezone'});
+
+    // open the list by clicking on it 
+    userEvent.click(input);
+    const list = screen.getByRole("list", { name: 'timezones'});
+    expect(list).toBeInTheDocument();
+
+    // filter the input and make record of the filtered list contents
+    userEvent.type((input), 'aus');
+    const filteredTimezones = within(list).getAllByRole('listitem');
+    const targetTimezone = filteredTimezones[3].textContent as string;
+    
+    // key down and key up
+    userEvent.type((input), specialChars.arrowDown);
+    userEvent.type((input), specialChars.arrowDown);
+    userEvent.type((input), specialChars.arrowDown);
+    userEvent.type((input), specialChars.arrowUp);
+    userEvent.type((input), specialChars.arrowDown);
+    // press enter
+    userEvent.type((input), specialChars.enter);
+    // verify the timezone has changed to match selected
+    const newTimezone = screen.getByTestId('current timezone');
+    expect(newTimezone).toHaveTextContent(targetTimezone);
+  })
 })
