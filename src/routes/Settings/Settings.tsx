@@ -47,6 +47,14 @@ const Settings: FC = () => {
     handleSetUserTimezone(browserTZ);
   }
 
+  const handleDayModeClick = () => {
+    console.log("day mode");
+  }
+
+  const handleNightModeClick = () => {
+    console.log("night mode");
+  }
+
   return (
     <>
       <div className="settings-container">
@@ -97,6 +105,9 @@ const Settings: FC = () => {
         </Form>
         <br/>
         <Button onClick={handleTimezoneModal}><PublicIcon/> Change timezone</Button>
+        <br/><br/>
+        <Button onClick={handleDayModeClick}><PublicIcon/> DAY MODE</Button>
+        <Button onClick={handleNightModeClick}><PublicIcon/> NIGHT MODE</Button>
       </div>
 
       <Modal

@@ -1,5 +1,9 @@
 import { FC, createContext, useState } from 'react';
 import { NorthAmerica, TimezoneOption, allTimezones } from '../data';
+
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyles } from '../components/GlobalStyles/GlobalStyles';
+import { lightTheme, darkTheme } from '../components/Themes/Themes';
 interface ISettingsContext {
   userTimezone: TimezoneOption;
   handleSetUserTimezone: (tz: TimezoneOption) => void;
@@ -34,6 +38,7 @@ const SettingsProvider: FC = ({children}) => {
     return match || NorthAmerica[0];
   }
 
+  const [theme, setTheme] = useState('light');
   const [userTimezone, setUserTimezone] = useState(getBrowserTZ());
 
   const [hoursPref, setHoursPref] = useState(() => {
@@ -85,8 +90,12 @@ const SettingsProvider: FC = ({children}) => {
 
   return (
     <SettingsContext.Provider value={value}>
-      {children}
-      </SettingsContext.Provider>
+      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+        <GlobalStyles/>
+        {children}
+      </ThemeProvider>
+    </SettingsContext.Provider>
+
   )
 }
 
