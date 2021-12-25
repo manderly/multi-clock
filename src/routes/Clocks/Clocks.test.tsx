@@ -52,17 +52,6 @@ describe('Clocks component', () => {
     expect(screen.getAllByRole('heading', {name: 'clock date display'})).toHaveLength(5);
   })
 
-  it('Should rename a clock from the clock face', () => {
-    render(<TimeProvider><Clocks /></TimeProvider>);
-    const clockNames = screen.getAllByRole('button', {name: 'clock nickname display'});
-    userEvent.click(clockNames[0]);
-    // input on first clock is now available
-    const clockNameInput = screen.getByRole('textbox');
-    userEvent.clear(clockNameInput);
-    userEvent.type((clockNameInput), `Test Name${specialChars.enter}`);
-    expect(screen.getByText('Test Name')).toBeInTheDocument();
-  })
-
   it('Should delete a clock', () => {
     // due to the mocking of Date, each clock displays the following times:
     // 6:10 am, 8:10 am, 3:10 pm, 11:10 pm

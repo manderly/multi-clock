@@ -46,15 +46,20 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
   }, [userInput])
 
   useEffect(() => {
-    // when the passed-in "default timezone" changes, update timezone
+    // when the passed-in "default timezone" changes, update local timezone
     setTimezone(defaultTimezone);
   }, [defaultTimezone])
 
+  useEffect(() => {
+    // timezone changed, recalculate focused index"
+    let trueFocusIdx = calculateFocused();
+    setFocused(trueFocusIdx);
+    setPrevFocused(trueFocusIdx);
+  }, [timezone])
+
   const handleSelectTimezone = (tz: TimezoneOption, idx: number) => {
     setTimezone(tz); // local label 
-    changeTimezone(tz); // fire method passed in 
-    setFocused(idx);
-    setPrevFocused(idx);
+    changeTimezone(tz); // fire method passed in
     setIsOpen(false);
   }
 
@@ -63,6 +68,17 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
       scrollToIndex(focused);
     }
   }, [isOpen])
+
+  const calculateFocused = (): number => {
+    // determine the selected timezone's index in the complete list of timezones
+    let trueIdx = 0;
+    allTimezones.map((tz, idx) => {
+      if (tz.value === timezone.value) {
+        trueIdx = idx;
+      }
+    })
+    return trueIdx;
+  }
 
   const handleFocus = (e: any) => {
     setIsOpen(true);
@@ -74,6 +90,7 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
   }
 
   const handleInputBlur = () => {
+    setUserInput('');
     setFocused(prevFocused); // reset list scrolling to match current timezone's idx
     setIsOpen(false);
   }
@@ -87,26 +104,44 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
 
   const handleKeyDown = (e: any) => {
     if (e.key === 'Enter') {
-      handleSelectTimezone(filteredTimezones[focused], focused);
+      if (isOpen) {
+        handleSelectTimezone(filteredTimezones[focused], focused);
+        setUserInput('');
+      } else {
+        // handles case where field is already focused and 'enter' should reopen the list 
+        setIsOpen(true);
+      }
     } else if (e.keyCode === 40) {
       // down
       e.preventDefault();
-      let newFocusedIdx = focused === allTimezones.length - 1 ? 0 : focused + 1;
+      let newFocusedIdx = 0;
+      if (userInput === '') {
+        newFocusedIdx = focused === allTimezones.length - 1 ? allTimezones.length - 1 : focused + 1;
+      } else {
+        newFocusedIdx = focused === filteredTimezones.length - 1 ? filteredTimezones.length - 1 : focused + 1;
+      }
       setFocused(newFocusedIdx);
       scrollToIndex(newFocusedIdx);
-      //console.log("Focused: " + filteredTimezones[newFocusedIdx].label);
     } else if (e.keyCode === 38) {
       // up
       e.preventDefault();
-      let newFocusedIdx = focused === 0 ? 0 : focused - 1;
+      let newFocusedIdx = 0;
+      if (userInput === '') {
+        newFocusedIdx = focused === 0 ? 0 : focused - 1;
+      } else {
+        newFocusedIdx = focused === 0 ? 0 : focused - 1;
+      }
       setFocused(newFocusedIdx);
       scrollToIndex(newFocusedIdx);
+      
       //console.log("Focused: " + filteredTimezones[newFocusedIdx].label);
     } else if (e.keyCode === 27) {
       //console.log("esc (27), do not change selected timezone");
       setIsOpen(false);
     } else {
       setUserInput(e.target.value);
+      setFocused(0);
+      scrollToIndex(0);
     } 
   }
 

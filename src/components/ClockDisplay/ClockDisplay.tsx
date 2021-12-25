@@ -29,7 +29,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
   const [editingNickname, setEditingNickname] = useState(false);
   const [timeZone, setTimeZone] = useState(defaultTimeZone);
 
-  const [showMapModal, setShowMapModal] = useState(false);
+  const [showClockSettingsModal, setShowClockSettingsModal] = useState(false);
 
   const { formattedDateClock, formattedTime, timePalette } = useFormatDate(now, timeZone.value, hoursPref, showOtherSecondsPref);
 
@@ -120,11 +120,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
           <div className="time-col-container">
             {/* Nickname box */}
             <div>
-            {editingNickname ? 
-              <input ref={nicknameRef} type="text" name="nickname-input" value={nickname} onKeyDown={handleNicknameKeyDown} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
-              : 
-              <Button type='button' variant="link" size="sm" aria-label="clock nickname display" style={clockTimePaletteStyles} className="name-clock-link" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.label}` : `${nickname}`}</Button>
-            }
+              <Button type='button' variant="link" size="sm" aria-label="clock nickname display" style={clockTimePaletteStyles} className="name-clock-link" onClick={() => setShowClockSettingsModal(true)}>{nickname === '' ? `${timeZone.label}` : `${nickname}`}</Button>
             </div>
             
             {/* Time of day */}
@@ -133,7 +129,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
                 size="sm" 
                 className="timezone-select-button"
                 aria-label="clock timestamp"
-                onClick={() => setShowMapModal(true)}
+                onClick={() => setShowClockSettingsModal(true)}
                 ><h3 aria-label="time" className="timestamp time-item time-stamp-display">{formattedTime}</h3>
             </Button>
 
@@ -144,8 +140,8 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
         </div>
 
         <Modal
-        show={showMapModal}
-        onHide={() => setShowMapModal(false)}
+        show={showClockSettingsModal}
+        onHide={() => setShowClockSettingsModal(false)}
         dialogClassName="modal-90w"
         aria-labelledby="example-custom-modal-styling-title"
       >
