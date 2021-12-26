@@ -112,7 +112,6 @@ const Settings: FC = () => {
         <ul className="hidden-li app-theme-choices">
           <li><ThemeButton onClick={() => handlePaletteClick(palettes.light)}>THEME: LIGHT</ThemeButton></li>
           <li><ThemeButton onClick={() => handlePaletteClick(palettes.dark)}>THEME: DARK</ThemeButton></li>
-          <li><ThemeButton onClick={() => handlePaletteClick(palettes.ice)}>THEME: Ice</ThemeButton></li>
           <li><ThemeButton onClick={() => handlePaletteClick(palettes.berry)}>THEME: Berry</ThemeButton></li>
           <li><ThemeButton onClick={() => handlePaletteClick(palettes.blue)}>THEME: Blue</ThemeButton></li>
           </ul>

@@ -6,12 +6,13 @@ interface IPalette {
   main: string
   contrastText: string
 }
+
 declare module 'styled-components' {
   export interface DefaultTheme {
     palette: {
-      body: string
+      bg: string
       text: string
-      background: string
+      modalBackground: string
       button: string
       buttonHover: string
       buttonActive: string

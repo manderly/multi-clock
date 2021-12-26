@@ -4,11 +4,12 @@ import { calculatorMath } from './calculator';
 import CounterButton from '../../components/CounterButton/CounterButton';
 import { useEffect } from 'react';
 
+import { ThemeButton } from '../../components';
+
 const Utils: FC = () => {
 
   const [userInput, setUserInput] = useState<string[]>([]);
   const [result, setResult] = useState<String>('');
-  //const [calculatorHistory, setCalculatorHistory] = useState<string[]>([]);
   const [calculatorHistory, setCalculatorHistory] = useState(() => {
     // get from localstorage if possible
     const saved = localStorage.getItem("calculatorHistory") as string;
@@ -58,7 +59,7 @@ const Utils: FC = () => {
             aria-label="calculator-input" 
             value={userInput} 
             onChange={handleInputChange} />
-          <Button aria-label="calculator-button" variant="primary" onClick={processInput}>Calculate</Button>
+          <ThemeButton aria-label="calculator-button" variant="primary" onClick={processInput}>Calculate</ThemeButton>
           {result ? <div className="calculator-result-item">= {result}</div> : <div className="calculator-result-item"></div>}
         </InputGroup>
       </div>
@@ -72,7 +73,9 @@ const Utils: FC = () => {
         }
       </div>
 
-      <div className="counter-container">
+
+      {false &&
+        <div className="counter-container">
         <div className="counter-item">
           <CounterButton label="Increase Counter" onClickMethod={increaseCount} />
         </div>
@@ -80,6 +83,7 @@ const Utils: FC = () => {
           <span>Counter: {count}</span>
         </div>
         </div>
+      }
 
     </div>
   )

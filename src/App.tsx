@@ -10,7 +10,7 @@ import './App.css';
 
 function App() {
 
-  const [theme, setTheme] = useState(palettes.light);
+  const [theme, setTheme] = useState(palettes.blue);
 
   const handleSetPaletteInApp = (palette: DefaultTheme) => {
     setTheme(palette);
