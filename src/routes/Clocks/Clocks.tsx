@@ -1,8 +1,7 @@
 import { FC, useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
-
 import ClockDisplay from '../../components/ClockDisplay/ClockDisplay';
 import { usTimeZones, defaultTimeZones, TimezoneOption } from '../../data';
+import { ThemeButton } from '../../components';
 
 interface IClock {
   timezone: TimezoneOption;
@@ -78,8 +77,8 @@ const Clocks: FC = () => {
   return (
     <>
       <div className="clocks-quick-options">
-        <div className="clocks-quick-options-item"><Button variant="outline-primary" type="button" onClick={handleSetAllToUSClick}>🇺🇸 U.S. Timezones</Button></div>
-        <div className="clocks-quick-options-item"><Button variant="primary" aria-label="button-add-clock" onClick={addClock}>Add Clock</Button></div>
+        <div className="clocks-quick-options-item"><ThemeButton variant="outline-primary" type="button" onClick={handleSetAllToUSClick}>🇺🇸 U.S. Timezones</ThemeButton></div>
+        <div className="clocks-quick-options-item"><ThemeButton variant="primary" aria-label="button-add-clock" onClick={addClock}>Add Clock</ThemeButton></div>
       </div>  
 
       <div className="clocks-row-container">

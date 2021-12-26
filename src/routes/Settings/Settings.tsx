@@ -1,14 +1,19 @@
 import { FC, useContext, useState } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { SettingsContext } from '../../contexts/SettingsContext';
 
 import { TimezoneOption } from '../../data';
-import TimezonePicker from '../../components/TimezonePicker/TimezonePicker';
+import { TimezonePicker } from '../../components';
 
 import PublicIcon from '@mui/icons-material/Public';
 
-const Settings: FC = () => {
+import { Modal } from '../../components';
 
+import { palettes } from '../../components/Themes/Themes';
+import { ThemeButton } from '../../components';
+
+const Settings: FC = () => {
+  // these methods and variables are passed in from settings context
   const { 
     userTimezone, 
     handleSetUserTimezone, 
@@ -18,7 +23,8 @@ const Settings: FC = () => {
     handleShowMySeconds,
     showOtherSecondsPref, 
     handleShowOtherSeconds,
-    getBrowserTZ} = useContext(SettingsContext);
+    getBrowserTZ,
+    handleSetPaletteButton} = useContext(SettingsContext);
 
   const [showTimezoneModal, setShowTimezoneModal] = useState(false);
 
@@ -47,12 +53,8 @@ const Settings: FC = () => {
     handleSetUserTimezone(browserTZ);
   }
 
-  const handleDayModeClick = () => {
-    console.log("day mode");
-  }
-
-  const handleNightModeClick = () => {
-    console.log("night mode");
+  const handlePaletteClick = (choice: any) => {
+    handleSetPaletteButton(choice);
   }
 
   return (
@@ -104,10 +106,16 @@ const Settings: FC = () => {
           />
         </Form>
         <br/>
-        <Button onClick={handleTimezoneModal}><PublicIcon/> Change timezone</Button>
+        <ThemeButton onClick={handleTimezoneModal}><PublicIcon/> Change timezone</ThemeButton>
         <br/><br/>
-        <Button onClick={handleDayModeClick}><PublicIcon/> DAY MODE</Button>
-        <Button onClick={handleNightModeClick}><PublicIcon/> NIGHT MODE</Button>
+        <label>App color theme</label>
+        <ul className="hidden-li app-theme-choices">
+          <li><ThemeButton onClick={() => handlePaletteClick(palettes.light)}>THEME: LIGHT</ThemeButton></li>
+          <li><ThemeButton onClick={() => handlePaletteClick(palettes.dark)}>THEME: DARK</ThemeButton></li>
+          <li><ThemeButton onClick={() => handlePaletteClick(palettes.ice)}>THEME: Ice</ThemeButton></li>
+          <li><ThemeButton onClick={() => handlePaletteClick(palettes.berry)}>THEME: Berry</ThemeButton></li>
+          <li><ThemeButton onClick={() => handlePaletteClick(palettes.blue)}>THEME: Blue</ThemeButton></li>
+          </ul>
       </div>
 
       <Modal
@@ -129,7 +137,7 @@ const Settings: FC = () => {
             <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={userTimezone}/>
           </div>
           <br/>
-          <Button onClick={handleSetToBrowserTimezone}>Use Browser Timezone</Button>
+          <ThemeButton onClick={handleSetToBrowserTimezone}>Use Browser Timezone</ThemeButton>
           </div>
       </Modal.Body>
     </Modal>

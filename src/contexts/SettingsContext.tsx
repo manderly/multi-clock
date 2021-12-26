@@ -1,9 +1,8 @@
 import { FC, createContext, useState } from 'react';
 import { NorthAmerica, TimezoneOption, allTimezones } from '../data';
 
-import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from '../components/GlobalStyles/GlobalStyles';
-import { lightTheme, darkTheme } from '../components/Themes/Themes';
+import { DefaultTheme } from 'styled-components';
 interface ISettingsContext {
   userTimezone: TimezoneOption;
   handleSetUserTimezone: (tz: TimezoneOption) => void;
@@ -13,7 +12,12 @@ interface ISettingsContext {
   handleShowMySeconds: (newPref: boolean) => void;
   showOtherSecondsPref: boolean;
   handleShowOtherSeconds: (newPref: boolean) => void;
+  handleSetPaletteButton: (palette: DefaultTheme) => void;
   getBrowserTZ: () => TimezoneOption;
+}
+
+interface ISettingProvider {
+  handleSetTheme: (palette: DefaultTheme) => void;
 }
 
 // context consumer and provider
@@ -27,9 +31,10 @@ export const SettingsContext = createContext<ISettingsContext>({
   showOtherSecondsPref: false,
   handleShowOtherSeconds: () => null,
   getBrowserTZ: () => NorthAmerica[0],
+  handleSetPaletteButton: () => null
 });
 
-const SettingsProvider: FC = ({children}) => {
+const SettingsProvider: FC<ISettingProvider> = ({children, handleSetTheme}) => {
 
   const getBrowserTZ = () => {
     const tzString = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -38,7 +43,6 @@ const SettingsProvider: FC = ({children}) => {
     return match || NorthAmerica[0];
   }
 
-  const [theme, setTheme] = useState('light');
   const [userTimezone, setUserTimezone] = useState(getBrowserTZ());
 
   const [hoursPref, setHoursPref] = useState(() => {
@@ -76,6 +80,10 @@ const SettingsProvider: FC = ({children}) => {
     localStorage.setItem("showOtherSecondsPref", JSON.stringify(newPref));
   }
 
+  const handleSetPaletteButton = (palette: DefaultTheme) => {
+    handleSetTheme(palette);
+  }
+
   const value = {
     userTimezone,
     handleSetUserTimezone,
@@ -85,15 +93,14 @@ const SettingsProvider: FC = ({children}) => {
     handleShowMySeconds,
     showOtherSecondsPref, 
     handleShowOtherSeconds,
-    getBrowserTZ
+    getBrowserTZ,
+    handleSetPaletteButton
   };
 
   return (
     <SettingsContext.Provider value={value}>
-      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         <GlobalStyles/>
         {children}
-      </ThemeProvider>
     </SettingsContext.Provider>
 
   )

@@ -11,8 +11,10 @@ declare module 'styled-components' {
     palette: {
       body: string
       text: string
-      toggleBorder: string
       background: string
+      button: string
+      buttonHover: string
+      buttonActive: string
     }
   }
 }
