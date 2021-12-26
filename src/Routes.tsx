@@ -68,7 +68,7 @@ const Routes: FC = () => {
         </div>
 
         <footer className="footer">
-          <div>Mandi Burley 2021</div> 
+          <div><a href="https://github.com/manderly/multi-clock" className="no-underline">Mandi Burley 2021</a></div> 
           <div><a href="https://github.com/manderly/multi-clock"><GitHubIcon/></a></div>
         </footer>
 

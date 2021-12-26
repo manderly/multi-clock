@@ -15,6 +15,10 @@ h3 {
   padding-left:0px;
 }
 
+.no-underline {
+  text-decoration: none;
+}
+
 .app-theme-choices li { 
   padding:10px 0;
 }

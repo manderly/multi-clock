@@ -11,6 +11,7 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     palette: {
       bg: string
+      a?: string
       text: string
       modalBackground: string
       button: string

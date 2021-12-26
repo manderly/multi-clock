@@ -60,7 +60,7 @@ const Settings: FC = () => {
   return (
     <>
       <div className="settings-container">
-        <h2>Settings & Preferences</h2>
+        <h2>Time Display Preferences</h2>
         <Form>
           <Form.Check 
             inline
@@ -108,7 +108,8 @@ const Settings: FC = () => {
         <br/>
         <ThemeButton onClick={handleTimezoneModal}><PublicIcon/> Change timezone</ThemeButton>
         <br/><br/>
-        <label>App color theme</label>
+        <hr/>
+        <h3>App color theme</h3>
         <ul className="hidden-li app-theme-choices">
           <li><ThemeButton onClick={() => handlePaletteClick(palettes.light)}>THEME: LIGHT</ThemeButton></li>
           <li><ThemeButton onClick={() => handlePaletteClick(palettes.dark)}>THEME: DARK</ThemeButton></li>

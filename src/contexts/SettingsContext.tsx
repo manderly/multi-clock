@@ -82,6 +82,8 @@ const SettingsProvider: FC<ISettingProvider> = ({children, handleSetTheme}) => {
 
   const handleSetPaletteButton = (palette: DefaultTheme) => {
     handleSetTheme(palette);
+    console.log(JSON.stringify(palette));
+    //localStorage.setItem("themePref", JSON.stringify(palette));
   }
 
   const value = {

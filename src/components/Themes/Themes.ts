@@ -13,6 +13,7 @@ export const lightTheme: DefaultTheme = {
 export const darkTheme: DefaultTheme = {
   palette: {
     bg: '#252932',
+    a: "#fff",
     text: '#ECEFF4',
     modalBackground: '#4C566A',
     button: "#3B4252",
@@ -24,7 +25,8 @@ export const darkTheme: DefaultTheme = {
 export const berryTheme: DefaultTheme = {
   palette: {
     bg: '#351930',
-    text: '#bb9faa',
+    a: "#af4972",
+    text: '#d9bbc7',
     modalBackground: '#351930',
     button: "#571c3c",
     buttonActive: "#7a1e47",
