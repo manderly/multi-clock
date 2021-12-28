@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { FormControl, InputGroup, Button } from 'react-bootstrap';
+import { FormControl, InputGroup } from 'react-bootstrap';
 import { calculatorMath } from './calculator';
 import CounterButton from '../../components/CounterButton/CounterButton';
 import { useEffect } from 'react';
@@ -59,7 +59,7 @@ const Utils: FC = () => {
             aria-label="calculator-input" 
             value={userInput} 
             onChange={handleInputChange} />
-          <ThemeButton aria-label="calculator-button" variant="primary" onClick={processInput}>Calculate</ThemeButton>
+          <ThemeButton aria-label="calculator-button" variant="secondary" onClick={processInput}>Calculate</ThemeButton>
           {result ? <div className="calculator-result-item">= {result}</div> : <div className="calculator-result-item"></div>}
         </InputGroup>
       </div>
