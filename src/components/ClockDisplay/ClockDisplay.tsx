@@ -133,11 +133,11 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
                 className="timezone-select-button"
                 aria-label="clock timestamp"
                 onClick={() => setShowClockSettingsModal(true)}
-                ><h3 aria-label="time" className="timestamp time-item time-stamp-display">{formattedTime}</h3>
+                ><h4 aria-label="time" className="timestamp time-item time-stamp-display">{formattedTime}</h4>
             </Button>
-
+            <br/>
             {/* Date */}
-            <h2 className="clock-display-date time-item" aria-label="clock date display">{formattedDateClock}</h2>
+            <h5 className="clock-display-date time-item" aria-label="clock date display">{formattedDateClock}</h5>
 
           </div>
         </div>

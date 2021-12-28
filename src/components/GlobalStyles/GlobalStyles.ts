@@ -8,7 +8,7 @@ export const GlobalStyles = createGlobalStyle`
     transition: all 0.30s linear;
   }
 
-  h1, h2, h3, h4, h5 {
+  h1, h2, h3 {
     color: ${({ theme }) => theme.palette.textHeader};
   }
 
