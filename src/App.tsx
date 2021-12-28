@@ -3,17 +3,22 @@ import SettingsProvider from './contexts/SettingsContext';
 import TimeProvider from './contexts/TimeContext';
 import Routes from './Routes';
 
-import { DefaultTheme, ThemeProvider } from 'styled-components';
-import { palettes } from './components/Themes/Themes';
+import { ThemeProvider } from 'styled-components';
+import { themeNames, themeMap } from './components/Themes/Themes';
+import localStorageUtils from './utils/localStorage';
 
 import './App.css';
 
 function App() {
+  //const [theme, setTheme] = useState(palettes.light);
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorageUtils.get("themePref");
+    return themeMap[saved] || themeMap[themeNames.light];
+  });
 
-  const [theme, setTheme] = useState(palettes.blue);
-
-  const handleSetPaletteInApp = (palette: DefaultTheme) => {
-    setTheme(palette);
+  const handleSetPaletteInApp = (themeName: string) => {
+    let theme = themeMap[themeName];
+    setTheme(theme);
   }
 
   return (

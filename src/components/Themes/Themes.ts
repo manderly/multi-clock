@@ -51,3 +51,17 @@ export const palettes = {
   berry:berryTheme,
   blue:blueTheme,
 } as const;
+
+export const enum themeNames {
+  light = "light",
+  dark = "dark",
+  berry = "berry",
+  blue = "blue",
+}
+
+export const themeMap: {[key: string]: DefaultTheme} = {
+  "light":lightTheme,
+  "dark":darkTheme,
+  "berry":berryTheme,
+  "blue":blueTheme,
+}

@@ -4,9 +4,12 @@ import userEvent from '@testing-library/user-event';
 import Settings from './Settings';
 import SettingsProvider from '../../contexts/SettingsContext';
 
+import { ThemeProvider } from 'styled-components'
+import { themeMap } from '../../components/Themes/Themes';
+
 describe('Settings page', () => {
   it('Should have two radio buttons, one for 12-hour clock and 24-hour clock, when rendered', () => {
-    render(<Settings />);
+    render(<ThemeProvider theme={themeMap["light"]}><Settings /></ThemeProvider>);
     const displayOption12Hours = screen.getByRole("radio", { name: 'option-12-hours'});
     const displayOption24Hours  = screen.getByRole("radio", {name: 'option-24-hours'});
     expect(displayOption12Hours).toBeInTheDocument();
@@ -14,13 +17,13 @@ describe('Settings page', () => {
   })
 
   it('Should have a checkbox for toggling the "Show seconds on my clock" setting when rendered', () => {
-    render(<Settings />);
+    render(<ThemeProvider theme={themeMap["light"]}><Settings /></ThemeProvider>);
     const showMySecondsCheckbox = screen.getByRole("checkbox", {name: 'option-show-my-seconds'});
     expect(showMySecondsCheckbox).toBeInTheDocument();
   })
 
   it('Should have a checkbox for toggling the "Show seconds on other clocks" setting when rendered', () => {
-    render(<Settings />);
+    render(<ThemeProvider theme={themeMap["light"]}><Settings /></ThemeProvider>);
     const showOtherSecondsCheckbox = screen.getByRole("checkbox", {name: 'option-show-other-seconds'});
     expect(showOtherSecondsCheckbox).toBeInTheDocument();
   })
@@ -28,7 +31,7 @@ describe('Settings page', () => {
   it('Should use browser timezone when Use Browser Timezone is clicked', () => {
     // this test would be better if it forced the test browser's timezone to be something in particular
     // without this, there's a chance the test will be run in the same timezone it picks out of the list 
-    render(<SettingsProvider><Settings /></SettingsProvider>);
+    render(<ThemeProvider theme={themeMap["light"]}><SettingsProvider handleSetTheme={jest.fn()}><Settings /></SettingsProvider></ThemeProvider>);
     const changeTimezoneButton = screen.getByRole('button', {name: /Change timezone/i});
     userEvent.click(changeTimezoneButton);
     // modal is now open

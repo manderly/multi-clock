@@ -2,7 +2,7 @@ import { FC, createContext, useState } from 'react';
 import { NorthAmerica, TimezoneOption, allTimezones } from '../data';
 
 import { GlobalStyles } from '../components/GlobalStyles/GlobalStyles';
-import { DefaultTheme } from 'styled-components';
+import localStorageUtils from '../utils/localStorage';
 interface ISettingsContext {
   userTimezone: TimezoneOption;
   handleSetUserTimezone: (tz: TimezoneOption) => void;
@@ -12,12 +12,12 @@ interface ISettingsContext {
   handleShowMySeconds: (newPref: boolean) => void;
   showOtherSecondsPref: boolean;
   handleShowOtherSeconds: (newPref: boolean) => void;
-  handleSetPaletteButton: (palette: DefaultTheme) => void;
+  handleSetPaletteButton: (name: string) => void;
   getBrowserTZ: () => TimezoneOption;
 }
 
 interface ISettingProvider {
-  handleSetTheme: (palette: DefaultTheme) => void;
+  handleSetTheme: (themeName: string) => void;
 }
 
 // context consumer and provider
@@ -46,17 +46,17 @@ const SettingsProvider: FC<ISettingProvider> = ({children, handleSetTheme}) => {
   const [userTimezone, setUserTimezone] = useState(getBrowserTZ());
 
   const [hoursPref, setHoursPref] = useState(() => {
-    const saved = localStorage.getItem("hoursPref") as string;
+    const saved = localStorageUtils.get("hoursPref");
     return parseInt(saved) || 12;
   });
 
   const [showMySecondsPref, setShowMySecondsPref] = useState(() => {
-    const saved = localStorage.getItem("showMySecondsPref") as string;
+    const saved = localStorageUtils.get("showMySecondsPref");
     return JSON.parse(saved) || false;
   });
 
   const [showOtherSecondsPref, setShowOtherSecondsPref] = useState(() => {
-    const saved = localStorage.getItem("showOtherSecondsPref") as string;
+    const saved = localStorageUtils.get("showOtherSecondsPref");
     return JSON.parse(saved) || false;
   });
 
@@ -67,23 +67,23 @@ const SettingsProvider: FC<ISettingProvider> = ({children, handleSetTheme}) => {
 
   const handleSetHours = (newPref: number) => {
     setHoursPref(newPref);
-    localStorage.setItem("hoursPref", JSON.stringify(newPref));
+    localStorageUtils.put("hoursPref", newPref);
   }
 
   const handleShowMySeconds = (newPref: boolean) => {
     setShowMySecondsPref(newPref);
-    localStorage.setItem("showMySecondsPref", JSON.stringify(newPref));
+    localStorageUtils.put("showMySecondsPref", newPref);
   }
 
   const handleShowOtherSeconds = (newPref: boolean) => {
     setShowOtherSecondsPref(newPref);
-    localStorage.setItem("showOtherSecondsPref", JSON.stringify(newPref));
+    localStorageUtils.put("showOtherSecondsPref", newPref);
   }
 
-  const handleSetPaletteButton = (palette: DefaultTheme) => {
-    handleSetTheme(palette);
-    console.log(JSON.stringify(palette));
-    //localStorage.setItem("themePref", JSON.stringify(palette));
+  const handleSetPaletteButton = (themeName: string) => {
+    // send just the name up, the matching to an actual theme happens up in App.tsx
+    handleSetTheme(themeName);
+    localStorageUtils.put("themePref", themeName);
   }
 
   const value = {

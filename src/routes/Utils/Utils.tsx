@@ -5,6 +5,7 @@ import CounterButton from '../../components/CounterButton/CounterButton';
 import { useEffect } from 'react';
 
 import { ThemeButton } from '../../components';
+import localStorageUtils from '../../utils/localStorage';
 
 const Utils: FC = () => {
 
@@ -12,9 +13,8 @@ const Utils: FC = () => {
   const [result, setResult] = useState<String>('');
   const [calculatorHistory, setCalculatorHistory] = useState(() => {
     // get from localstorage if possible
-    const saved = localStorage.getItem("calculatorHistory") as string;
-    const initialValue = JSON.parse(saved);
-    return initialValue || [];
+    const history = localStorageUtils.get("calculatorHistory");
+    return history || [];
   })
 
   const [count, setCount] = useState(0);
@@ -44,7 +44,7 @@ const Utils: FC = () => {
   }
 
   useEffect(() => {
-    localStorage.setItem("calculatorHistory", JSON.stringify(calculatorHistory));
+    localStorageUtils.put("calculatorHistory", calculatorHistory);
   }, [calculatorHistory])
 
   return (

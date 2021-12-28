@@ -6,6 +6,9 @@ import Clocks from './Clocks';
 import MockDate from 'mockdate';
 import TimeProvider from '../../contexts/TimeContext';
 
+import { ThemeProvider } from 'styled-components'
+import { themeMap } from '../../components/Themes/Themes';
+
 describe('Clocks component', () => {
   beforeEach(() => {
     MockDate.set(new Date(1474463400000));
@@ -18,7 +21,7 @@ describe('Clocks component', () => {
   })
 
   it('Should have four clocks by defaullt', () => {
-    render(<TimeProvider><Clocks /></TimeProvider>);
+    render(<ThemeProvider theme={themeMap["light"]}><TimeProvider><Clocks /></TimeProvider></ThemeProvider>);
     // looks for names, times, and dates
     expect(screen.getAllByRole('button', {name: 'clock nickname display'})).toHaveLength(4);
     expect(screen.getAllByRole('heading', {name: 'time'})).toHaveLength(4);
@@ -26,7 +29,7 @@ describe('Clocks component', () => {
   })
 
   it('Should create four United States clocks when the All US Clocks button is pressed', () => {
-    render(<TimeProvider><Clocks /></TimeProvider>);
+    render(<ThemeProvider theme={themeMap["light"]}><TimeProvider><Clocks /></TimeProvider></ThemeProvider>);
     const allUSClocksButton = screen.getByRole('button', {name: /🇺🇸 U.S. Timezones/i});
     userEvent.click(allUSClocksButton);
     // check that the 4 clocks have the correct city names
@@ -47,7 +50,7 @@ describe('Clocks component', () => {
   })
 
   it('Should add another clock when Add Clock button is clicked', () => {
-    render(<TimeProvider><Clocks /></TimeProvider>);
+    render(<ThemeProvider theme={themeMap["light"]}><TimeProvider><Clocks /></TimeProvider></ThemeProvider>);
     fireEvent.click(screen.getByText('Add Clock'));
     expect(screen.getAllByRole('heading', {name: 'clock date display'})).toHaveLength(5);
   })
@@ -57,7 +60,7 @@ describe('Clocks component', () => {
     // 6:10 am, 8:10 am, 3:10 pm, 11:10 pm
     // deleting the first clock means we expect to no longer have the 6:10 clock on the screen
     const expected = '6:10 am';
-    render(<TimeProvider><Clocks /></TimeProvider>);
+    render(<ThemeProvider theme={themeMap["light"]}><TimeProvider><Clocks /></TimeProvider></ThemeProvider>);
     // verify the clock to delete is present
     const clockToDelete = screen.getByText(expected);
     expect(clockToDelete).toBeInTheDocument();
@@ -74,7 +77,7 @@ describe('Clocks component', () => {
   })
 
   it('Should rename a clock from the clock management modal with enter', () => {
-    render(<TimeProvider><Clocks /></TimeProvider>);
+    render(<ThemeProvider theme={themeMap["light"]}><TimeProvider><Clocks /></TimeProvider></ThemeProvider>);
     const clockModalLinks = screen.getAllByRole('button', {name: 'clock timestamp'});
     userEvent.click(clockModalLinks[0]);
     // modal should be open now
@@ -88,7 +91,7 @@ describe('Clocks component', () => {
   })
 
   it('Should rename a clock from the clock management modal with escape', () => {
-    render(<TimeProvider><Clocks /></TimeProvider>);
+    render(<ThemeProvider theme={themeMap["light"]}><TimeProvider><Clocks /></TimeProvider></ThemeProvider>);
     const clockModalLinks = screen.getAllByRole('button', {name: 'clock timestamp'});
     userEvent.click(clockModalLinks[0]);
     // modal should be open now
