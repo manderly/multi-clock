@@ -10,6 +10,19 @@ h3 {
   font-weight:normal !important;
 }
 
+.hidden-li {
+  list-style: none;
+  padding-left:0px;
+}
+
+.no-underline {
+  text-decoration: none;
+}
+
+.app-theme-choices li { 
+  padding:10px 0;
+}
+
 .narrow-screen {
   display:none;
 }

@@ -1,19 +1,20 @@
 import { FC, useState } from 'react';
-import { FormControl, InputGroup, Button } from 'react-bootstrap';
+import { FormControl, InputGroup } from 'react-bootstrap';
 import { calculatorMath } from './calculator';
 import CounterButton from '../../components/CounterButton/CounterButton';
 import { useEffect } from 'react';
+
+import { ThemeButton } from '../../components';
+import localStorageUtils from '../../utils/localStorage';
 
 const Utils: FC = () => {
 
   const [userInput, setUserInput] = useState<string[]>([]);
   const [result, setResult] = useState<String>('');
-  //const [calculatorHistory, setCalculatorHistory] = useState<string[]>([]);
   const [calculatorHistory, setCalculatorHistory] = useState(() => {
     // get from localstorage if possible
-    const saved = localStorage.getItem("calculatorHistory") as string;
-    const initialValue = JSON.parse(saved);
-    return initialValue || [];
+    const history = localStorageUtils.get("calculatorHistory");
+    return history || [];
   })
 
   const [count, setCount] = useState(0);
@@ -43,7 +44,7 @@ const Utils: FC = () => {
   }
 
   useEffect(() => {
-    localStorage.setItem("calculatorHistory", JSON.stringify(calculatorHistory));
+    localStorageUtils.put("calculatorHistory", calculatorHistory);
   }, [calculatorHistory])
 
   return (
@@ -58,7 +59,7 @@ const Utils: FC = () => {
             aria-label="calculator-input" 
             value={userInput} 
             onChange={handleInputChange} />
-          <Button aria-label="calculator-button" variant="primary" onClick={processInput}>Calculate</Button>
+          <ThemeButton aria-label="calculator-button" variant="secondary" onClick={processInput}>Calculate</ThemeButton>
           {result ? <div className="calculator-result-item">= {result}</div> : <div className="calculator-result-item"></div>}
         </InputGroup>
       </div>
@@ -72,7 +73,9 @@ const Utils: FC = () => {
         }
       </div>
 
-      <div className="counter-container">
+
+      {false &&
+        <div className="counter-container">
         <div className="counter-item">
           <CounterButton label="Increase Counter" onClickMethod={increaseCount} />
         </div>
@@ -80,6 +83,7 @@ const Utils: FC = () => {
           <span>Counter: {count}</span>
         </div>
         </div>
+      }
 
     </div>
   )

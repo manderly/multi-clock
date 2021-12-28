@@ -1,5 +1,8 @@
 import { FC, createContext, useState } from 'react';
 import { NorthAmerica, TimezoneOption, allTimezones } from '../data';
+
+import { GlobalStyles } from '../components/GlobalStyles/GlobalStyles';
+import localStorageUtils from '../utils/localStorage';
 interface ISettingsContext {
   userTimezone: TimezoneOption;
   handleSetUserTimezone: (tz: TimezoneOption) => void;
@@ -9,7 +12,12 @@ interface ISettingsContext {
   handleShowMySeconds: (newPref: boolean) => void;
   showOtherSecondsPref: boolean;
   handleShowOtherSeconds: (newPref: boolean) => void;
+  handleSetPaletteButton: (name: string) => void;
   getBrowserTZ: () => TimezoneOption;
+}
+
+interface ISettingProvider {
+  handleSetTheme: (themeName: string) => void;
 }
 
 // context consumer and provider
@@ -23,9 +31,10 @@ export const SettingsContext = createContext<ISettingsContext>({
   showOtherSecondsPref: false,
   handleShowOtherSeconds: () => null,
   getBrowserTZ: () => NorthAmerica[0],
+  handleSetPaletteButton: () => null
 });
 
-const SettingsProvider: FC = ({children}) => {
+const SettingsProvider: FC<ISettingProvider> = ({children, handleSetTheme}) => {
 
   const getBrowserTZ = () => {
     const tzString = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -37,17 +46,17 @@ const SettingsProvider: FC = ({children}) => {
   const [userTimezone, setUserTimezone] = useState(getBrowserTZ());
 
   const [hoursPref, setHoursPref] = useState(() => {
-    const saved = localStorage.getItem("hoursPref") as string;
+    const saved = localStorageUtils.get("hoursPref");
     return parseInt(saved) || 12;
   });
 
   const [showMySecondsPref, setShowMySecondsPref] = useState(() => {
-    const saved = localStorage.getItem("showMySecondsPref") as string;
+    const saved = localStorageUtils.get("showMySecondsPref");
     return JSON.parse(saved) || false;
   });
 
   const [showOtherSecondsPref, setShowOtherSecondsPref] = useState(() => {
-    const saved = localStorage.getItem("showOtherSecondsPref") as string;
+    const saved = localStorageUtils.get("showOtherSecondsPref");
     return JSON.parse(saved) || false;
   });
 
@@ -58,17 +67,23 @@ const SettingsProvider: FC = ({children}) => {
 
   const handleSetHours = (newPref: number) => {
     setHoursPref(newPref);
-    localStorage.setItem("hoursPref", JSON.stringify(newPref));
+    localStorageUtils.put("hoursPref", newPref);
   }
 
   const handleShowMySeconds = (newPref: boolean) => {
     setShowMySecondsPref(newPref);
-    localStorage.setItem("showMySecondsPref", JSON.stringify(newPref));
+    localStorageUtils.put("showMySecondsPref", newPref);
   }
 
   const handleShowOtherSeconds = (newPref: boolean) => {
     setShowOtherSecondsPref(newPref);
-    localStorage.setItem("showOtherSecondsPref", JSON.stringify(newPref));
+    localStorageUtils.put("showOtherSecondsPref", newPref);
+  }
+
+  const handleSetPaletteButton = (themeName: string) => {
+    // send just the name up, the matching to an actual theme happens up in App.tsx
+    handleSetTheme(themeName);
+    localStorageUtils.put("themePref", themeName);
   }
 
   const value = {
@@ -80,13 +95,16 @@ const SettingsProvider: FC = ({children}) => {
     handleShowMySeconds,
     showOtherSecondsPref, 
     handleShowOtherSeconds,
-    getBrowserTZ
+    getBrowserTZ,
+    handleSetPaletteButton
   };
 
   return (
     <SettingsContext.Provider value={value}>
-      {children}
-      </SettingsContext.Provider>
+        <GlobalStyles/>
+        {children}
+    </SettingsContext.Provider>
+
   )
 }
 

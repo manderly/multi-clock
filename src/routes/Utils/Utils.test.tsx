@@ -2,9 +2,11 @@ import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import Utils from './Utils';
 import userEvent from '@testing-library/user-event';
+import { ThemeProvider } from 'styled-components'
+import { themeMap } from '../../components/Themes/Themes';
 
 const setup = () => {
-  const utils = render(<Utils />);
+  const utils = render(<ThemeProvider theme={themeMap["light"]}><Utils /></ThemeProvider>);
   const input = screen.getByRole("textbox", {name: "calculator-input"});
   const button = screen.getByRole("button", {name: "calculator-button"});
   return {

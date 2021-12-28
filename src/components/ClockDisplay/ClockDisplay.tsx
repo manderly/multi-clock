@@ -3,11 +3,14 @@ import { FC, CSSProperties, useState, useEffect, useContext, useRef } from 'reac
 import { TimezoneOption } from '../../data';
 
 import { useFormatDate } from '../../hooks/useFormatDate';
-import { Button, Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 import { SettingsContext } from '../../contexts/SettingsContext';
 import { TimeContext } from '../../contexts/TimeContext';
 import TimezonePicker  from '../../components/TimezonePicker/TimezonePicker';
+
+import { Modal } from '../../components';
+import { ThemeButton } from '../../components';
 
 import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
@@ -130,11 +133,11 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
                 className="timezone-select-button"
                 aria-label="clock timestamp"
                 onClick={() => setShowClockSettingsModal(true)}
-                ><h3 aria-label="time" className="timestamp time-item time-stamp-display">{formattedTime}</h3>
+                ><h4 aria-label="time" className="timestamp time-item time-stamp-display">{formattedTime}</h4>
             </Button>
-
+            <br/>
             {/* Date */}
-            <h2 className="clock-display-date time-item" aria-label="clock date display">{formattedDateClock}</h2>
+            <h5 className="clock-display-date time-item" aria-label="clock date display">{formattedDateClock}</h5>
 
           </div>
         </div>
@@ -164,8 +167,8 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
                 </div>
 
                 <div className="edit-clock-name-buttons">
-                  <Button type='button' size="sm" aria-label="clear nickname" onClick={handleClearNicknameClick}><ClearIcon/></Button>
-                  <Button type='button' size="sm" aria-label="edit nickname" onClick={handleEditingNicknameClick}><EditIcon/></Button>
+                  <ThemeButton type='button' size="sm" aria-label="clear nickname" onClick={handleClearNicknameClick}><ClearIcon/></ThemeButton>
+                  <ThemeButton type='button' size="sm" aria-label="edit nickname" onClick={handleEditingNicknameClick}><EditIcon/></ThemeButton>
                 </div>
 
               </div>

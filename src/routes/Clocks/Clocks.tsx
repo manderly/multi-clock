@@ -1,8 +1,8 @@
 import { FC, useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
-
 import ClockDisplay from '../../components/ClockDisplay/ClockDisplay';
 import { usTimeZones, defaultTimeZones, TimezoneOption } from '../../data';
+import { ThemeButton } from '../../components';
+import localStorageUtils from '../../utils/localStorage';
 
 interface IClock {
   timezone: TimezoneOption;
@@ -33,23 +33,17 @@ const Clocks: FC = () => {
   // create an array of clock objects, feeding it default time zones
   // createDefaultClocks
   const [clocks, setClocks] = useState(() => {
-    // get from localstorage if possible
-    const saved = localStorage.getItem("clocks") as string;
-    const initialValue = JSON.parse(saved);
+    const initialValue = localStorageUtils.get("clocks");
     return initialValue || createDefaultClocks();
   });
 
   useEffect(() => {
-    //console.log("re-writing localstorage clock data");
-    localStorage.setItem("clocks", JSON.stringify(clocks));
+    localStorageUtils.put("clocks", clocks);
   }, [clocks])
 
   const handleSetAllToUSClick = () => {
-    localStorage.removeItem("clocks");
+    localStorageUtils.delete("clocks");
     // set existing clocks or create new ones to get to 4 clocks representing 4 US time zones
-    //console.log("Setting first four clocks to US timezones");
-
-    // not this idea, instead ... create new clocks from existing data? 
     const USClocks = [];
 
     for (let i = 0; i < 4; i++) {
@@ -78,8 +72,8 @@ const Clocks: FC = () => {
   return (
     <>
       <div className="clocks-quick-options">
-        <div className="clocks-quick-options-item"><Button variant="outline-primary" type="button" onClick={handleSetAllToUSClick}>🇺🇸 U.S. Timezones</Button></div>
-        <div className="clocks-quick-options-item"><Button variant="primary" aria-label="button-add-clock" onClick={addClock}>Add Clock</Button></div>
+        <div className="clocks-quick-options-item"><ThemeButton variant="outline-primary" type="button" onClick={handleSetAllToUSClick}>🇺🇸 U.S. Timezones</ThemeButton></div>
+        <div className="clocks-quick-options-item"><ThemeButton variant="primary" aria-label="button-add-clock" onClick={addClock}>Add Clock</ThemeButton></div>
       </div>  
 
       <div className="clocks-row-container">
