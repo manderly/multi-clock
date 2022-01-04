@@ -73,7 +73,7 @@ h3 {
 
 .browser-time {
   text-align:center;
-  font-size:2em;
+  font-size:3em;
 }
 
 .bg-evening button {
@@ -128,7 +128,7 @@ h3 {
   display: flex;
   flex-flow:row wrap;
   flex-direction: row;
-  justify-content: left;
+  justify-content: center;
   gap:12px;
 }
 
@@ -210,7 +210,7 @@ h3 {
 }
 
 .time-stamp-display {
-  font-size:2em;
+  font-size:4.4em;
 }
 
 .blue-border {
@@ -334,13 +334,14 @@ h3 {
 }
 
 /* Two columns of clocks */
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 780px) {
 
   .page {
     padding:0;
   }
 
   .clocks-row-container {
+    justify-content: left;
     gap:0px;
   }
 
@@ -385,6 +386,11 @@ h3 {
 
   .navigation-links ul {
     margin-right:2px;
+  }
+
+  .browser-time {
+    text-align:center;
+    font-size:2em;
   }
 }
 
