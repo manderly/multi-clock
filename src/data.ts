@@ -77,7 +77,7 @@ export const Europe: readonly TimezoneOption[] = [
   {value: 'Europe/Romania', label: '🇪🇺 Eastern European', utc: '+02:00'},
   {value: 'Europe/Moscow', label: '🇪🇺 Further Eastern European', utc: '+03:00'},
   {value: 'Europe/Helsinki', label: '🇫🇮 Helsinki, Finland', utc: '+02:00'},
-  {value: 'Europe/Kiev', label: '🇺🇦 Kiev', utc: '+02:00'},
+  {value: 'Europe/Kiev', label: '🇺🇦 Kiev, Ukraine', utc: '+02:00'},
   {value: 'Europe/Kaliningrad', label: '🇷🇺 Moscow-01 - Kaliningrad', utc: '+02:00'},
   {value: 'Europe/Riga', label: '🇱🇻 Riga, Latvia', utc: '+02:00'},
   {value: 'Europe/Sofia', label: '🇧🇬 Sofia, Bulgaria', utc: '+02:00'},
@@ -100,9 +100,9 @@ export const Australia: readonly TimezoneOption[] = [
 ]
 
 export const Atlantic: readonly TimezoneOption[] = [
-  {value: 'Atlantic/South_Georgia', label: '🇬🇸 South Georgia', utc: '-02:00'},
   {value: 'Atlantic/Azores', label: '🇵🇹 Azores, Portugal', utc: '-01:00'},
   {value: 'Atlantic/Cape_Verde', label: '🇨🇻 Cape Verde', utc: '-01:00'},
+  {value: 'Atlantic/South_Georgia', label: '🇬🇸 South Georgia', utc: '-02:00'},
 ]
 
 export const Africa: readonly TimezoneOption[] = [
@@ -154,7 +154,7 @@ export interface GroupedOption {
   readonly options: readonly TimezoneOption[];
 }
 
-export const allTimezones: readonly TimezoneOption[] = [...NorthAmerica, ...CentralAmerica, ...SouthAmerica, ...Europe, ...Australia, ...Pacific, ...Atlantic, ...Africa];
+export const allTimezones: readonly TimezoneOption[] = [...NorthAmerica, ...CentralAmerica, ...SouthAmerica, ...Europe, ...Asia, ...Australia, ...Pacific, ...Atlantic, ...Africa];
 export const groupedOptions: readonly GroupedOption[] = [
   {
     label: 'North America',
