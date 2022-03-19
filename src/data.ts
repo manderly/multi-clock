@@ -127,6 +127,7 @@ export const Asia: readonly TimezoneOption[] = [
   {value: 'Asia/Yekaterinburg', label: '🇷🇺 Moscow+02 - Yekaterinburg', utc: '+05:00'},
   {value: 'Asia/Tashkent', label: '🇺🇿 Tashkent, Uzbekistan', utc: '+05:00'},
   {value: 'Asia/Colombo', label: '🇱🇰 Colombo, Sri Lanka', utc: '+05:30'},
+  {value: 'Asia/Kolkata', label: '🇮🇳 Kolkata', utc: '+05:30'},
   {value: 'Asia/Almaty', label: '🇰🇿 Almaty, Kazakhstan', utc: '+06:00'},
   {value: 'Asia/Dhaka', label: '🇧🇩 Dhaka, Bangladesh', utc: '+06:00'},
   {value: 'Asia/Rangoon', label: '🇲🇲 Rangoon, Myanmar', utc: '+06:30'},
