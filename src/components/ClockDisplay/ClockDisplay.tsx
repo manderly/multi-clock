@@ -19,24 +19,49 @@ import EditIcon from '@mui/icons-material/Edit';
 interface IClockDisplay {
   name: string,
   uniqueID: number;
-  defaultTimeZone: TimezoneOption;
+  defaultTimezone: TimezoneOption;
+  userTimezone: TimezoneOption;
   handleRemoveClock: (e: any) => void;
 }
 
-const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, handleRemoveClock }) => {
+const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimezone, userTimezone, handleRemoveClock }) => {
 
   const { hoursPref, showOtherSecondsPref } = useContext(SettingsContext);
   const { now } = useContext(TimeContext);
 
   const [nickname, setNickname] = useState(name);
   const [editingNickname, setEditingNickname] = useState(false);
-  const [timeZone, setTimeZone] = useState(defaultTimeZone);
-
+  const [timezone, setTimezone] = useState(defaultTimezone);
+  const [showPreview, setShowPreview] = useState(false);
+  const [offset, setOffset] = useState('');
   const [showClockSettingsModal, setShowClockSettingsModal] = useState(false);
 
-  const { formattedDateClock, formattedTime, timePalette } = useFormatDate(now, timeZone.value, hoursPref, showOtherSecondsPref);
+  const { formattedDateClock, formattedTime, formattedPreviewTime, timePalette } = useFormatDate(now, timezone.value, hoursPref, showOtherSecondsPref);
 
   const nicknameRef = useRef<HTMLInputElement | null>(null);
+
+  const calculateOffset = (userTimezone: TimezoneOption) => {
+    const userTimezoneParts = userTimezone.utc.split(':');
+    const parsedUserTimezoneUTCOffset = parseInt(userTimezoneParts[0]);
+
+    const clockTimezoneParts = timezone.utc.split(':');
+    const parsedClockTimezoneUTCOffset = parseInt(clockTimezoneParts[0]);
+
+    let diff = 0;
+    if (parsedUserTimezoneUTCOffset > parsedClockTimezoneUTCOffset) {
+      // user is "west" of clock's timezone
+      diff = parsedUserTimezoneUTCOffset - parsedClockTimezoneUTCOffset;
+    } else {
+      // user is "east" of clock's timezone
+      diff = parsedClockTimezoneUTCOffset - parsedUserTimezoneUTCOffset;
+    }
+    const sign = parsedUserTimezoneUTCOffset > parsedClockTimezoneUTCOffset ? '-' : '+' 
+    return `${sign}${diff} hr${diff > 1 ? 's' : ''}`;
+  }
+
+  useEffect(() => {
+    setOffset(calculateOffset(userTimezone));
+  }, [userTimezone])
 
   useEffect(() => {
     if (nickname) {
@@ -55,7 +80,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
   }, [nickname]);
 
   useEffect(() => {
-    if (timeZone) {
+    if (timezone) {
       try {
         const saved = localStorage.getItem("clocks") as string;
         if (saved) {
@@ -63,7 +88,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
           const indexToEdit = parsed.findIndex((clock: any) => clock.uniqueID === uniqueID);
 
           if (~indexToEdit) {
-            parsed[indexToEdit].timezone = timeZone;
+            parsed[indexToEdit].timezone = timezone;
             localStorage.setItem("clocks", JSON.stringify(parsed));
           }
         }
@@ -71,7 +96,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
         console.log(e);
       }
     }
-  }, [timeZone]);
+  }, [timezone]);
 
   const clockTimePaletteStyles: CSSProperties = {
     backgroundColor: timePalette.bg,
@@ -114,7 +139,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
   }
 
   const handleTimezoneChange = (option: any) => {
-    setTimeZone(option);
+    setTimezone(option);
   }
 
     return (
@@ -123,7 +148,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
           <div className="time-col-container">
             {/* Nickname box */}
             <div>
-              <Button type='button' variant="link" size="sm" aria-label="clock nickname display" style={clockTimePaletteStyles} className="name-clock-link" onClick={() => setShowClockSettingsModal(true)}>{nickname === '' ? `${timeZone.label}` : `${nickname}`}</Button>
+              <Button type='button' variant="link" size="sm" aria-label="clock nickname display" style={clockTimePaletteStyles} className="name-clock-link" onClick={() => setShowClockSettingsModal(true)}>{nickname === '' ? `${timezone.label}` : `${nickname}`}</Button>
             </div>
             
             {/* Time of day */}
@@ -138,7 +163,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
             <br/>
             {/* Date */}
             <h5 className="clock-display-date time-item" aria-label="clock date display">{formattedDateClock}</h5>
-
+            <h5 className="clock-display-preview-time time-item" aria-label="clock preview time display">{showPreview ? formattedPreviewTime : offset}</h5>
           </div>
         </div>
 
@@ -163,7 +188,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
               <div className="edit-clock-name-row">
 
                 <div>
-                  <Button type='button' variant="link" className="nickname-button" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timeZone.label}` : `${nickname}`}</Button>
+                  <Button type='button' variant="link" className="nickname-button" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timezone.label}` : `${nickname}`}</Button>
                 </div>
 
                 <div className="edit-clock-name-buttons">
@@ -178,7 +203,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimeZone, hand
 
           <label className="modal-label">Timezone</label>
           <div className="modal-line">
-            <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={defaultTimeZone}/>
+            <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={defaultTimezone}/>
             <br/>
             <div className="delete-clock-div">
               <Button size="sm" variant="link" aria-label="delete clock button" onClick={handleRemoveClock}>Delete clock</Button>

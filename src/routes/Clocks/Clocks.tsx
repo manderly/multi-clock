@@ -1,9 +1,9 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, useContext } from 'react';
 import ClockDisplay from '../../components/ClockDisplay/ClockDisplay';
 import { usTimeZones, defaultTimeZones, TimezoneOption } from '../../data';
 import { ThemeButton } from '../../components';
 import localStorageUtils from '../../utils/localStorage';
-
+import { SettingsContext } from '../../contexts/SettingsContext';
 interface IClock {
   timezone: TimezoneOption;
   name: string;
@@ -32,6 +32,8 @@ const createClock = (tz: TimezoneOption, name?: string, uniqueID?: number): IClo
 const Clocks: FC = () => {
   // create an array of clock objects, feeding it default time zones
   // createDefaultClocks
+  const { userTimezone } = useContext(SettingsContext);
+
   const [clocks, setClocks] = useState(() => {
     const initialValue = localStorageUtils.get("clocks");
     return initialValue || createDefaultClocks();
@@ -82,7 +84,8 @@ const Clocks: FC = () => {
             name={data.name}
             key={data.uniqueID}
             uniqueID={data.uniqueID}
-            defaultTimeZone={data.timezone} 
+            defaultTimezone={data.timezone}
+            userTimezone={userTimezone}
             handleRemoveClock={() => removeClock(data.uniqueID)}/>
           ))}
       </div>

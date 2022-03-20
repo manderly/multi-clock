@@ -37,7 +37,8 @@ export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, s
 
   const [formattedDateHeader, setFormattedDateHeader] = useState('');
   const [formattedDateClock, setFormattedDateClock] = useState('');
-  const [formattedTime, setFormattedTime] = useState(''); 
+  const [formattedTime, setFormattedTime] = useState('');
+  const [formattedPreviewTime, setFormattedPreviewTime] = useState('');
   const [timePalette, setTimePalette] = useState<IHexPalette>(paletteDefaults);
 
   const [locale] = useState(enUS);
@@ -51,6 +52,7 @@ export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, s
     setFormattedDateHeader(makeDate(convertedDate, dateFormatHeader));
     setFormattedDateClock(makeDate(convertedDate, dateFormatClock));  // make the date part
     setFormattedTime(makeDate(convertedDate, timeFormat));  // make the time part
+    setFormattedPreviewTime(makeDate(convertedDate, dateFormatHeader)); // make the offset part
 
     // set "time palette", ie: morning, afternoon, night background color
     const minuteOfDay = getMinuteOfDay(convertedDate);
@@ -61,6 +63,10 @@ export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, s
     formattedDateHeader,
     formattedDateClock,
     formattedTime,
+    formattedPreviewTime,
     timePalette
   }
 }
+
+
+// todo: add date preview calculation and return it 
