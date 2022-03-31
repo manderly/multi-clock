@@ -394,6 +394,10 @@ h3 {
   }
 }
 
+.clock-display-preview-time {
+  font-size:.8em;
+}
+
 /* Two columns of clocks */
 @media only screen and (max-width:450px) {
 
