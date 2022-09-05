@@ -2,11 +2,10 @@ import { useState } from 'react';
 import SettingsProvider from './contexts/SettingsContext';
 import TimeProvider from './contexts/TimeContext';
 import Routes from './Routes';
-
 import { ThemeProvider } from 'styled-components';
 import { themeNames, themeMap } from './components/Themes/Themes';
 import localStorageUtils from './utils/localStorage';
-
+import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill";
 import './App.css';
 
 function App() {
@@ -20,6 +19,8 @@ function App() {
     let theme = themeMap[themeName];
     setTheme(theme);
   }
+
+  polyfillCountryFlagEmojis();
 
   return (
     <ThemeProvider theme={theme}>

@@ -4,7 +4,7 @@ export const GlobalStyles = createGlobalStyle`
   body {
     background: ${({ theme }) => theme.palette.bg};
     color: ${({ theme }) => theme.palette.textCopy};
-    font-family: Tahoma, Helvetica, Arial, Roboto, sans-serif;
+    font-family: "Twemoji Country Flags", Tahoma, Helvetica, Arial, sans-serif;
     transition: all 0.30s linear;
   }
 
