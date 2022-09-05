@@ -19,6 +19,20 @@
 
 Just update the 'main' branch and it should redeploy automatically.
 
+## Change log
+
+#### September 2022
+* Flag emojis now appear for Windows/Chrome users
+
+#### March 2022
+* Favicon
+
+#### January 2022
+* Missing timezones added
+
+#### December 2021
+* Initial development and deployment
+
 ## About
 
 Created by [Mandi Burley](https://majoh.dev)
