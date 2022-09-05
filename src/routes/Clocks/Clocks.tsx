@@ -1,5 +1,6 @@
 import { FC, useState, useEffect, useContext } from 'react';
 import ClockDisplay from '../../components/ClockDisplay/ClockDisplay';
+import Thermometer from '../../components/Thermometer/Thermometer';
 import { usTimeZones, defaultTimeZones, TimezoneOption } from '../../data';
 import { ThemeButton } from '../../components';
 import localStorageUtils from '../../utils/localStorage';
@@ -89,6 +90,8 @@ const Clocks: FC = () => {
             handleRemoveClock={() => removeClock(data.uniqueID)}/>
           ))}
       </div>
+
+      <Thermometer smallestF={-20} largestF={120}/>
     </>
   )
 }
