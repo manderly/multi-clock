@@ -41,10 +41,12 @@ const Thermometer: FC<IThermometer> = ({ smallestF, largestF }) => {
     <div className="thermometer">
       <div className="thermometer-container">
         {thermometerValuesC}
+        <span className="letter">C°</span>
       </div>
       <div className="mercury"></div>
       <div className="thermometer-container">
         {thermometerValuesF}
+        <span className="letter">F°</span>
       </div>
     </div>
   )
