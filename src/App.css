@@ -333,6 +333,39 @@ h3 {
   list-style:none;
 }
 
+.thermometer {
+  padding: 10px;
+  width:100%;
+}
+
+.thermometer-container {
+  margin:2px 0 2px 0;
+  height:30px;
+  display:flex;
+  flex-direction: row;
+}
+
+.thermometer-container .therm-unit:nth-child(5n+1) {
+  border-right: 2px solid black;
+}
+
+.mercury {
+  margin: 1px 0 1px 0;
+  height:3px;
+  background-color:red;
+}
+
+
+
+.therm-unit {
+  width:100%;
+  height:100%;
+  display:block;
+  border-right: 1px solid gray;
+}
+
+
+
 /* Two columns of clocks */
 @media only screen and (max-width: 780px) {
 

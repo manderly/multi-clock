@@ -68,6 +68,5 @@ export const GlobalStyles = createGlobalStyle`
     background-color:${props => props.theme.palette.buttonActive} !important;
     border-color:${props => props.theme.palette.buttonActive} !important;
   }
-
 `
   
