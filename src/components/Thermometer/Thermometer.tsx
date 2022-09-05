@@ -13,7 +13,7 @@ const convertFtoC = (degreesF: number): number => {
 
 const generateThermometerLines = (start: number, end: number, scale: 'f' | 'c') => {
   let range = new Array();
-  for (let i = start; i < end; i++) {
+  for (let i = start; i <= end; i++) {
     range.push(i);
   }
   return range.map((e: number, i: number) => {

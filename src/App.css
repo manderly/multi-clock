@@ -130,6 +130,7 @@ h3 {
   flex-direction: row;
   justify-content: center;
   gap:12px;
+  margin:0 0 20px 0;
 }
 
 .clock-container {
