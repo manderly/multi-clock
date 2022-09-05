@@ -91,7 +91,7 @@ const Clocks: FC = () => {
           ))}
       </div>
 
-      <Thermometer smallestF={-20} largestF={110}/>
+      <Thermometer smallestF={-20} largestF={120}/>
     </>
   )
 }
