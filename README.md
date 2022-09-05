@@ -23,6 +23,7 @@ Just update the 'main' branch and it should redeploy automatically.
 
 #### September 2022
 * Flag emojis now appear for Windows/Chrome users
+* Swapped Heroku buildpack for express based build script that is compatible with the Heroku 22 stack 
 
 #### March 2022
 * Favicon
