@@ -12,7 +12,7 @@ const convertFtoC = (degreesF: number): number => {
 };
 
 const generateThermometerLines = (units: number, type: 'f' | 'c') => {
-  return [...Array(units)].map((e, i) => <div className="therm-unit" key={`${type}-${i}`}></div>);
+  return [...Array(units)].map((e, i) => <div className={`therm-unit therm-unit-${type}`} key={`${type}-${i}`}></div>);
 }
 
 const Thermometer: FC<IThermometer> = ({ smallestF, largestF }) => {
