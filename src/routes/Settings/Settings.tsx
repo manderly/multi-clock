@@ -107,7 +107,7 @@ const Settings: FC = () => {
           />
         </Form>
         <br/>
-        <ThemeButton onClick={handleTimezoneModal}><PublicIcon/> Change timezone</ThemeButton>
+        <ThemeButton onClick={handleTimezoneModal}><PublicIcon/> Change my timezone</ThemeButton>
         <br/><br/>
         <hr/>
         <h3>App color theme</h3>

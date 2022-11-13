@@ -160,10 +160,9 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimezone, user
                 onClick={() => setShowClockSettingsModal(true)}
                 ><h4 aria-label="time" className="timestamp time-item time-stamp-display">{formattedTime}</h4>
             </Button>
-            <br/>
+            <h5 className="clock-display-preview-time time-item" aria-label="clock preview time display">{showPreview ? formattedPreviewTime : offset}</h5>
             {/* Date */}
             <h5 className="clock-display-date time-item" aria-label="clock date display">{formattedDateClock}</h5>
-            <h5 className="clock-display-preview-time time-item" aria-label="clock preview time display">{showPreview ? formattedPreviewTime : offset}</h5>
           </div>
         </div>
 

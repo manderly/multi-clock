@@ -30,15 +30,12 @@ const Routes: FC = () => {
       <div className="App">
         <header style={clockTimePaletteStyles}>
           <div className="app-title-tiny">
-            <div>
-              <Link to="/" style={clockTimePaletteStyles}>Multi Clock</Link>
-            </div>
             <div className="browser-date">
               {userTimezone.label}
             </div>
             <div>
+              <span>Preview...</span>
               <Link to="/settings" style={clockTimePaletteStyles} className="header-button"><SettingsIcon/></Link>
-              <Link to="/utils" style={clockTimePaletteStyles} className="header-button"><CalculateIcon/></Link>
             </div>
           </div>
           <div className="header-clock-container">
@@ -48,8 +45,12 @@ const Routes: FC = () => {
             </div>
           </div>
 
+          <div className="pull-right">
+            <Link to="/" style={clockTimePaletteStyles}>Multi Clock</Link>
+          </div>
         </header>
 
+        
         <div className="page">
           <Switch>
             <Route exact path="/">
