@@ -1,10 +1,13 @@
 import { FC, useState, useEffect, useContext } from 'react';
-import ClockDisplay from '../../components/ClockDisplay/ClockDisplay';
 import Thermometer from '../../components/Thermometer/Thermometer';
 import { usTimeZones, defaultTimeZones, TimezoneOption } from '../../data';
+import { Modal, TimezonePicker } from '../../components';
 import { ThemeButton } from '../../components';
 import localStorageUtils from '../../utils/localStorage';
 import { SettingsContext } from '../../contexts/SettingsContext';
+import ClockDisplay from '../../components/ClockDisplay/ClockDisplay';
+import TextField from '@mui/material/TextField';
+
 interface IClock {
   timezone: TimezoneOption;
   name: string;
@@ -39,6 +42,11 @@ const Clocks: FC = () => {
     const initialValue = localStorageUtils.get("clocks");
     return initialValue || createDefaultClocks();
   });
+  const [showPreviewTimeModal, setShowPreviewTimeModal] = useState(false);
+  const [previewTime, setPreviewTime] = useState('07:30');
+  const [previewTimeCandidate, setPreviewTimeCandidate] = useState('');
+  const [showPreviewTime, setShowPreviewTime] = useState(true);
+  const [previewTimezone, setPreviewTimezone] = useState(userTimezone);
 
   useEffect(() => {
     localStorageUtils.put("clocks", clocks);
@@ -72,11 +80,29 @@ const Clocks: FC = () => {
     setClocks(newArr);
   }
 
+  // todo: remove this method, move to handleShowTimePreviews
+  // goal is to make it so time doesn't update until user closes modal 
+  const handlePreviewTimeChange = (e: any) => {
+    setPreviewTimeCandidate(e.target.value);
+  }
+
+  const handlePreviewTimezoneChange = (tz: TimezoneOption) => {
+    setPreviewTimezone(tz);
+  }
+
+  const handleShowTimePreviews = (showPreviews: boolean) => {
+    // todo: ssanitize candidate value? 
+    setPreviewTime(previewTimeCandidate);
+    setShowPreviewTime(showPreviews);
+    setShowPreviewTimeModal(false);
+  }
+
   return (
     <>
       <div className="clocks-quick-options">
-        <div className="clocks-quick-options-item"><ThemeButton variant="outline-primary" type="button" onClick={handleSetAllToUSClick}>🇺🇸 U.S. Timezones</ThemeButton></div>
+        <ThemeButton onClick={() => setShowPreviewTimeModal(true)}>Preview a time</ThemeButton>
         <div className="clocks-quick-options-item"><ThemeButton variant="primary" aria-label="button-add-clock" onClick={addClock}>Add Clock</ThemeButton></div>
+        <div className="clocks-quick-options-item"><ThemeButton variant="outline-primary" type="button" onClick={handleSetAllToUSClick}>🇺🇸 U.S. Timezones</ThemeButton></div>
       </div>  
 
       <div className="clocks-row-container">
@@ -87,9 +113,48 @@ const Clocks: FC = () => {
             uniqueID={data.uniqueID}
             defaultTimezone={data.timezone}
             userTimezone={userTimezone}
+            previewTime={previewTime}
+            previewTimezone={previewTimezone}
+            showPreviewTime={showPreviewTime}
             handleRemoveClock={() => removeClock(data.uniqueID)}/>
           ))}
       </div>
+
+      <Modal
+        show={showPreviewTimeModal}
+        onHide={() => setShowPreviewTimeModal(false)}
+        dialogClassName="modal-90w"
+        aria-labelledby="example-custom-modal-styling-title"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-custom-modal-styling-title">
+            Preview a time
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="preview-timezone-modal-contents">
+            <TextField
+              id="time"
+              label="Choose a time"
+              type="time"
+              defaultValue={previewTime}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{
+                step: 300, // 5 min
+              }}
+              sx={{ width: 150 }}
+              onChange={handlePreviewTimeChange}
+            />
+            <TimezonePicker changeTimezone={handlePreviewTimezoneChange} defaultTimezone={previewTimezone}/>
+          <div className="modal-bottom-buttons">
+            <ThemeButton onClick={() => handleShowTimePreviews(false)}>Hide Previews</ThemeButton>
+            <ThemeButton onClick={() => handleShowTimePreviews(true)}>Show Previews</ThemeButton>
+          </div>
+        </div>
+        </Modal.Body>
+      </Modal>
 
       <Thermometer smallestF={-20} largestF={120}/>
     </>

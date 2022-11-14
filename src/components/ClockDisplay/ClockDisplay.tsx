@@ -1,4 +1,5 @@
 import { FC, CSSProperties, useState, useEffect, useContext, useRef } from 'react';
+import { formatInTimeZone } from 'date-fns-tz';
 
 import { TimezoneOption } from '../../data';
 
@@ -18,13 +19,16 @@ import EditIcon from '@mui/icons-material/Edit';
 //import * as $ from 'jquery';
 interface IClockDisplay {
   name: string,
-  uniqueID: number;
-  defaultTimezone: TimezoneOption;
-  userTimezone: TimezoneOption;
-  handleRemoveClock: (e: any) => void;
+  uniqueID: number,
+  defaultTimezone: TimezoneOption,
+  userTimezone: TimezoneOption,
+  previewTime: string,
+  previewTimezone: TimezoneOption,
+  showPreviewTime: boolean,
+  handleRemoveClock: (e: any) => void,
 }
 
-const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimezone, userTimezone, handleRemoveClock }) => {
+const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimezone, userTimezone, previewTime, previewTimezone, showPreviewTime, handleRemoveClock }) => {
 
   const { hoursPref, showOtherSecondsPref } = useContext(SettingsContext);
   const { now } = useContext(TimeContext);
@@ -32,11 +36,15 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimezone, user
   const [nickname, setNickname] = useState(name);
   const [editingNickname, setEditingNickname] = useState(false);
   const [timezone, setTimezone] = useState(defaultTimezone);
-  const [showPreview, setShowPreview] = useState(false);
   const [offset, setOffset] = useState('');
   const [showClockSettingsModal, setShowClockSettingsModal] = useState(false);
+  const [hour, minute] = previewTime.split(":");
 
-  const { formattedDateClock, formattedTime, formattedPreviewTime, timePalette } = useFormatDate(now, timezone.value, hoursPref, showOtherSecondsPref);
+  const datifiedPreviewTime = new Date();
+  datifiedPreviewTime.setHours(Number(hour), Number(minute), 0);
+
+  // makes the "main" clock, the one that shows right now in that time zone
+  const { formattedDateHeader, formattedDateClock, formattedTime, formattedPreviewTime, timezoneAdjustedPreviewTime, timePalette } = useFormatDate(now, timezone.value, hoursPref, showOtherSecondsPref, datifiedPreviewTime);
 
   const nicknameRef = useRef<HTMLInputElement | null>(null);
 
@@ -142,76 +150,91 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimezone, user
     setTimezone(option);
   }
 
-    return (
-      <>
-        <div className='clock-container' style={clockTimePaletteStyles}>
-          <div className="time-col-container">
-            {/* Nickname box */}
-            <div>
-              <Button type='button' variant="link" size="sm" aria-label="clock nickname display" style={clockTimePaletteStyles} className="name-clock-link" onClick={() => setShowClockSettingsModal(true)}>{nickname === '' ? `${timezone.label}` : `${nickname}`}</Button>
-            </div>
-            
-            {/* Time of day */}
+  return (
+    <>
+      <div className='clock-container' style={clockTimePaletteStyles}>
+        <div className="time-col-container">
+          {/* Nickname box */}
+          <div>
+            <Button 
+              type='button' 
+              variant="link" 
+              size="sm" 
+              aria-label="clock nickname display" 
+              style={clockTimePaletteStyles} 
+              className="name-clock-link" 
+              onClick={() => setShowClockSettingsModal(true)}>{nickname === '' ? `${timezone.label}` : `${nickname}`}
+              </Button>
+          </div>
+          
+          {/* Time of day */}
+          <div className="clock-time-container">
             <Button 
                 style={clockTimePaletteStyles}
-                size="sm" 
+                size="sm"
                 className="timezone-select-button"
                 aria-label="clock timestamp"
                 onClick={() => setShowClockSettingsModal(true)}
                 ><h4 aria-label="time" className="timestamp time-item time-stamp-display">{formattedTime}</h4>
             </Button>
-            <h5 className="clock-display-preview-time time-item" aria-label="clock preview time display">{showPreview ? formattedPreviewTime : offset}</h5>
-            {/* Date */}
-            <h5 className="clock-display-date time-item" aria-label="clock date display">{formattedDateClock}</h5>
+          <div className="clock-display-offset small-text" aria-label="clock offset display">{offset}</div>
           </div>
-        </div>
 
-        <Modal
-        show={showClockSettingsModal}
-        onHide={() => setShowClockSettingsModal(false)}
-        dialogClassName="modal-90w"
-        aria-labelledby="example-custom-modal-styling-title"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-custom-modal-styling-title">
-            Manage clock
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-      
-        <label className="modal-label">Clock name</label>
-        <div className="modal-line">
-        {editingNickname ? 
-              <input ref={nicknameRef} type="text" aria-label="nickname clock" value={nickname} onKeyDown={handleNicknameKeyDown} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
-              : 
-              <div className="edit-clock-name-row">
-
-                <div>
-                  <Button type='button' variant="link" className="nickname-button" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timezone.label}` : `${nickname}`}</Button>
-                </div>
-
-                <div className="edit-clock-name-buttons">
-                  <ThemeButton type='button' size="sm" aria-label="clear nickname" onClick={handleClearNicknameClick}><ClearIcon/></ThemeButton>
-                  <ThemeButton type='button' size="sm" aria-label="edit nickname" onClick={handleEditingNicknameClick}><EditIcon/></ThemeButton>
-                </div>
-
-              </div>
-            }
-        </div>
-        
-
-          <label className="modal-label">Timezone</label>
-          <div className="modal-line">
-            <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={defaultTimezone}/>
-            <br/>
-            <div className="delete-clock-div">
-              <Button size="sm" variant="link" aria-label="delete clock button" onClick={handleRemoveClock}>Delete clock</Button>
+          {/* Preview timezone */}
+          {showPreviewTime && 
+            <div className="small-text">When it is {formattedPreviewTime} in {previewTimezone.label}, it will be {timezoneAdjustedPreviewTime} here.
             </div>
+            }
+          
+          {/* Date */}
+          <h5 className="clock-display-date time-item" aria-label="clock date display">{formattedDateClock}</h5>
+        </div>
+      </div>
+
+      <Modal
+      show={showClockSettingsModal}
+      onHide={() => setShowClockSettingsModal(false)}
+      dialogClassName="modal-90w"
+      aria-labelledby="example-custom-modal-styling-title"
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="example-custom-modal-styling-title">
+          Manage clock
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+    
+      <label className="modal-label">Clock name</label>
+      <div className="modal-line">
+      {editingNickname ? 
+            <input ref={nicknameRef} type="text" aria-label="nickname clock" value={nickname} onKeyDown={handleNicknameKeyDown} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
+            : 
+            <div className="edit-clock-name-row">
+
+              <div>
+                <Button type='button' variant="link" className="nickname-button" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timezone.label}` : `${nickname}`}</Button>
+              </div>
+
+              <div className="edit-clock-name-buttons">
+                <ThemeButton type='button' size="sm" aria-label="clear nickname" onClick={handleClearNicknameClick}><ClearIcon/></ThemeButton>
+                <ThemeButton type='button' size="sm" aria-label="edit nickname" onClick={handleEditingNicknameClick}><EditIcon/></ThemeButton>
+              </div>
+
+            </div>
+          }
+        </div>
+      
+        <div className="modal-line">
+          <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={defaultTimezone}/>
+          <br/>
+          <div className="delete-clock-div">
+            <Button size="sm" variant="link" aria-label="delete clock button" onClick={handleRemoveClock}>Delete clock</Button>
           </div>
-        </Modal.Body>
-      </Modal>
-      </>
-    )
+        </div>
+      </Modal.Body>
+    </Modal>
+    </>
+  )
 }
 
 export default ClockDisplay;

@@ -9,7 +9,6 @@ import { TimeContext } from './contexts/TimeContext';
 import { SettingsContext } from './contexts/SettingsContext';
 
 import SettingsIcon from '@mui/icons-material/Settings';
-import CalculateIcon from '@mui/icons-material/Calculate';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
 const Routes: FC = () => {
@@ -34,7 +33,6 @@ const Routes: FC = () => {
               {userTimezone.label}
             </div>
             <div>
-              <span>Preview...</span>
               <Link to="/settings" style={clockTimePaletteStyles} className="header-button"><SettingsIcon/></Link>
             </div>
           </div>

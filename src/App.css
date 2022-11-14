@@ -10,6 +10,24 @@ body {
   text-align:right;
 }
 
+.small-text {
+  font-size:0.6em;
+}
+
+.clock-time-container {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap:0.2em;
+}
+
+.preview-timezone-modal-contents {
+  display: flex;
+  flex-direction: column;
+  gap:1em;
+}
+
 h3 {
   font-weight:normal !important;
 }
@@ -53,7 +71,7 @@ h3 {
 }
 
 .page {
-  padding:10px;
+  padding:0px;
 }
 
 .header-clock-container {
@@ -126,21 +144,23 @@ h3 {
   justify-content:right;
   padding:10px;
   gap:20px;
-  justify-content:space-between;
+  justify-content:start;
 }
 
 .clocks-row-container {
   display: flex;
   flex-flow:row wrap;
   flex-direction: row;
-  justify-content: center;
+  justify-content: start;
   gap:12px;
-  margin:0 0 20px 0;
+  padding-left:10px;
+  padding-right:10px;
+  margin:0 0 10px 0;
 }
 
 .clock-container {
   height:50%;
-  width:48%;
+  width:24%;
   border-radius:10px;
   text-align:center;
   padding-top:10px;
@@ -215,7 +235,7 @@ h3 {
 }
 
 .time-stamp-display {
-  font-size:3em;
+  font-size:2.6em;
 }
 
 .blue-border {
@@ -223,8 +243,7 @@ h3 {
 }
 
 .name-clock-link {
-  font-size:1.1em !important;
-  text-align:center !important;
+  font-size:.9em !important;
   border:none !important;
   width:100%;
   white-space: nowrap;
@@ -306,6 +325,11 @@ h3 {
   height:456px;
 }
 
+.modal-bottom-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
 .timezone-input::placeholder {
   color:#282c34 !important;
 }
@@ -337,6 +361,8 @@ h3 {
 .timezone-picker-list li {
   list-style:none;
 }
+
+/* Thermometer */
 
 .thermometer {
   padding: 10px;
@@ -491,7 +517,7 @@ h3 {
   }
 
   .time-stamp-display {
-    font-size:2.2em;
+    font-size:2.0em;
   }
 
   .navigation-links ul {

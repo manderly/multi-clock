@@ -29,16 +29,19 @@ const getDayPeriodHexValue = (minOfDay: number): IHexPalette => {
   return colorPalette[idx];
 }
 
-export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, showSecondsPref: boolean) => {
+export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, showSecondsPref: boolean, previewTime?: Date) => {
   // still in user's local time here
   const dateFormatHeader = 'PPPP'; // Wednesday, December 1st, 2021
   const dateFormatClock = 'eee, MMM do'; // Wed, Dec 1st
-  const timeFormat = hoursPref === 12 ? `h:mm${showSecondsPref ? ':ss' :''} aaa` : `H:mm${showSecondsPref ? ':ss' : ''}`;
+  const timeFormat = hoursPref === 12 ? `h:mm${showSecondsPref ? ':ss' :''}aaa` : `H:mm${showSecondsPref ? ':ss' : ''}`;
 
   const [formattedDateHeader, setFormattedDateHeader] = useState('');
   const [formattedDateClock, setFormattedDateClock] = useState('');
   const [formattedTime, setFormattedTime] = useState('');
+  const [formattedOffset, setFormattedOffset] = useState('');
+
   const [formattedPreviewTime, setFormattedPreviewTime] = useState('');
+  const [timezoneAdjustedPreviewTime, setTimezoneAdjustedPreviewTime] = useState('');
   const [timePalette, setTimePalette] = useState<IHexPalette>(paletteDefaults);
 
   const [locale] = useState(enUS);
@@ -48,25 +51,28 @@ export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, s
   }
 
   useEffect(() => {
-    const convertedDate = getNow(date, timeZone);
-    setFormattedDateHeader(makeDate(convertedDate, dateFormatHeader));
-    setFormattedDateClock(makeDate(convertedDate, dateFormatClock));  // make the date part
-    setFormattedTime(makeDate(convertedDate, timeFormat));  // make the time part
-    setFormattedPreviewTime(makeDate(convertedDate, dateFormatHeader)); // make the offset part
+    const convertedNow = getNow(date, timeZone);
+    setFormattedDateHeader(makeDate(convertedNow, dateFormatHeader)); // make the header part 
+    setFormattedDateClock(makeDate(convertedNow, dateFormatClock));  // make the date part
+    setFormattedTime(makeDate(convertedNow, timeFormat));  // make the time part
+    setFormattedOffset(makeDate(convertedNow, dateFormatHeader)); // make the -1h hr offset
 
+    const convertedPreview = getNow(previewTime ?? date, timeZone);
+    setFormattedPreviewTime(makeDate(previewTime ?? date, timeFormat));
+    setTimezoneAdjustedPreviewTime(makeDate(convertedPreview , timeFormat)); // make the "preview time" if the user provided a preview time
+    
     // set "time palette", ie: morning, afternoon, night background color
-    const minuteOfDay = getMinuteOfDay(convertedDate);
+    const minuteOfDay = getMinuteOfDay(convertedNow);
     setTimePalette(getDayPeriodHexValue(minuteOfDay));
-  }, [date, timeZone]);
+  }, [date, previewTime, timeZone]);
 
   return {
     formattedDateHeader,
     formattedDateClock,
     formattedTime,
+    formattedOffset,
     formattedPreviewTime,
+    timezoneAdjustedPreviewTime,
     timePalette
   }
 }
-
-
-// todo: add date preview calculation and return it 
