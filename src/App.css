@@ -14,6 +14,20 @@ body {
   font-size:0.6em;
 }
 
+.flexRow {
+  display:flex;
+  flex-direction: row;
+}
+
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.alignEnd {
+  align-items:flex-end;
+}
+
 .clock-time-container {
   display:flex;
   flex-direction: row;
@@ -175,7 +189,7 @@ h3 {
 }
 
 .clock-display-date {
-  font-size:1em;
+  font-size:0.6em;
   font-weight:normal;
 }
 
@@ -186,7 +200,6 @@ h3 {
 
 .time-col-container {
   flex-direction: column;
-  padding:5px;
 }
 
 .clock-manage-button-container {
@@ -235,15 +248,33 @@ h3 {
 }
 
 .time-stamp-display {
-  font-size:2.6em;
+  font-size:2.2em;
+  line-height:1em;
 }
 
 .blue-border {
   border: 1px solid blue;
 }
 
-.name-clock-link {
-  font-size:.9em !important;
+.clock-extra-info-container {
+  margin-top:4px;
+  display:flex;
+  flex-direction:column;
+  height:46px;
+}
+
+.clock-link-nickname {
+  height:32px;
+  font-size:.6em !important;
+  text-decoration: none !important;
+  width:80%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.clock-link-timezone {
+  font-size:.7em !important;
   border:none !important;
   width:100%;
   white-space: nowrap;
@@ -492,7 +523,7 @@ h3 {
     height:120px;
     border-radius:0%;
     text-align:left;
-    padding-top:10px;
+    padding-top:2px;
     padding-left:10px;
     font-size:0.8em;
     flex-basis:50%;

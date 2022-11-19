@@ -32,13 +32,15 @@ const getDayPeriodHexValue = (minOfDay: number): IHexPalette => {
 export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, showSecondsPref: boolean, previewTime?: Date) => {
   // still in user's local time here
   const dateFormatHeader = 'PPPP'; // Wednesday, December 1st, 2021
-  const dateFormatClock = 'eee, MMM do'; // Wed, Dec 1st
-  const timeFormat = hoursPref === 12 ? `h:mm${showSecondsPref ? ':ss' :''}aaa` : `H:mm${showSecondsPref ? ':ss' : ''}`;
+  const dateFormatClock = 'EEEE, MMM do'; // Wed, Dec 1st
+  const timeFormat = hoursPref === 12 ? `h:mm${showSecondsPref ? ':ss' :''}` : `H:mm${showSecondsPref ? ':ss' : ''}`;
+  const meridiemFormat = 'aaa';
 
   const [formattedDateHeader, setFormattedDateHeader] = useState('');
   const [formattedDateClock, setFormattedDateClock] = useState('');
   const [formattedTime, setFormattedTime] = useState('');
   const [formattedOffset, setFormattedOffset] = useState('');
+  const [meridiem, setMeridiem] = useState('')
 
   const [formattedPreviewTime, setFormattedPreviewTime] = useState('');
   const [timezoneAdjustedPreviewTime, setTimezoneAdjustedPreviewTime] = useState('');
@@ -46,8 +48,8 @@ export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, s
 
   const [locale] = useState(enUS);
 
-  const makeDate = (timeProp: Date, formatProp: string) => {
-    return format(timeProp, formatProp, {locale: locale})
+  const makeDate = (timeProp: Date, formatProp: string): string => {
+    return timeProp instanceof Date && !isNaN(timeProp as any) ? format(timeProp, formatProp, {locale: locale}) : '';
   }
 
   useEffect(() => {
@@ -55,7 +57,8 @@ export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, s
     setFormattedDateHeader(makeDate(convertedNow, dateFormatHeader)); // make the header part 
     setFormattedDateClock(makeDate(convertedNow, dateFormatClock));  // make the date part
     setFormattedTime(makeDate(convertedNow, timeFormat));  // make the time part
-    setFormattedOffset(makeDate(convertedNow, dateFormatHeader)); // make the -1h hr offset
+    setFormattedOffset(makeDate(convertedNow, dateFormatHeader)); // make the "-1h" hr offset
+    setMeridiem(makeDate(convertedNow, meridiemFormat)); // make the am/pm part 
 
     const convertedPreview = getNow(previewTime ?? date, timeZone);
     setFormattedPreviewTime(makeDate(previewTime ?? date, timeFormat));
@@ -70,6 +73,7 @@ export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, s
     formattedDateHeader,
     formattedDateClock,
     formattedTime,
+    meridiem,
     formattedOffset,
     formattedPreviewTime,
     timezoneAdjustedPreviewTime,

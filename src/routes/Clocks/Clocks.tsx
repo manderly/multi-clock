@@ -68,7 +68,7 @@ const Clocks: FC = () => {
     if (clocks.length < 10) {
       setClocks((prev: any) => {
         // concat on new clock
-        return [...prev, createClock(usTimeZones[0])];
+        return [...prev, createClock(usTimeZones[0], USCityNames[0])];
       })
     }
   }
@@ -91,10 +91,14 @@ const Clocks: FC = () => {
   }
 
   const handleShowTimePreviews = (showPreviews: boolean) => {
-    // todo: ssanitize candidate value? 
+    // todo: sanitize candidate value? 
     setPreviewTime(previewTimeCandidate);
     setShowPreviewTime(showPreviews);
     setShowPreviewTimeModal(false);
+  }
+
+  const handleTogglePreviewTime = () => {
+    setShowPreviewTime(prev => !prev)
   }
 
   return (
@@ -116,6 +120,7 @@ const Clocks: FC = () => {
             previewTime={previewTime}
             previewTimezone={previewTimezone}
             showPreviewTime={showPreviewTime}
+            handleTogglePreviewTime={handleTogglePreviewTime}
             handleRemoveClock={() => removeClock(data.uniqueID)}/>
           ))}
       </div>
