@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import SettingsProvider from './contexts/SettingsContext';
 import TimeProvider from './contexts/TimeContext';
 import Routes from './Routes';

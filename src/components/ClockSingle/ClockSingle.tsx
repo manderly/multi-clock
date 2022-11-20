@@ -1,5 +1,4 @@
 import { FC, CSSProperties, useState, useEffect, useContext, useRef } from 'react';
-import { formatInTimeZone } from 'date-fns-tz';
 
 import { TimezoneOption } from '../../data';
 
@@ -18,33 +17,31 @@ import EditIcon from '@mui/icons-material/Edit';
 
 import Nickname from './components/Nickname';
 import Timezone from './components/Timezone';
-import TimeOfDay from './components/TimeOfDay';
+import TimeOfDay from '../../components/TimeOfDay/TimeOfDay';
 import DateDisplay from './components/DateDisplay';
 import PreviewTime from './components/PreviewTime';
 
-//import * as $ from 'jquery';
-interface IClockDisplay {
+interface IClockSingle {
   name: string,
   uniqueID: number,
-  defaultTimezone: TimezoneOption,
+  clockTimezone: TimezoneOption,
   userTimezone: TimezoneOption,
-  previewTime: string,
-  previewTimezone: TimezoneOption,
-  showPreviewTime: boolean,
+  showPreviewTime: boolean;
   handleTogglePreviewTime: () => void,
   handleRemoveClock: (e: any) => void,
 }
 
-const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimezone, userTimezone, previewTime, previewTimezone, showPreviewTime, handleTogglePreviewTime, handleRemoveClock }) => {
+const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTimezone, showPreviewTime, handleTogglePreviewTime, handleRemoveClock }) => {
 
   const { hoursPref, showOtherSecondsPref } = useContext(SettingsContext);
-  const { now } = useContext(TimeContext);
+  const { now, previewTime, previewTimezone} = useContext(TimeContext);
 
   const [nickname, setNickname] = useState(name);
   const [editingNickname, setEditingNickname] = useState(false);
-  const [timezone, setTimezone] = useState(defaultTimezone);
+  const [timezone, setTimezone] = useState(clockTimezone);
   const [offset, setOffset] = useState('');
   const [showClockSettingsModal, setShowClockSettingsModal] = useState(false);
+
   const previewTimeAsDate = new Date(previewTime);
   previewTimeAsDate.setSeconds(0);
 
@@ -140,7 +137,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimezone, user
 
   const handleClearNicknameClick = (e: any) => {
     // clear nickname, use timezone label
-    setNickname(defaultTimezone.label);
+    setNickname(clockTimezone.label);
   }
 
   const handleEditingNicknameClick = (e: any) => {
@@ -205,7 +202,7 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimezone, user
         </div>
       
         <div className="modal-line">
-          <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={defaultTimezone}/>
+          <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={clockTimezone}/>
           <br/>
           <div className="delete-clock-div">
             <Button size="sm" variant="link" aria-label="delete clock button" onClick={handleRemoveClock}>Delete clock</Button>
@@ -217,5 +214,5 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimezone, user
   )
 }
 
-export default ClockDisplay;
+export default ClockSingle;
 

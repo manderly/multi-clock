@@ -1,16 +1,17 @@
 import { FC, useState, useEffect, useContext } from 'react';
 import Thermometer from '../../components/Thermometer/Thermometer';
 import { usTimeZones, defaultTimeZones, TimezoneOption } from '../../data';
-import { Modal, TimezonePicker } from '../../components';
 import { ThemeButton } from '../../components';
 import localStorageUtils from '../../utils/localStorage';
 
 import { SettingsContext } from '../../contexts/SettingsContext';
-import { TimeContext } from '../../contexts/TimeContext';
 
-import ClockDisplay from '../../components/ClockDisplay/ClockDisplay';
-import TextField from '@mui/material/TextField';
-import {TimePicker} from '@mui/x-date-pickers/TimePicker';
+import ClockSingle from '../../components/ClockSingle/ClockSingle';
+
+interface IClocks {
+  handleTogglePreviewTime: () => void;
+  showPreviewTime: boolean;
+}
 
 interface IClock {
   timezone: TimezoneOption;
@@ -37,21 +38,15 @@ const createClock = (tz: TimezoneOption, name?: string, uniqueID?: number): IClo
   }
 }
 
-const Clocks: FC = () => {
+const Clocks: FC<IClocks> = ({handleTogglePreviewTime, showPreviewTime}) => {
   // create an array of clock objects, feeding it default time zones
   // createDefaultClocks
   const { userTimezone } = useContext(SettingsContext);
-  const { handlePreviewTimeChange, previewTime } = useContext(TimeContext);
 
   const [clocks, setClocks] = useState(() => {
     const initialValue = localStorageUtils.get("clocks");
     return initialValue || createDefaultClocks();
   });
-  const [showPreviewTimeModal, setShowPreviewTimeModal] = useState(false);
-
-  //const [previewTimeCandidate, setPreviewTimeCandidate] = useState(startingTimeForPreview.toString());
-  const [showPreviewTime, setShowPreviewTime] = useState(true);
-  const [previewTimezone, setPreviewTimezone] = useState(userTimezone);
 
   useEffect(() => {
     localStorageUtils.put("clocks", clocks);
@@ -85,72 +80,25 @@ const Clocks: FC = () => {
     setClocks(newArr);
   }
 
-  const handlePreviewTimezoneChange = (tz: TimezoneOption) => {
-    setPreviewTimezone(tz);
-  }
-
-  const handleShowTimePreviews = (showPreviews: boolean) => {
-    // todo: sanitize candidate value? 
-    setShowPreviewTime(showPreviews);
-    setShowPreviewTimeModal(false);
-  }
-
-  const handleTogglePreviewTime = () => {
-    setShowPreviewTime(prev => !prev)
-  }
-
   return (
     <>
       <div className="clocks-quick-options">
-        <ThemeButton onClick={() => setShowPreviewTimeModal(true)}>Preview a time</ThemeButton>
         <div className="clocks-quick-options-item"><ThemeButton variant="primary" aria-label="button-add-clock" onClick={addClock}>Add Clock</ThemeButton></div>
-        <div className="clocks-quick-options-item"><ThemeButton variant="outline-primary" type="button" onClick={handleSetAllToUSClick}>🇺🇸 U.S. Timezones</ThemeButton></div>
       </div>  
 
       <div className="clocks-row-container">
         {clocks.map((data: any) => (
-          <ClockDisplay 
+          <ClockSingle
             name={data.name}
             key={data.uniqueID}
             uniqueID={data.uniqueID}
-            defaultTimezone={data.timezone}
+            clockTimezone={data.timezone}
             userTimezone={userTimezone}
-            previewTime={previewTime.toString()}
-            previewTimezone={previewTimezone}
             showPreviewTime={showPreviewTime}
             handleTogglePreviewTime={handleTogglePreviewTime}
             handleRemoveClock={() => removeClock(data.uniqueID)}/>
           ))}
       </div>
-
-      <Modal
-        show={showPreviewTimeModal}
-        onHide={() => setShowPreviewTimeModal(false)}
-        dialogClassName="modal-90w"
-        aria-labelledby="example-custom-modal-styling-title"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-custom-modal-styling-title">
-            Preview a time
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="preview-timezone-modal-contents">
-            <TimePicker
-              label="Choose a time"
-              value={previewTime}
-              minutesStep={5}
-              renderInput={(props) => <TextField {...props} type="time"/>}
-              onChange={handlePreviewTimeChange}
-            />
-            <TimezonePicker changeTimezone={handlePreviewTimezoneChange} defaultTimezone={previewTimezone}/>
-          <div className="modal-bottom-buttons">
-            <ThemeButton onClick={() => handleShowTimePreviews(false)}>Hide Previews</ThemeButton>
-            <ThemeButton onClick={() => handleShowTimePreviews(true)}>Show Previews</ThemeButton>
-          </div>
-        </div>
-        </Modal.Body>
-      </Modal>
 
       <Thermometer smallestF={-20} largestF={120}/>
     </>

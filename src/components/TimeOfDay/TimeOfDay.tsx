@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 interface ITimeOfDay {
   time: string;
   meridiem: string;
-  onClick: () => void;
+  onClick?: () => void;
   styles: CSSProperties;
 }
 
@@ -25,4 +25,4 @@ const TimeOfDay: FC<ITimeOfDay> = ({ time, meridiem, onClick, styles }) => {
 
 }
 
-export default TimeOfDay;    
+export default TimeOfDay;
