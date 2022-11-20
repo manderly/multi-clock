@@ -15,7 +15,7 @@ const Timezone: FC<ITimezone> = ({ text, onClick, styles }) => {
       size="sm" 
       aria-label="clock nickname display" 
       style={styles} 
-      className="clock-link-timezone" 
+      className="clock-link-timezone clickable" 
       onClick={onClick}>
         {text}
       </Button>

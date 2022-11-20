@@ -7,6 +7,8 @@ import { themeNames, themeMap } from './components/Themes/Themes';
 import localStorageUtils from './utils/localStorage';
 import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill";
 import './App.css';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 
 function App() {
   //const [theme, setTheme] = useState(palettes.light);
@@ -23,13 +25,15 @@ function App() {
   polyfillCountryFlagEmojis();
 
   return (
-    <ThemeProvider theme={theme}>
-      <SettingsProvider handleSetTheme={handleSetPaletteInApp}>
-        <TimeProvider>
-          <Routes/>
-        </TimeProvider>
-      </SettingsProvider>
-    </ThemeProvider>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <ThemeProvider theme={theme}>
+        <SettingsProvider handleSetTheme={handleSetPaletteInApp}>
+          <TimeProvider>
+            <Routes/>
+          </TimeProvider>
+        </SettingsProvider>
+      </ThemeProvider>
+    </LocalizationProvider>
   );
 }
 

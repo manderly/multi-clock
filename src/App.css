@@ -6,6 +6,10 @@ body {
   text-align: left;
 }
 
+.clickable {
+  cursor:pointer;
+}
+
 .pull-right {
   text-align:right;
 }
@@ -86,6 +90,9 @@ h3 {
 
 .page {
   padding:0px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
 .header-clock-container {
@@ -165,7 +172,7 @@ h3 {
   display: flex;
   flex-flow:row wrap;
   flex-direction: row;
-  justify-content: start;
+  justify-content: center;
   gap:12px;
   padding-left:10px;
   padding-right:10px;
@@ -174,7 +181,7 @@ h3 {
 
 .clock-container {
   height:50%;
-  width:24%;
+  width:30%;
   border-radius:10px;
   text-align:center;
   padding-top:10px;

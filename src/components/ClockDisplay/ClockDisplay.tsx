@@ -45,13 +45,11 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimezone, user
   const [timezone, setTimezone] = useState(defaultTimezone);
   const [offset, setOffset] = useState('');
   const [showClockSettingsModal, setShowClockSettingsModal] = useState(false);
-  const [hour, minute] = previewTime.split(":");
-
-  const datifiedPreviewTime = new Date();
-  datifiedPreviewTime.setHours(Number(hour), Number(minute), 0);
+  const previewTimeAsDate = new Date(previewTime);
+  previewTimeAsDate.setSeconds(0);
 
   // makes the "main" clock, the one that shows right now in that time zone
-  const { formattedDateHeader, formattedDateClock, formattedTime, meridiem, formattedPreviewTime, timezoneAdjustedPreviewTime, timePalette } = useFormatDate(now, timezone.value, hoursPref, showOtherSecondsPref, datifiedPreviewTime);
+  const { formattedDateHeader, formattedDateClock, formattedTime, meridiem, formattedPreviewTime, timezoneAdjustedPreviewTime, timePalette } = useFormatDate(now, timezone.value, hoursPref, showOtherSecondsPref, previewTimeAsDate);
 
   const nicknameRef = useRef<HTMLInputElement | null>(null);
 
@@ -157,16 +155,18 @@ const ClockDisplay: FC<IClockDisplay> = ({ name, uniqueID, defaultTimezone, user
     setTimezone(option);
   }
 
+  const meridiemValue = hoursPref === 12 ? meridiem : '';
+
   return (
     <>
       <div className='clock-container' style={clockTimePaletteStyles}>
         <div className="time-col-container">          
           <Nickname text={nickname} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
           <Timezone text={timezone.label} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
-          <TimeOfDay time={formattedTime} meridiem={meridiem} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>         
+          <TimeOfDay time={formattedTime} meridiem={meridiemValue} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>         
           <div className='clock-extra-info-container' onClick={handleTogglePreviewTime}>
-            {showPreviewTime && <DateDisplay date={formattedDateClock} offset={offset} />}
-            {!showPreviewTime && <PreviewTime previewTime={formattedPreviewTime} previewTimezoneLabel={previewTimezone.label} timezoneAdjustedPreviewTime={timezoneAdjustedPreviewTime}/>}
+            {!showPreviewTime && <DateDisplay date={formattedDateClock} offset={offset} />}
+            {showPreviewTime && <PreviewTime previewTime={formattedPreviewTime} previewTimezoneLabel={previewTimezone.label} timezoneAdjustedPreviewTime={timezoneAdjustedPreviewTime}/>}
           </div>
         </div>
       </div>

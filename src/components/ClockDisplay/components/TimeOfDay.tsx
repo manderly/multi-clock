@@ -16,7 +16,7 @@ const TimeOfDay: FC<ITimeOfDay> = ({ time, meridiem, onClick, styles }) => {
         onClick={onClick}
         >
         <div className="flexColumn">
-          <div className="flexRow alignEnd">
+          <div className="flexRow alignEnd clickable">
             <div aria-label="time" className="timestamp time-item time-stamp-display">{time}</div>
             <div>{meridiem}</div>
           </div>

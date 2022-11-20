@@ -4,9 +4,13 @@ import { usTimeZones, defaultTimeZones, TimezoneOption } from '../../data';
 import { Modal, TimezonePicker } from '../../components';
 import { ThemeButton } from '../../components';
 import localStorageUtils from '../../utils/localStorage';
+
 import { SettingsContext } from '../../contexts/SettingsContext';
+import { TimeContext } from '../../contexts/TimeContext';
+
 import ClockDisplay from '../../components/ClockDisplay/ClockDisplay';
 import TextField from '@mui/material/TextField';
+import {TimePicker} from '@mui/x-date-pickers/TimePicker';
 
 interface IClock {
   timezone: TimezoneOption;
@@ -37,14 +41,15 @@ const Clocks: FC = () => {
   // create an array of clock objects, feeding it default time zones
   // createDefaultClocks
   const { userTimezone } = useContext(SettingsContext);
+  const { handlePreviewTimeChange, previewTime } = useContext(TimeContext);
 
   const [clocks, setClocks] = useState(() => {
     const initialValue = localStorageUtils.get("clocks");
     return initialValue || createDefaultClocks();
   });
   const [showPreviewTimeModal, setShowPreviewTimeModal] = useState(false);
-  const [previewTime, setPreviewTime] = useState('07:30');
-  const [previewTimeCandidate, setPreviewTimeCandidate] = useState('');
+
+  //const [previewTimeCandidate, setPreviewTimeCandidate] = useState(startingTimeForPreview.toString());
   const [showPreviewTime, setShowPreviewTime] = useState(true);
   const [previewTimezone, setPreviewTimezone] = useState(userTimezone);
 
@@ -80,19 +85,12 @@ const Clocks: FC = () => {
     setClocks(newArr);
   }
 
-  // todo: remove this method, move to handleShowTimePreviews
-  // goal is to make it so time doesn't update until user closes modal 
-  const handlePreviewTimeChange = (e: any) => {
-    setPreviewTimeCandidate(e.target.value);
-  }
-
   const handlePreviewTimezoneChange = (tz: TimezoneOption) => {
     setPreviewTimezone(tz);
   }
 
   const handleShowTimePreviews = (showPreviews: boolean) => {
     // todo: sanitize candidate value? 
-    setPreviewTime(previewTimeCandidate);
     setShowPreviewTime(showPreviews);
     setShowPreviewTimeModal(false);
   }
@@ -117,7 +115,7 @@ const Clocks: FC = () => {
             uniqueID={data.uniqueID}
             defaultTimezone={data.timezone}
             userTimezone={userTimezone}
-            previewTime={previewTime}
+            previewTime={previewTime.toString()}
             previewTimezone={previewTimezone}
             showPreviewTime={showPreviewTime}
             handleTogglePreviewTime={handleTogglePreviewTime}
@@ -138,18 +136,11 @@ const Clocks: FC = () => {
         </Modal.Header>
         <Modal.Body>
           <div className="preview-timezone-modal-contents">
-            <TextField
-              id="time"
+            <TimePicker
               label="Choose a time"
-              type="time"
-              defaultValue={previewTime}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              inputProps={{
-                step: 300, // 5 min
-              }}
-              sx={{ width: 150 }}
+              value={previewTime}
+              minutesStep={5}
+              renderInput={(props) => <TextField {...props} type="time"/>}
               onChange={handlePreviewTimeChange}
             />
             <TimezonePicker changeTimezone={handlePreviewTimezoneChange} defaultTimezone={previewTimezone}/>

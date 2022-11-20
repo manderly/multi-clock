@@ -8,7 +8,7 @@ interface IPreviewTime {
 
 const PreviewTime: FC<IPreviewTime> = ({ previewTime, previewTimezoneLabel, timezoneAdjustedPreviewTime }) => {
   return <div>
-    <div className="small-text">When it is {previewTime} in {previewTimezoneLabel}, it will be {timezoneAdjustedPreviewTime} here.
+    <div className="small-text clickable">When it is {previewTime} in {previewTimezoneLabel}, it will be {timezoneAdjustedPreviewTime} here.
     </div>
   </div>
 }
