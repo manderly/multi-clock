@@ -203,15 +203,18 @@ h3 {
   margin:0 0 10px 0;
 }
 
+/* todo: why do these have to be important to work? */
 .clock-container {
   display:flex;
   flex-direction:column;
-  height:50%;
-  width:30%;
-  border-radius:10px;
+  border-radius:1px;
   text-align:center;
-  padding-top:10px;
   font-size:1.3em;
+  width:210px;
+  padding:22px;
+  border-right:1px solid black !important;
+  border-bottom:1px solid black !important;
+  gap:1px;
 }
 
 .clock-top-row-container {
@@ -288,8 +291,12 @@ h3 {
   border: 1px solid blue;
 }
 
+/* todo: I want it to have a width but flex can't center if it if does, idk why yet */
 .clock-extra-info-container {
-  width:150px;
+  /* width:150px; */
+  padding:10px;
+  height:82px;
+  cursor:pointer;
 }
 
 .clock-link-nickname {

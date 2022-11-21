@@ -6,10 +6,10 @@ interface IDateDisplay {
 }
 
 const DateDisplay: FC<IDateDisplay> = ({ date, offset }) => {
-  return <div>
+  return <>
     <div className="clock-display-offset small-text" aria-label="clock offset display">{offset}</div>
-    <h5 className="clock-display-date time-item" aria-label="clock date display">{date}</h5>
-  </div>
+    <div className="clock-display-date time-item" aria-label="clock date display">{date}</div>
+  </>
 }
 
 export default DateDisplay;

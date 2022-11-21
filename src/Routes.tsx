@@ -19,9 +19,6 @@ import { ThemeButton } from './components';
 
 import { TimezoneOption } from './data';
 
-import FormControlLabel from '@mui/material/FormControlLabel';
-import MUISwitch from '@mui/material/Switch';
-
 const Routes: FC = () => {
 
   const { hoursPref, showMySecondsPref, userTimezone } = useContext(SettingsContext);

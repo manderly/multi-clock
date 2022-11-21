@@ -34,7 +34,7 @@ interface IClockSingle {
 const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTimezone, showPreviewTime, handleTogglePreviewTime, handleRemoveClock }) => {
 
   const { hoursPref, showOtherSecondsPref } = useContext(SettingsContext);
-  const { now, previewTime, previewTimezone} = useContext(TimeContext);
+  const { now, previewTime, previewMeridiem, previewTimezone} = useContext(TimeContext);
 
   const [nickname, setNickname] = useState(name);
   const [editingNickname, setEditingNickname] = useState(false);
@@ -46,7 +46,7 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
   previewTimeAsDate.setSeconds(0);
 
   // makes the "main" clock, the one that shows right now in that time zone
-  const { formattedDateHeader, formattedDateClock, formattedTime, meridiem, formattedPreviewTime, timezoneAdjustedPreviewTime, timePalette } = useFormatDate(now, timezone.value, hoursPref, showOtherSecondsPref, previewTimeAsDate);
+  const { formattedDateHeader, formattedDateClock, formattedTime, meridiem, formattedPreviewTime, formattedPreviewMeridiem, timezoneAdjustedPreviewTime, timezoneAdjustedPreviewTimeMeridiem, timePalette } = useFormatDate(now, timezone.value, hoursPref, showOtherSecondsPref, previewTimeAsDate);
 
   const nicknameRef = useRef<HTMLInputElement | null>(null);
 
@@ -163,7 +163,13 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
         <TimeOfDay time={bigTime} meridiem={meridiemValue} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
         <div className='clock-extra-info-container' onClick={handleTogglePreviewTime}>
           {!showPreviewTime && <DateDisplay date={formattedDateClock} offset={offset} />}
-          {showPreviewTime && <PreviewTime previewTime={formattedPreviewTime} previewTimezoneLabel={previewTimezone.label} timezoneAdjustedPreviewTime={timezoneAdjustedPreviewTime}/>}
+          {showPreviewTime && <PreviewTime
+              previewTime={formattedPreviewTime}
+              previewMeridiem={formattedPreviewMeridiem}
+              previewTimezoneLabel={previewTimezone.label}
+              timezoneAdjustedPreviewTime={timezoneAdjustedPreviewTime}
+              timezoneAdjustedPreviewTimeMeridiem={timezoneAdjustedPreviewTimeMeridiem}
+          />}
         </div>
       </div>
 

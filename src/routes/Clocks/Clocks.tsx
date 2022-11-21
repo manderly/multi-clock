@@ -74,7 +74,7 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTime, showPreviewTime}) => {
   }
 
   const addClock = () => {
-    if (clocks.length < 10) {
+    if (clocks.length < 8) {
       setClocks((prev: any) => {
         // concat on new clock
         return [...prev, createClock(usTimeZones[0], USCityNames[0])];
@@ -98,7 +98,7 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTime, showPreviewTime}) => {
   return (
     <>
       <div className="clocks-quick-options">
-        <div className="clocks-quick-options-item"><ThemeButton variant="primary" aria-label="button-add-clock" onClick={addClock}>Add Clock</ThemeButton></div>
+        <div className="clocks-quick-options-item"><ThemeButton disabled={clocks.length >= 8} variant="primary" aria-label="button-add-clock" onClick={addClock}>Add Clock</ThemeButton></div>
       </div>  
 
       <div className="clocks-row-container">

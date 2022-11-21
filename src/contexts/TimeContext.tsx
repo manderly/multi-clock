@@ -8,6 +8,7 @@ DEFAULT_PREVIEW_TIME.setHours(7);
 interface ITimeContext {
   now: Date;
   previewTime: Date;
+  previewMeridiem: string;
   previewTimezone: TimezoneOption;
   handlePreviewTimeChange: (e: Date | null) => void;
   handlePreviewTimezoneChange: (e: TimezoneOption | null) => void;
@@ -16,6 +17,7 @@ interface ITimeContext {
 export const TimeContext = createContext<ITimeContext>({
   now: new Date(),
   previewTime: DEFAULT_PREVIEW_TIME,
+  previewMeridiem: 'am',
   previewTimezone: NorthAmerica[0],
   handlePreviewTimeChange: () => null,
   handlePreviewTimezoneChange: () => null,
@@ -26,10 +28,17 @@ const TimeProvider: FC = ({children}) => {
 
   const [now, setNow] = useState<Date>(new Date());
   const [previewTime, setPreviewTime] = useState<Date>(DEFAULT_PREVIEW_TIME);
+  const [previewMeridiem, setPreviewMeridiem] = useState('am');
   const [previewTimezone, setPreviewTimezone] = useState(userTimezone); 
   
   const handlePreviewTimeChange = useCallback((e: Date | null) => {
     e !== null && setPreviewTime(e);
+    // determine the meridiem
+    console.log(e);
+  }, []);
+
+  const handlePreviewMeridiemChange = useCallback((e: string | null) => {
+    e !== null && setPreviewMeridiem(e);
   }, []);
 
   const handlePreviewTimezoneChange = useCallback((e: TimezoneOption | null) => {
@@ -48,8 +57,8 @@ const TimeProvider: FC = ({children}) => {
 
   // use useMemo and useCallback to prevent excessive re-render 
   const value = useMemo(() => ({
-    now, previewTime, previewTimezone, handlePreviewTimeChange, handlePreviewTimezoneChange
-  }), [now, previewTime, previewTimezone, handlePreviewTimeChange, handlePreviewTimezoneChange]);
+    now, previewTime, previewMeridiem, previewTimezone, handlePreviewTimeChange, handlePreviewTimezoneChange
+  }), [now, previewTime, previewMeridiem, previewTimezone, handlePreviewTimeChange, handlePreviewTimezoneChange]);
 
   return (
     <TimeContext.Provider value={value}>

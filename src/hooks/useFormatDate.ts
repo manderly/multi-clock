@@ -43,7 +43,9 @@ export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, s
   const [meridiem, setMeridiem] = useState('')
 
   const [formattedPreviewTime, setFormattedPreviewTime] = useState('');
+  const [formattedPreviewMeridiem, setFormattedPreviewMeridiem] = useState('am');
   const [timezoneAdjustedPreviewTime, setTimezoneAdjustedPreviewTime] = useState('');
+  const [timezoneAdjustedPreviewTimeMeridiem, setTimezoneAdjustedPreviewTimeMeridiem] = useState('');
   const [timePalette, setTimePalette] = useState<IHexPalette>(paletteDefaults);
 
   const [locale] = useState(enUS);
@@ -62,8 +64,10 @@ export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, s
 
     const convertedPreview = getNow(previewTime ?? date, timeZone);
     setFormattedPreviewTime(makeDate(previewTime ?? date, timeFormat));
+    setFormattedPreviewMeridiem(makeDate(previewTime ?? date, meridiemFormat));
     setTimezoneAdjustedPreviewTime(makeDate(convertedPreview , timeFormat)); // make the "preview time" if the user provided a preview time
-    
+    setTimezoneAdjustedPreviewTimeMeridiem(makeDate(convertedPreview, meridiemFormat));
+
     // set "time palette", ie: morning, afternoon, night background color
     const minuteOfDay = getMinuteOfDay(convertedNow);
     setTimePalette(getDayPeriodHexValue(minuteOfDay));
@@ -76,7 +80,9 @@ export const useFormatDate = (date: Date, timeZone: string, hoursPref: number, s
     meridiem,
     formattedOffset,
     formattedPreviewTime,
+    formattedPreviewMeridiem,
     timezoneAdjustedPreviewTime,
+    timezoneAdjustedPreviewTimeMeridiem,
     timePalette
   }
 }

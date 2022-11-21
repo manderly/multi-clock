@@ -8,8 +8,7 @@ interface ITimezone {
 }
 
 const Timezone: FC<ITimezone> = ({ text, onClick, styles }) => {
-  return <div>
-    <Button 
+  return <Button
       type='button' 
       variant="link" 
       size="sm" 
@@ -19,7 +18,6 @@ const Timezone: FC<ITimezone> = ({ text, onClick, styles }) => {
       onClick={onClick}>
         {text}
       </Button>
-  </div>
 }
 
 export default Timezone;
