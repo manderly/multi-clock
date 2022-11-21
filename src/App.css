@@ -2,6 +2,26 @@ body {
   font-size:16px;
 }
 
+.width50 {
+  width:50%;
+}
+
+.width100 {
+  width:100%;
+}
+
+.marginTop20 {
+  margin-top:20px;
+}
+
+.padTop {
+  padding-top:20px;
+}
+
+.padBottom {
+  padding-bottom:20px;
+}
+
 .clickable {
   cursor:pointer;
 }
@@ -14,9 +34,26 @@ body {
   font-size:0.6em;
 }
 
+.wide-input {
+  width:200px;
+}
+
 .flexRow {
   display:flex;
   flex-direction: row;
+}
+
+.preview-time-settings-dropdowns {
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  gap:1em;
+  padding-top:16px;
+  padding-bottom:16px;
+}
+
+.spaceBetween {
+  justify-content:space-between;
 }
 
 .flexColumn {
@@ -167,13 +204,14 @@ h3 {
 }
 
 .clock-container {
+  display:flex;
+  flex-direction:column;
   height:50%;
   width:30%;
   border-radius:10px;
   text-align:center;
   padding-top:10px;
   font-size:1.3em;
-  flex-basis:none;
 }
 
 .clock-top-row-container {
@@ -251,11 +289,7 @@ h3 {
 }
 
 .clock-extra-info-container {
-  margin-top:4px;
-  display:flex;
-  flex-direction:column;
-  height:46px;
-  padding:0px 20px;
+  width:150px;
 }
 
 .clock-link-nickname {

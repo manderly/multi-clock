@@ -1,12 +1,18 @@
-import { FC, useState, useEffect, useContext } from 'react';
+import {FC, useState, useEffect, useContext, CSSProperties} from 'react';
 import Thermometer from '../../components/Thermometer/Thermometer';
 import { usTimeZones, defaultTimeZones, TimezoneOption } from '../../data';
-import { ThemeButton } from '../../components';
+import {ThemeButton, TimezonePicker} from '../../components';
 import localStorageUtils from '../../utils/localStorage';
 
 import { SettingsContext } from '../../contexts/SettingsContext';
 
 import ClockSingle from '../../components/ClockSingle/ClockSingle';
+import FormControlLabel from "@mui/material/FormControlLabel";
+import MUISwitch from "@mui/material/Switch";
+import {TimePicker} from "@mui/x-date-pickers/TimePicker";
+import TextField from "@mui/material/TextField";
+import {TimeContext} from "../../contexts/TimeContext";
+import {useTheme} from "styled-components";
 
 interface IClocks {
   handleTogglePreviewTime: () => void;
@@ -42,11 +48,14 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTime, showPreviewTime}) => {
   // create an array of clock objects, feeding it default time zones
   // createDefaultClocks
   const { userTimezone } = useContext(SettingsContext);
+  const { handlePreviewTimeChange, previewTime, handlePreviewTimezoneChange } = useContext(TimeContext);
 
   const [clocks, setClocks] = useState(() => {
     const initialValue = localStorageUtils.get("clocks");
     return initialValue || createDefaultClocks();
   });
+  const [showPreviewTimeModal, setShowPreviewTimeModal] = useState(false);
+  const [previewTimezone, setPreviewTimezone] = useState(userTimezone);
 
   useEffect(() => {
     localStorageUtils.put("clocks", clocks);
@@ -80,6 +89,12 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTime, showPreviewTime}) => {
     setClocks(newArr);
   }
 
+  const customPalette = useTheme();
+  const clockTimePaletteStyles: CSSProperties = {
+    backgroundColor: customPalette.palette.button,
+    color: customPalette.palette.textHeader,
+  };
+
   return (
     <>
       <div className="clocks-quick-options">
@@ -100,7 +115,20 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTime, showPreviewTime}) => {
           ))}
       </div>
 
-      <Thermometer smallestF={-20} largestF={120}/>
+      <div className={"width100 marginTop20"} style={clockTimePaletteStyles}>
+        <div className={"preview-time-settings-dropdowns"}>
+          <div className={"wide-input"}><FormControlLabel control={<MUISwitch defaultChecked color="default" />} onChange={handleTogglePreviewTime} label="Preview a time" /></div>
+          <TimePicker
+              label="Choose a time"
+              value={previewTime}
+              minutesStep={5}
+              renderInput={(props) => <TextField {...props} type="time" size={"small"}/>}
+              onChange={handlePreviewTimeChange}
+          />
+          <TimezonePicker changeTimezone={handlePreviewTimezoneChange} defaultTimezone={previewTimezone}/>
+        </div>
+        <Thermometer smallestF={-20} largestF={120}/>
+      </div>
     </>
   )
 }

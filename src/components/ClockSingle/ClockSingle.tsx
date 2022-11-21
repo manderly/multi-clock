@@ -154,17 +154,16 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
 
   const meridiemValue = hoursPref === 12 ? meridiem : '';
 
+  const bigTime = showPreviewTime ? timezoneAdjustedPreviewTime : formattedTime;
   return (
     <>
       <div className='clock-container' style={clockTimePaletteStyles}>
-        <div className="time-col-container">          
-          <Nickname text={nickname} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
-          <Timezone text={timezone.label} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
-          <TimeOfDay time={formattedTime} meridiem={meridiemValue} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>         
-          <div className='clock-extra-info-container' onClick={handleTogglePreviewTime}>
-            {!showPreviewTime && <DateDisplay date={formattedDateClock} offset={offset} />}
-            {showPreviewTime && <PreviewTime previewTime={formattedPreviewTime} previewTimezoneLabel={previewTimezone.label} timezoneAdjustedPreviewTime={timezoneAdjustedPreviewTime}/>}
-          </div>
+        <Nickname text={nickname} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
+        <Timezone text={timezone.label} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
+        <TimeOfDay time={bigTime} meridiem={meridiemValue} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
+        <div className='clock-extra-info-container' onClick={handleTogglePreviewTime}>
+          {!showPreviewTime && <DateDisplay date={formattedDateClock} offset={offset} />}
+          {showPreviewTime && <PreviewTime previewTime={formattedPreviewTime} previewTimezoneLabel={previewTimezone.label} timezoneAdjustedPreviewTime={timezoneAdjustedPreviewTime}/>}
         </div>
       </div>
 

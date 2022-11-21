@@ -10,6 +10,7 @@ interface ITimeContext {
   previewTime: Date;
   previewTimezone: TimezoneOption;
   handlePreviewTimeChange: (e: Date | null) => void;
+  handlePreviewTimezoneChange: (e: TimezoneOption | null) => void;
 }
 
 export const TimeContext = createContext<ITimeContext>({
@@ -17,6 +18,7 @@ export const TimeContext = createContext<ITimeContext>({
   previewTime: DEFAULT_PREVIEW_TIME,
   previewTimezone: NorthAmerica[0],
   handlePreviewTimeChange: () => null,
+  handlePreviewTimezoneChange: () => null,
 });
 
 const TimeProvider: FC = ({children}) => {
@@ -28,6 +30,10 @@ const TimeProvider: FC = ({children}) => {
   
   const handlePreviewTimeChange = useCallback((e: Date | null) => {
     e !== null && setPreviewTime(e);
+  }, []);
+
+  const handlePreviewTimezoneChange = useCallback((e: TimezoneOption | null) => {
+    e !== null && setPreviewTimezone(e);
   }, []);
 
   useEffect(() => {
@@ -42,8 +48,8 @@ const TimeProvider: FC = ({children}) => {
 
   // use useMemo and useCallback to prevent excessive re-render 
   const value = useMemo(() => ({
-    now, previewTime, previewTimezone, handlePreviewTimeChange
-  }), [now, previewTime, previewTimezone, handlePreviewTimeChange]);
+    now, previewTime, previewTimezone, handlePreviewTimeChange, handlePreviewTimezoneChange
+  }), [now, previewTime, previewTimezone, handlePreviewTimeChange, handlePreviewTimezoneChange]);
 
   return (
     <TimeContext.Provider value={value}>

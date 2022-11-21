@@ -12,6 +12,15 @@ declare module 'styled-components' {
     palette: {
       bg: string
       a?: string
+      components: {
+        MuiTextField: {
+          styleOverrides: {
+            root: {
+              color: string,
+            }
+          }
+        }
+      }
       textCopy: string
       textHeader: string
       modalBackground: string

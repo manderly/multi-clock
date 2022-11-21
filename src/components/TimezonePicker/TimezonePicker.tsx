@@ -105,14 +105,14 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
   return (
     <>
     {/* <label data-testid='current timezone'>Current: {`(GMT ${timezone.utc}) ${timezone.label}`}</label> */}
-    <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Time zone</InputLabel>
+    <FormControl>
+        <InputLabel id="time-zone-input">Time zone</InputLabel>
         <Select
+          className={"width100"}
           aria-label='choose timezone'
           label="Timezone"
-          value={userInput} 
-          //onFocus={handleFocus}
-          //onKeyDown={handleKeyDown}
+          value={userInput}
+          size={"small"}
           onChange={handleInputChange} 
           //onBlur={handleInputBlur} 
           variant="outlined"

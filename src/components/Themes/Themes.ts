@@ -3,6 +3,16 @@ import { DefaultTheme } from 'styled-components';
 export const lightTheme: DefaultTheme = {
   palette: {
     bg: '#ffffff',
+    a: '#ffffff',
+    components: {
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            color: '#ffffff',
+          }
+        }
+      }
+    },
     textCopy: '#2E3440',
     textHeader: "#1a1e25",
     modalBackground: '#ffffff',
@@ -14,7 +24,16 @@ export const lightTheme: DefaultTheme = {
 export const darkTheme: DefaultTheme = {
   palette: {
     bg: '#252932',
-    a: "#fff",
+    a: '#ffffff',
+    components: {
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            color: '#ffffff',
+          }
+        }
+      }
+    },
     textCopy: '#ECEFF4',
     textHeader: "#ffffff",
     modalBackground: '#4C566A',
@@ -28,6 +47,15 @@ export const berryTheme: DefaultTheme = {
   palette: {
     bg: '#351930',
     a: "#af4972",
+    components: {
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            color: '#ffffff',
+          }
+        }
+      }
+    },
     textCopy: '#d9bbc7',
     textHeader: "#f1cedc",
     modalBackground: '#351930',
@@ -40,6 +68,16 @@ export const berryTheme: DefaultTheme = {
 export const blueTheme: DefaultTheme = {
   palette: {
     bg: '#033f63',
+    a: '#ffffff',
+    components: {
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            color: '#ffffff',
+          }
+        }
+      }
+    },
     textCopy: '#b5b682',
     textHeader: '#f2f3bd',
     modalBackground: '#033f63',
