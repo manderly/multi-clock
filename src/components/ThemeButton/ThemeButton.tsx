@@ -11,6 +11,11 @@ const ThemeButton = styled(BootstrapButton)`
     background-color:${props => props.theme.palette.buttonHover};
     border-color:${props => props.theme.palette.buttonHover};
   }
+  
+  &:disabled {
+    background-color:${props => props.theme.palette.buttonDisabled};
+    border-color:${props => props.theme.palette.buttonDisabled};
+  }
 
   color:${props => props.theme.palette.textCopy};
   background-color:${props => props.theme.palette.button};

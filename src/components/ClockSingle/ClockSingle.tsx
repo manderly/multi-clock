@@ -108,6 +108,7 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
     }
   }, [timezone]);
 
+  // "Rainbow clock" palette is separate from app-wide styles found in themes.ts
   const clockTimePaletteStyles: CSSProperties = {
     backgroundColor: timePalette.bg,
     color: timePalette.text,

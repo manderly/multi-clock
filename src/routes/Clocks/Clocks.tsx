@@ -13,6 +13,7 @@ import {TimePicker} from "@mui/x-date-pickers/TimePicker";
 import TextField from "@mui/material/TextField";
 import {TimeContext} from "../../contexts/TimeContext";
 import {useTheme} from "styled-components";
+import {colorPalette} from "../../hooks/backgroundColors";
 
 interface IClocks {
   handleTogglePreviewTime: () => void;
@@ -94,6 +95,14 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTime, showPreviewTime}) => {
     backgroundColor: customPalette.palette.button,
     color: customPalette.palette.textHeader,
   };
+
+  // todo: doesn't seem to "map" to the input's structure input remains unstyled
+  // todo: also, not sure why I should have to reconstruct this here
+  // when it was already established in themes.ts
+  // const inputStyles: CSSProperties = {
+  //   backgroundColor: customPalette.palette.button,
+  //   borderColor: customPalette.palette.components.MuiTextField.styleOverrides.root.color,
+  // };
 
   return (
     <>

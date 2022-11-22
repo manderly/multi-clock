@@ -9,6 +9,7 @@ import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill";
 import './App.css';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import MuiThemeProvider from '@mui/material/styles/ThemeProvider';
 
 function App() {
   //const [theme, setTheme] = useState(palettes.light);
@@ -17,22 +18,29 @@ function App() {
     return themeMap[saved] || themeMap[themeNames.light];
   });
 
+  const [muiTheme, setMuiTheme] = useState(() => {
+    const saved = localStorageUtils.get("themePref");
+    return themeMap[saved].mui || themeMap[themeNames.light].mui;
+  });
+
   const handleSetPaletteInApp = (themeName: string) => {
-    let theme = themeMap[themeName];
-    setTheme(theme);
+    setTheme(themeMap[themeName]);
+    setMuiTheme(themeMap[themeName].mui);
   }
 
   polyfillCountryFlagEmojis();
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <ThemeProvider theme={theme}>
-        <SettingsProvider handleSetTheme={handleSetPaletteInApp}>
-          <TimeProvider>
-            <Routes/>
-          </TimeProvider>
-        </SettingsProvider>
-      </ThemeProvider>
+      <MuiThemeProvider theme={muiTheme}>
+        <ThemeProvider theme={theme}>
+          <SettingsProvider handleSetTheme={handleSetPaletteInApp}>
+            <TimeProvider>
+              <Routes/>
+            </TimeProvider>
+          </SettingsProvider>
+        </ThemeProvider>
+      </MuiThemeProvider>
     </LocalizationProvider>
   );
 }
