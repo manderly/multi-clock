@@ -1,47 +1,123 @@
 import { DefaultTheme } from 'styled-components';
 import {createTheme} from "@mui/material";
 
-export const lightTheme: DefaultTheme = {
-  palette: {
-    primary: {
-      main: '#ffffff'
-    },
-    bg: '#ffffff',
-    a: '#ffffff',
-    textCopy: '#2E3440',
-    textHeader: "#1a1e25",
-    modalBackground: '#ffffff',
-    button: "#D8DEE9",
-    buttonHover: "#afc9e3",
-    buttonActive: "#81A1C1",
-    buttonDisabled: "#000000",
-  },
-  mui: {
-    ...createTheme({
-      components: {
-        MuiOutlinedInput: {
-          styleOverrides: {
-            root: {
-              color: 'blue',
-              backgroundColor: '#ffffff',
+const colorObj = (color: string, backgroundColor?: string) => {
+  return {
+    styleOverrides: {
+      root: {
+        ...(color && { color: color }),
+        ...(backgroundColor && { backgroundColor: backgroundColor })
+      }
+    }
+  };
+}
+
+const getTextColor = (name: keyof typeof colors) => {
+  return name === 'light' ? colors[name].darkestColor : colors[name].brightestColor;
+}
+
+const getBGColor = (name: keyof typeof colors) => {
+  return name === 'light' ? colors[name].brightestColor : colors[name].darkestColor;
+}
+
+const muiObj = (name: keyof typeof colors) => {
+  return {
+    MuiOutlinedInput: colorObj(getTextColor(name), getBGColor(name)),
+    MuiInputLabel: colorObj(getTextColor(name)),
+    MuiSvgIcon: colorObj(getTextColor(name)),
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          color: getTextColor(name),
+          backgroundColor: colors[name].darkestColor,
+          "&.Mui-selected": {
+            color: getTextColor(name),
+            backgroundColor: colors[name].lightColor,
+            "&.Mui-focusVisible": {
+              // the currently selected option in the list of options
+              color: getTextColor(name),
+              background: colors[name].contrast
             }
+          },
+          "&:hover": {
+            color: colors[name].brightestColor,
+            backgroundColor: colors[name].lightColor,
           }
         }
       }
-    })
     }
+  }
+}
+
+const colors = {
+  light: {
+    brightestColor: '#ffffff',
+    lightColor: '#d1d1d1',
+    darkColor: '#787777',
+    darkestColor: '#353838',
+    disabledButton: '#58758a',
+    contrast: '#bd102d',
+  },
+  berry: {
+    brightestColor: '#db97b7',
+    lightColor: '#883240', //'#af4972',
+    darkColor: '#520f20',
+    darkestColor: '#2b0710',
+    disabledButton: '#170711',
+    contrast: '#bd102d',
+  },
+  blue: {
+    brightestColor: '#eaeaea',
+    lightColor: '#5c86d6',
+    darkColor: '#1b376e',
+    darkestColor: '#0e2245',
+    disabledButton: '#080f1c',
+    contrast: '#ee6c4d',
+  }
+} as const;
+
+export const lightTheme: DefaultTheme = {
+  palette: {
+    utilitiesBar: {
+      bg: colors.light.lightColor,
+      thermometerBg: colors.light.brightestColor,
+      mercury: colors.light.contrast,
+      bigLine: colors.light.brightestColor,
+      thinLine: colors.light.lightColor,
+      number: colors.light.brightestColor,
+    },
+    bgClocks: colors.light.brightestColor,
+    bgInfo: colors.light.lightColor,
+    a: colors.light.contrast,
+    textCopy: colors.light.brightestColor,
+    textHeader: colors.light.brightestColor,
+    button: colors.light.contrast,
+    buttonActive: colors.light.lightColor,
+    buttonHover: colors.light.contrast,
+    buttonDisabled: colors.light.darkestColor,
+  },
+  mui: {
+    ...createTheme({
+      components: muiObj('light')
+    })
+  }
   };
 
 export const darkTheme: DefaultTheme = {
   palette: {
-    primary: {
-      main: '#ffffff'
+    utilitiesBar: {
+      bg: '#ffffff',
+      thermometerBg: '#ffffff',
+      mercury: '#ffffff',
+      bigLine: '#ffffff',
+      thinLine: '#efefef',
+      number: '#efefef',
     },
-    bg: '#252932',
+    bgClocks: '#252932',
+    bgInfo: '#000fff',
     a: '#ffffff',
     textCopy: '#ECEFF4',
     textHeader: "#ffffff",
-    modalBackground: '#4C566A',
     button: "#3B4252",
     buttonHover: "#4C566A",
     buttonActive: "#434C5E",
@@ -62,101 +138,51 @@ export const darkTheme: DefaultTheme = {
     })
   }
 };
-const colors = {
-  berry: {
-    brightestColor: '#ffbddc',
-    lightColor: '#af4972',
-    darkColor: '#351930',
-    darkestColor: '#351930',
-    disabledButton: '#351930',
-    contrast: '#351930',
-  },
-  blue: {
-    brightestColor: '#eaeaea',
-    lightColor: '#98c1d9',
-    darkColor: '#1b376e',
-    darkestColor: '#0e2245',
-    disabledButton: '#080f1c',
-    contrast: '#ee6c4d',
-  }
-} as const;
 
-const muiObj = (name: keyof typeof colors) => {
-  return {
-    MuiOutlinedInput: colorObj(colors[name].brightestColor, colors[name].darkestColor),
-    MuiInputLabel: colorObj(colors[name].brightestColor),
-    MuiSvgIcon: colorObj(colors[name].brightestColor),
-    MuiMenuItem: {
-      styleOverrides: {
-        root: {
-          color: colors[name].brightestColor,
-          backgroundColor: colors[name].darkColor,
-          "&.Mui-selected": {
-            color: colors[name].darkestColor,
-            backgroundColor: colors[name].lightColor,
-            "&.Mui-focusVisible": {
-              color: colors[name].darkestColor,
-              background: colors[name].contrast
-            }
-          },
-          "&:hover": {
-            color: colors[name].brightestColor,
-            backgroundColor: colors[name].darkestColor,
-          }
-        }
-      }
-    }
-  }
-}
-
-const colorObj = (color: string, backgroundColor?: string) => {
-  return {
-    styleOverrides: {
-      root: {
-        ...(color && { color: color }),
-        ...(backgroundColor && { backgroundColor: backgroundColor })
-      }
-    }
-  };
-}
 export const berryTheme: DefaultTheme = {
   palette: {
-    primary: {
-      main: '#ffffff'
+    utilitiesBar: {
+      bg: colors.berry.darkColor,
+      thermometerBg: colors.berry.darkestColor,
+      mercury: colors.berry.contrast,
+      bigLine: colors.berry.brightestColor,
+      thinLine: colors.berry.lightColor,
+      number: colors.berry.brightestColor,
     },
-    bg: colors.berry.darkColor,
-    a: colors.berry.lightColor,
+    bgClocks: colors.berry.darkestColor,
+    bgInfo: colors.berry.darkColor,
+    a: colors.berry.contrast,
     textCopy: colors.berry.brightestColor,
     textHeader: colors.berry.brightestColor,
-    modalBackground: '#351930',
-    button: "#571c3c",
-    buttonActive: "#7a1e47",
-    buttonHover: "#af4972",
-    buttonDisabled: colors.berry.darkColor,
+    button: colors.berry.lightColor,
+    buttonActive: colors.berry.lightColor,
+    buttonHover: colors.berry.contrast,
+    buttonDisabled: colors.berry.disabledButton,
   },
   mui: {
     ...createTheme({
-      components: {
-        MuiOutlinedInput: colorObj(colors.berry.brightestColor, colors.berry.darkColor),
-        MuiInputLabel: colorObj(colors.berry.brightestColor),
-        MuiSvgIcon: colorObj(colors.berry.brightestColor),
-        MuiMenuItem: colorObj(colors.berry.brightestColor),
-      }
+      components: muiObj('berry')
     })
   }
 };
 
+// todo: make a const that returns inverted / non inverted themes
 export const blueTheme: DefaultTheme = {
   palette: {
-    primary: {
-      main: '#ffffff'
+    utilitiesBar: {
+      bg: colors.blue.darkColor,
+      thermometerBg: colors.blue.darkestColor,
+      mercury: colors.blue.contrast,
+      bigLine: colors.blue.brightestColor,
+      thinLine: colors.blue.lightColor,
+      number: colors.blue.brightestColor,
     },
-    bg: colors.blue.darkestColor, //'#033f63',
+    bgClocks: colors.blue.darkestColor,
+    bgInfo: colors.blue.darkColor,
     a: colors.blue.contrast,
     textCopy: colors.blue.brightestColor,
     textHeader: colors.blue.brightestColor,
-    modalBackground: colors.blue.darkColor,
-    button: colors.blue.darkColor,
+    button: colors.blue.lightColor,
     buttonActive: colors.blue.lightColor,
     buttonHover: colors.blue.contrast,
     buttonDisabled: colors.blue.disabledButton,

@@ -12,7 +12,6 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import MuiThemeProvider from '@mui/material/styles/ThemeProvider';
 
 function App() {
-  //const [theme, setTheme] = useState(palettes.light);
   const [theme, setTheme] = useState(() => {
     const saved = localStorageUtils.get("themePref");
     return themeMap[saved] || themeMap[themeNames.light];

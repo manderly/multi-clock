@@ -1,6 +1,6 @@
 import { FC, CSSProperties, useContext, useState } from 'react';
 import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
-import { Modal, TimezonePicker } from './components';
+import { Modal } from './components';
 import Clocks from './routes/Clocks/Clocks';
 import Settings from './routes/Settings/Settings';
 import Utils from './routes/Utils/Utils';
@@ -12,10 +12,8 @@ import { SettingsContext } from './contexts/SettingsContext';
 import SettingsIcon from '@mui/icons-material/Settings';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
+import ManageClockSettings from './components/ManageClockSettings/ManageClockSettings';
 import TimeOfDay from './components/TimeOfDay/TimeOfDay';
-import TextField from '@mui/material/TextField';
-import {TimePicker} from '@mui/x-date-pickers/TimePicker';
-import { ThemeButton } from './components';
 
 import { TimezoneOption } from './data';
 
@@ -79,24 +77,11 @@ const Routes: FC = () => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="example-custom-modal-styling-title">
-            Preview a time
+            Clock preferences
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="preview-timezone-modal-contents">
-            <TimePicker
-              label="Choose a time"
-              value={previewTime}
-              minutesStep={5}
-              renderInput={(props) => <TextField {...props} type="time"/>}
-              onChange={handlePreviewTimeChange}
-            />
-            <TimezonePicker changeTimezone={handlePreviewTimezoneChange} defaultTimezone={previewTimezone}/>
-          <div className="modal-bottom-buttons">
-            <ThemeButton onClick={() => handleShowTimePreviews(false)}>Hide Previews</ThemeButton>
-            <ThemeButton onClick={() => handleShowTimePreviews(true)}>Show Previews</ThemeButton>
-          </div>
-        </div>
+          <ManageClockSettings />
         </Modal.Body>
       </Modal>
         <div className="page">

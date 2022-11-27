@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Modal = styled(BootstrapModal)`
   .modal-content {
-    background-color:${props => props.theme.palette.modalBackground};
+    background-color:${props => props.theme.palette.bgInfo};
   }
 
   .modal-header {

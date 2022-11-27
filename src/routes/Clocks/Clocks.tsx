@@ -12,8 +12,24 @@ import MUISwitch from "@mui/material/Switch";
 import {TimePicker} from "@mui/x-date-pickers/TimePicker";
 import TextField from "@mui/material/TextField";
 import {TimeContext} from "../../contexts/TimeContext";
-import {useTheme} from "styled-components";
-import {colorPalette} from "../../hooks/backgroundColors";
+
+import styled from "styled-components";
+
+const UtilitiesBarWrapper = styled.div(({theme}) => ({
+  '#utilities-container': {
+    width: '100%',
+    marginTop: '20px',
+    backgroundColor: `${theme.palette.utilitiesBar.bg}`
+  },
+  '.preview-time-settings-dropdowns': {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: '1em',
+    paddingTop: '16px',
+    paddingBottom: '16px',
+  }
+}));
 
 interface IClocks {
   handleTogglePreviewTime: () => void;
@@ -55,7 +71,7 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTime, showPreviewTime}) => {
     const initialValue = localStorageUtils.get("clocks");
     return initialValue || createDefaultClocks();
   });
-  const [showPreviewTimeModal, setShowPreviewTimeModal] = useState(false);
+
   const [previewTimezone, setPreviewTimezone] = useState(userTimezone);
 
   useEffect(() => {
@@ -90,20 +106,6 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTime, showPreviewTime}) => {
     setClocks(newArr);
   }
 
-  const customPalette = useTheme();
-  const clockTimePaletteStyles: CSSProperties = {
-    backgroundColor: customPalette.palette.button,
-    color: customPalette.palette.textHeader,
-  };
-
-  // todo: doesn't seem to "map" to the input's structure input remains unstyled
-  // todo: also, not sure why I should have to reconstruct this here
-  // when it was already established in themes.ts
-  // const inputStyles: CSSProperties = {
-  //   backgroundColor: customPalette.palette.button,
-  //   borderColor: customPalette.palette.components.MuiTextField.styleOverrides.root.color,
-  // };
-
   return (
     <>
       <div className="clocks-quick-options">
@@ -124,20 +126,22 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTime, showPreviewTime}) => {
           ))}
       </div>
 
-      <div className={"width100 marginTop20"} style={clockTimePaletteStyles}>
-        <div className={"preview-time-settings-dropdowns"}>
-          <div className={"wide-input"}><FormControlLabel control={<MUISwitch defaultChecked color="default" />} onChange={handleTogglePreviewTime} label="Preview a time" /></div>
-          <TimePicker
+      <UtilitiesBarWrapper>
+        <div id="utilities-container">
+          <div className={"preview-time-settings-dropdowns"}>
+            <div className={"wide-input"}><FormControlLabel control={<MUISwitch defaultChecked color="default" />} onChange={handleTogglePreviewTime} label="Preview a time" /></div>
+            <TimePicker
               label="Choose a time"
               value={previewTime}
               minutesStep={5}
               renderInput={(props) => <TextField {...props} type="time" size={"small"}/>}
               onChange={handlePreviewTimeChange}
-          />
-          <TimezonePicker changeTimezone={handlePreviewTimezoneChange} defaultTimezone={previewTimezone}/>
-        </div>
+            />
+            <TimezonePicker changeTimezone={handlePreviewTimezoneChange} defaultTimezone={previewTimezone}/>
+            </div>
         <Thermometer smallestF={-20} largestF={120}/>
-      </div>
+        </div>
+      </UtilitiesBarWrapper>
     </>
   )
 }

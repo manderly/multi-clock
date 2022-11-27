@@ -243,7 +243,7 @@ h3 {
 }
 
 .modal-line {
-  min-height:42px;
+  /*min-height:42px;*/
 }
 
 .modal-label {
@@ -388,10 +388,6 @@ h3 {
   margin-top:20px;
 }
 
-.timezone-modal {
-  height:456px;
-}
-
 .modal-bottom-buttons {
   display: flex;
   justify-content: space-between;
@@ -430,11 +426,6 @@ h3 {
 }
 
 /* Thermometer */
-
-.thermometer {
-  padding: 10px;
-  width:100%;
-}
 
 .thermometer-container {
   margin:2px 0 2px 0;
@@ -486,53 +477,53 @@ h3 {
   /****** Line and number treatment - both bars ******/
 
   /* So the first/last lines display */
-  .thermometer-container .therm-unit:first-of-type .therm-line-c,
-  .thermometer-container .therm-unit:first-of-type .therm-line-f,
-  .thermometer-container .therm-unit:last-of-type .therm-line-c, 
-  .thermometer-container .therm-unit:last-of-type .therm-line-f
-   {
-    display: block;
-    border-right: 2px solid black;
-    height:70%;
-  }
+  /*.thermometer-container .therm-unit:first-of-type .therm-line-c,*/
+  /*.thermometer-container .therm-unit:first-of-type .therm-line-f,*/
+  /*.thermometer-container .therm-unit:last-of-type .therm-line-c, */
+  /*.thermometer-container .therm-unit:last-of-type .therm-line-f*/
+  /* {*/
+  /*  display: block;*/
+  /*  border-right: 2px solid black;*/
+  /*  height:70%;*/
+  /*}*/
 
   /* So the first/last number displays */
-  .thermometer-container .therm-unit:first-of-type .therm-number-c,
-  .thermometer-container .therm-unit:first-of-type .therm-number-f,
-  .thermometer-container .therm-unit:last-of-type .therm-number-c, 
-  .thermometer-container .therm-unit:last-of-type .therm-number-f {
-    display: block;
-  }
+  /*.thermometer-container .therm-unit:first-of-type .therm-number-c,*/
+  /*.thermometer-container .therm-unit:first-of-type .therm-number-f,*/
+  /*.thermometer-container .therm-unit:last-of-type .therm-number-c, */
+  /*.thermometer-container .therm-unit:last-of-type .therm-number-f {*/
+  /*  display: block;*/
+  /*}*/
 
   /* Line and number treatment for Celcius */
-  .thermometer-container .therm-unit:nth-of-type(5n) .therm-line-c {
-    border-right: 2px solid black;
-    height:70%;
-  }
+  /*.thermometer-container .therm-unit:nth-of-type(5n) .therm-line-c {*/
+  /*  border-right: 2px solid black;*/
+  /*  height:70%;*/
+  /*}*/
 
-  .thermometer-container .therm-unit:nth-of-type(5n) .therm-number-c {
-    display: block;
-    position: absolute;
-    bottom: 2px;
-    text-align: center;
-    transform: translateX(-10%);
-    width: 12px;
-  }
+  /*.thermometer-container .therm-unit:nth-of-type(5n) .therm-number-c {*/
+  /*  display: block;*/
+  /*  position: absolute;*/
+  /*  bottom: 2px;*/
+  /*  text-align: center;*/
+  /*  transform: translateX(-10%);*/
+  /*  width: 12px;*/
+  /*}*/
 
   /* Line and number treatment for Fahrenheit */
-  .thermometer-container .therm-unit:nth-of-type(5n+1) .therm-line-f {
-    border-right: 2px solid black;
-    height:70%;
-  }
+  /*.thermometer-container .therm-unit:nth-of-type(5n+1) .therm-line-f {*/
+  /*  border-right: 2px solid black;*/
+  /*  height:70%;*/
+  /*}*/
 
-  .thermometer-container .therm-unit:nth-of-type(5n+1) .therm-number-f {
-    display: block;
-    position: absolute;
-    text-align: center;
-    top: 2px;
-    transform: translateX(-25%);
-    width: 13px;
-  }
+  /*.thermometer-container .therm-unit:nth-of-type(5n+1) .therm-number-f {*/
+  /*  display: block;*/
+  /*  position: absolute;*/
+  /*  text-align: center;*/
+  /*  top: 2px;*/
+  /*  transform: translateX(-25%);*/
+  /*  width: 13px;*/
+  /*}*/
 }
 
 

@@ -15,14 +15,19 @@ const muiTheme = createTheme(lightTheme.mui)
 declare module 'styled-components' {
   export interface DefaultTheme {
     palette: {
-      primary: {
-        main: '#ffffff'
+      utilitiesBar: {
+        bg: string
+        thermometerBg: string
+        mercury: string
+        bigLine: string
+        thinLine: string
+        number: string
       }
-      bg: string
+      bgClocks: string
+      bgInfo: string
       a?: string
       textCopy: string
       textHeader: string
-      modalBackground: string
       button: string
       buttonHover: string
       buttonActive: string

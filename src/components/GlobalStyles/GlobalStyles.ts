@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
   body {
-    background: ${({ theme }) => theme.palette.bg};
+    background: ${({ theme }) => theme.palette.bgClocks};
     color: ${({ theme }) => theme.palette.textCopy};
     font-family: "Twemoji Country Flags", Tahoma, Helvetica, Arial, sans-serif;
     transition: all 0.30s linear;
