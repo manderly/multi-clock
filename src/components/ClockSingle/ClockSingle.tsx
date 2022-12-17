@@ -26,12 +26,11 @@ interface IClockSingle {
   uniqueID: number,
   clockTimezone: TimezoneOption,
   userTimezone: TimezoneOption,
-  showPreviewTime: boolean;
-  handleTogglePreviewTime: () => void,
+  showPreviewTimeGlobal: boolean;
   handleRemoveClock: (e: any) => void,
 }
 
-const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTimezone, showPreviewTime, handleTogglePreviewTime, handleRemoveClock }) => {
+const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTimezone, showPreviewTimeGlobal, handleRemoveClock }) => {
 
   const { hoursPref, showOtherSecondsPref } = useContext(SettingsContext);
   const { now, previewTime, previewMeridiem, previewTimezone} = useContext(TimeContext);
@@ -41,6 +40,12 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
   const [timezone, setTimezone] = useState(clockTimezone);
   const [offset, setOffset] = useState('');
   const [showClockSettingsModal, setShowClockSettingsModal] = useState(false);
+
+  const [showPreviewTimeLocal, setShowPreviewTimeLocal] = useState(showPreviewTimeGlobal);
+
+  useEffect(() => {
+    setShowPreviewTimeLocal(showPreviewTimeGlobal);
+  }, [showPreviewTimeGlobal])
 
   const previewTimeAsDate = new Date(previewTime);
   previewTimeAsDate.setSeconds(0);
@@ -80,8 +85,10 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
         if (saved) {
           const parsed = JSON.parse(saved);
           const indexToEdit = parsed.findIndex((clock: any) => clock.uniqueID === uniqueID);
-          parsed[indexToEdit].name = nickname;
-          localStorage.setItem("clocks", JSON.stringify(parsed));
+          if (indexToEdit >= 0) {
+            parsed[indexToEdit].name = nickname;
+            localStorage.setItem("clocks", JSON.stringify(parsed));
+          }
         }
       } catch(e) {
         console.log(e);
@@ -153,9 +160,13 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
     setTimezone(option);
   }
 
+  const handleTogglePreviewTime = () => {
+    setShowPreviewTimeLocal(!showPreviewTimeLocal);
+  }
+
   const meridiemValue = hoursPref === 12 ? meridiem : '';
 
-  const bigTime = showPreviewTime ? timezoneAdjustedPreviewTime : formattedTime;
+  const bigTime = showPreviewTimeLocal ? timezoneAdjustedPreviewTime : formattedTime;
   return (
     <>
       <div className='clock-container' style={clockTimePaletteStyles}>
@@ -163,8 +174,8 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
         <Timezone text={timezone.label} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
         <TimeOfDay time={bigTime} meridiem={meridiemValue} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
         <div className='clock-extra-info-container' onClick={handleTogglePreviewTime}>
-          {!showPreviewTime && <DateDisplay date={formattedDateClock} offset={offset} />}
-          {showPreviewTime && <PreviewTime
+          {!showPreviewTimeLocal && <DateDisplay date={formattedDateClock} offset={offset} />}
+          {showPreviewTimeLocal && <PreviewTime
               previewTime={formattedPreviewTime}
               previewMeridiem={formattedPreviewMeridiem}
               previewTimezoneLabel={previewTimezone.label}

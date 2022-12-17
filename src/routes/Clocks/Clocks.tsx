@@ -1,4 +1,4 @@
-import {FC, useState, useEffect, useContext, CSSProperties} from 'react';
+import {FC, useState, useEffect, useContext } from 'react';
 import Thermometer from '../../components/Thermometer/Thermometer';
 import { usTimeZones, defaultTimeZones, TimezoneOption } from '../../data';
 import {ThemeButton, TimezonePicker} from '../../components';
@@ -15,8 +15,10 @@ import {TimeContext} from "../../contexts/TimeContext";
 
 import styled from "styled-components";
 
+import AddIcon from '@mui/icons-material/Add';
+
 const UtilitiesBarWrapper = styled.div(({theme}) => ({
-  '#utilities-container': {
+  '.utilities-container': {
     width: '100%',
     marginTop: '20px',
     backgroundColor: `${theme.palette.utilitiesBar.bg}`
@@ -32,8 +34,8 @@ const UtilitiesBarWrapper = styled.div(({theme}) => ({
 }));
 
 interface IClocks {
-  handleTogglePreviewTime: () => void;
-  showPreviewTime: boolean;
+  handleTogglePreviewTimeGlobal: () => void;
+  showPreviewTimeGlobal: boolean;
 }
 
 interface IClock {
@@ -61,7 +63,7 @@ const createClock = (tz: TimezoneOption, name?: string, uniqueID?: number): IClo
   }
 }
 
-const Clocks: FC<IClocks> = ({handleTogglePreviewTime, showPreviewTime}) => {
+const Clocks: FC<IClocks> = ({handleTogglePreviewTimeGlobal, showPreviewTimeGlobal}) => {
   // create an array of clock objects, feeding it default time zones
   // createDefaultClocks
   const { userTimezone } = useContext(SettingsContext);
@@ -108,10 +110,6 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTime, showPreviewTime}) => {
 
   return (
     <>
-      <div className="clocks-quick-options">
-        <div className="clocks-quick-options-item"><ThemeButton disabled={clocks.length >= 8} variant="primary" aria-label="button-add-clock" onClick={addClock}>Add Clock</ThemeButton></div>
-      </div>  
-
       <div className="clocks-row-container">
         {clocks.map((data: any) => (
           <ClockSingle
@@ -120,16 +118,28 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTime, showPreviewTime}) => {
             uniqueID={data.uniqueID}
             clockTimezone={data.timezone}
             userTimezone={userTimezone}
-            showPreviewTime={showPreviewTime}
-            handleTogglePreviewTime={handleTogglePreviewTime}
+            showPreviewTimeGlobal={showPreviewTimeGlobal}
             handleRemoveClock={() => removeClock(data.uniqueID)}/>
           ))}
+        <ThemeButton
+            hidden={clocks.length >= 8}
+            variant={"outlined"}
+            outlined={true}
+            aria-label="button-add-clock"
+            onClick={addClock}>
+          <AddIcon/>
+        </ThemeButton>
       </div>
 
-      <UtilitiesBarWrapper>
-        <div id="utilities-container">
+      <UtilitiesBarWrapper className={"width100"}>
+        <div className={"utilities-container"}>
           <div className={"preview-time-settings-dropdowns"}>
-            <div className={"wide-input"}><FormControlLabel control={<MUISwitch defaultChecked color="default" />} onChange={handleTogglePreviewTime} label="Preview a time" /></div>
+            <div className={"wide-input"}>
+              <FormControlLabel
+                  control={<MUISwitch defaultChecked color="default" />}
+                  onChange={handleTogglePreviewTimeGlobal}
+                  label="Preview mode" />
+            </div>
             <TimePicker
               label="Choose a time"
               value={previewTime}

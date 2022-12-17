@@ -23,7 +23,7 @@ const Routes: FC = () => {
   const { now, handlePreviewTimeChange, previewTime } = useContext(TimeContext);
 
   const [showPreviewTimeModal, setShowPreviewTimeModal] = useState(false);
-  const [showPreviewTime, setShowPreviewTime] = useState(true);
+  const [showPreviewTimeGlobal, setShowPreviewTimeGlobal] = useState(true);
   const [previewTimezone, setPreviewTimezone] = useState(userTimezone);
 
   const { formattedDateHeader: browserDate, formattedTime: browserTime, meridiem, timePalette } = useFormatDate(now, userTimezone.value, hoursPref, showMySecondsPref)
@@ -41,12 +41,8 @@ const Routes: FC = () => {
     setPreviewTimezone(tz);
   }
 
-  const handleShowTimePreviews = (value: boolean) => {
-    setShowPreviewTime(value);
-  }
-
-  const handleTogglePreviewTime = () => {
-    setShowPreviewTime(prev => !prev)
+  const handleTogglePreviewTimeGlobal = () => {
+    setShowPreviewTimeGlobal(prev => !prev)
   }
 
   return (
@@ -87,7 +83,7 @@ const Routes: FC = () => {
         <div className="page">
           <Switch>
             <Route exact path="/">
-              <Clocks showPreviewTime={showPreviewTime} handleTogglePreviewTime={handleTogglePreviewTime}/>
+              <Clocks showPreviewTimeGlobal={showPreviewTimeGlobal} handleTogglePreviewTimeGlobal={handleTogglePreviewTimeGlobal}/>
             </Route>
 
             <Route path="/settings">

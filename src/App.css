@@ -193,17 +193,12 @@ h3 {
 }
 
 .clocks-row-container {
-  display: flex;
-  flex-flow:row wrap;
-  flex-direction: row;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap:12px;
-  padding-left:10px;
-  padding-right:10px;
-  margin:0 0 10px 0;
+  margin:10px 0 10px 0;
 }
 
-/* todo: why do these have to be important to work? */
 .clock-container {
   display:flex;
   flex-direction:column;
@@ -212,8 +207,6 @@ h3 {
   font-size:1.3em;
   width:210px;
   padding:22px;
-  border-right:1px solid black !important;
-  border-bottom:1px solid black !important;
   gap:1px;
 }
 

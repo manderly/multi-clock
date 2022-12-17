@@ -28,10 +28,13 @@ declare module 'styled-components' {
       a?: string
       textCopy: string
       textHeader: string
-      button: string
-      buttonHover: string
-      buttonActive: string
-      buttonDisabled: string
+      button: {
+        bg: string
+        text: string
+        active: string
+        hover: string
+        disabled: string
+      },
     },
     mui: typeof muiTheme,
   }

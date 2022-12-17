@@ -29,7 +29,7 @@ const muiObj = (name: keyof typeof colors) => {
       styleOverrides: {
         root: {
           color: getTextColor(name),
-          backgroundColor: colors[name].darkestColor,
+          backgroundColor: getBGColor(name),
           "&.Mui-selected": {
             color: getTextColor(name),
             backgroundColor: colors[name].lightColor,
@@ -52,11 +52,11 @@ const muiObj = (name: keyof typeof colors) => {
 const colors = {
   light: {
     brightestColor: '#ffffff',
-    lightColor: '#d1d1d1',
-    darkColor: '#787777',
+    lightColor: '#e8e8e8',
+    darkColor: '#ababab', //'#787777',
     darkestColor: '#353838',
-    disabledButton: '#58758a',
-    contrast: '#bd102d',
+    disabledButton: '#204063',
+    contrast: '#6585a8', //'#bd102d',
   },
   berry: {
     brightestColor: '#db97b7',
@@ -81,20 +81,23 @@ export const lightTheme: DefaultTheme = {
     utilitiesBar: {
       bg: colors.light.lightColor,
       thermometerBg: colors.light.brightestColor,
-      mercury: colors.light.contrast,
-      bigLine: colors.light.brightestColor,
-      thinLine: colors.light.lightColor,
-      number: colors.light.brightestColor,
+      mercury: '#bd102d',
+      bigLine: colors.light.darkestColor,
+      thinLine: colors.light.darkColor,
+      number: colors.light.darkestColor,
     },
     bgClocks: colors.light.brightestColor,
     bgInfo: colors.light.lightColor,
     a: colors.light.contrast,
-    textCopy: colors.light.brightestColor,
-    textHeader: colors.light.brightestColor,
-    button: colors.light.contrast,
-    buttonActive: colors.light.lightColor,
-    buttonHover: colors.light.contrast,
-    buttonDisabled: colors.light.darkestColor,
+    textCopy: colors.light.darkestColor,
+    textHeader: colors.light.darkestColor,
+    button: {
+      bg: colors.light.darkColor,
+      text: colors.light.darkestColor,
+      active: colors.light.darkColor,
+      hover: colors.light.contrast,
+      disabled: colors.light.disabledButton,
+    },
   },
   mui: {
     ...createTheme({
@@ -118,10 +121,13 @@ export const darkTheme: DefaultTheme = {
     a: '#ffffff',
     textCopy: '#ECEFF4',
     textHeader: "#ffffff",
-    button: "#3B4252",
-    buttonHover: "#4C566A",
-    buttonActive: "#434C5E",
-    buttonDisabled: "#000000",
+    button: {
+      bg: "#3B4252",
+      text: '#000000',
+      active: '#ffffff',
+      hover: "#4C566A",
+      disabled: "#000000",
+    },
   },
   mui: {
     ...createTheme({
@@ -154,10 +160,13 @@ export const berryTheme: DefaultTheme = {
     a: colors.berry.contrast,
     textCopy: colors.berry.brightestColor,
     textHeader: colors.berry.brightestColor,
-    button: colors.berry.lightColor,
-    buttonActive: colors.berry.lightColor,
-    buttonHover: colors.berry.contrast,
-    buttonDisabled: colors.berry.disabledButton,
+    button: {
+      bg: colors.berry.lightColor,
+      text: colors.berry.brightestColor,
+      active: colors.berry.lightColor,
+      hover: colors.berry.contrast,
+      disabled: colors.berry.disabledButton,
+    },
   },
   mui: {
     ...createTheme({
@@ -182,10 +191,13 @@ export const blueTheme: DefaultTheme = {
     a: colors.blue.contrast,
     textCopy: colors.blue.brightestColor,
     textHeader: colors.blue.brightestColor,
-    button: colors.blue.lightColor,
-    buttonActive: colors.blue.lightColor,
-    buttonHover: colors.blue.contrast,
-    buttonDisabled: colors.blue.disabledButton,
+    button: {
+      bg: colors.blue.lightColor,
+      text: colors.blue.darkestColor,
+      active: colors.blue.lightColor,
+      hover: colors.blue.contrast,
+      disabled: colors.blue.disabledButton,
+    },
   },
   mui: {
     ...createTheme({

@@ -3,23 +3,23 @@ import styled from 'styled-components';
 
 const ThemeButton = styled(BootstrapButton)`
   &:focus {
-    background-color:${props => props.theme.palette.buttonActive};
-    border-color:${props => props.theme.palette.buttonActive};
+    ${props => props.outlined ? '' : 'background-color:' + props.theme.palette.button.active};
+    border-color:${props => props.theme.palette.button.active};
   }
 
   &:hover {
-    background-color:${props => props.theme.palette.buttonHover};
-    border-color:${props => props.theme.palette.buttonHover};
+    ${props => props.outlined ? '' : 'background-color:' + props.theme.palette.button.hover};
+    border-color:${props => props.theme.palette.button.hover};
   }
   
   &:disabled {
-    background-color:${props => props.theme.palette.buttonDisabled};
-    border-color:${props => props.theme.palette.buttonDisabled};
+    ${props => props.outlined ? '' : 'background-color:' + props.theme.palette.button.disabled};
+    border-color:${props => props.theme.palette.button.disabled};
   }
 
   color:${props => props.theme.palette.textCopy};
-  background-color:${props => props.theme.palette.button};
-  border-color:${props => props.theme.palette.button};
+  ${props => props.outlined ? '' : 'background-color:' + props.theme.palette.button.bg};
+  border-color:${props => props.theme.palette.button.bg};
 `
 export default ThemeButton;
 

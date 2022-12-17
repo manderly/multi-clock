@@ -13,22 +13,22 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   a {
-    color: ${({ theme }) => theme.palette.a ? theme.palette.a : theme.palette.buttonActive};
+    color: ${({ theme }) => theme.palette.a ? theme.palette.a : theme.palette.button.active};
   }
 
   a:hover {
-    color: ${({ theme }) => theme.palette.buttonHover};
+    color: ${({ theme }) => theme.palette.button.hover};
     opacity: 1;
   }
 
   .form-control {
-    background-color: ${({ theme }) => theme.palette.button};
-    border: 1px solid ${({ theme }) => theme.palette.button};
-    color: ${({ theme }) => theme.palette.textCopy};
+    background-color: ${({ theme }) => theme.palette.button.bg};
+    border: 1px solid ${({ theme }) => theme.palette.button.bg};
+    color: ${({ theme }) => theme.palette.button.text};
   }
 
   .form-control:focus {
-    background-color: ${({ theme }) => theme.palette.button};
+    background-color: ${({ theme }) => theme.palette.button.bg};
   }
 
   .form-control::placeholder {
@@ -36,37 +36,37 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .timezone-picker-list {
-    border: 1px solid ${({ theme }) => theme.palette.button};
+    border: 1px solid ${({ theme }) => theme.palette.button.bg};
   }
 
   .timezone-picker-list-item {
-    background-color: ${({ theme }) => theme.palette.button};
+    background-color: ${({ theme }) => theme.palette.button.bg};
   }
 
   .form-check-input {
-    background-color: ${({ theme }) => theme.palette.button};
-    border-color: ${({ theme }) => theme.palette.button};
+    background-color: ${({ theme }) => theme.palette.button.bg};
+    border-color: ${({ theme }) => theme.palette.button.bg};
   }
 
   .form-check-input:checked {
-    background-color: ${({ theme }) => theme.palette.buttonHover};
+    background-color: ${({ theme }) => theme.palette.button.hover};
     border-color: ${({ theme }) => theme.palette.button};
   }
 
   .btn-secondary {
     color:${props => props.theme.palette.textHeader} !important;
-    background-color:${props => props.theme.palette.buttonHover} !important;
+    background-color:${props => props.theme.palette.button.hover} !important;
     border-color:${props => props.theme.palette.button} !important;
   }
 
   .btn-secondary:focus {
-    background-color:${props => props.theme.palette.buttonActive} !important;
-    border-color:${props => props.theme.palette.buttonActive} !important;
+    background-color:${props => props.theme.palette.button.active} !important;
+    border-color:${props => props.theme.palette.button.active} !important;
   }
 
   .btn-secondary:hover {
-    background-color:${props => props.theme.palette.buttonActive} !important;
-    border-color:${props => props.theme.palette.buttonActive} !important;
+    background-color:${props => props.theme.palette.button.active} !important;
+    border-color:${props => props.theme.palette.button.active} !important;
   }
 `
   
