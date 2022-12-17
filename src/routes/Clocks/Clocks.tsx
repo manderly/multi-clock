@@ -20,7 +20,6 @@ import AddIcon from '@mui/icons-material/Add';
 const UtilitiesBarWrapper = styled.div(({theme}) => ({
   '.utilities-container': {
     width: '100%',
-    marginTop: '20px',
     backgroundColor: `${theme.palette.utilitiesBar.bg}`
   },
   '.preview-time-settings-dropdowns': {
@@ -30,6 +29,13 @@ const UtilitiesBarWrapper = styled.div(({theme}) => ({
     gap: '1em',
     paddingTop: '16px',
     paddingBottom: '16px',
+  },
+  '@media only screen and (max-width: 780px)': {
+    '.preview-time-settings-dropdowns': {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
   }
 }));
 
@@ -133,15 +139,13 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTimeGlobal, showPreviewTimeGlob
 
       <UtilitiesBarWrapper className={"width100"}>
         <div className={"utilities-container"}>
-          <div className={"preview-time-settings-dropdowns"}>
-
+          <div className="preview-time-settings-dropdowns">
             <div className={"wide-input"}>
               <FormControlLabel
                   control={<MUISwitch defaultChecked color="default" />}
                   onChange={handleTogglePreviewTimeGlobal}
                   label="Preview mode" />
             </div>
-
             <div className={"wide-input"}>
               <TimePicker
                 label="Choose a time"
@@ -151,7 +155,6 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTimeGlobal, showPreviewTimeGlob
                 onChange={handlePreviewTimeChange}
               />
             </div>
-
             <div className={"very-wide-input"}>
               <TimezonePicker changeTimezone={handlePreviewTimezoneChange} defaultTimezone={previewTimezone}/>
             </div>

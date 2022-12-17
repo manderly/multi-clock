@@ -209,6 +209,7 @@ h3 {
   grid-template-columns: repeat(4, 1fr);
   gap:12px;
   margin:10px 0 10px 0;
+  width:100%;
 }
 
 .clock-container {
@@ -217,7 +218,7 @@ h3 {
   border-radius:1px;
   text-align:center;
   font-size:1.3em;
-  width:210px;
+  min-width:210px;
   padding:22px;
   gap:1px;
 }
@@ -571,7 +572,6 @@ h3 {
   .clock-container {
     width:100%;
     flex-basis:50%;
-    padding:12px;
   }
 
   .clock-container:hover {
