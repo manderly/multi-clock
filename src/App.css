@@ -38,6 +38,10 @@ body {
   width:200px;
 }
 
+.very-wide-input {
+  width:400px;
+}
+
 .flexRow {
   display:flex;
   flex-direction: row;

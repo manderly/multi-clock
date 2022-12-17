@@ -134,22 +134,29 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTimeGlobal, showPreviewTimeGlob
       <UtilitiesBarWrapper className={"width100"}>
         <div className={"utilities-container"}>
           <div className={"preview-time-settings-dropdowns"}>
+
             <div className={"wide-input"}>
               <FormControlLabel
                   control={<MUISwitch defaultChecked color="default" />}
                   onChange={handleTogglePreviewTimeGlobal}
                   label="Preview mode" />
             </div>
-            <TimePicker
-              label="Choose a time"
-              value={previewTime}
-              minutesStep={5}
-              renderInput={(props) => <TextField {...props} type="time" size={"small"}/>}
-              onChange={handlePreviewTimeChange}
-            />
-            <TimezonePicker changeTimezone={handlePreviewTimezoneChange} defaultTimezone={previewTimezone}/>
+
+            <div className={"wide-input"}>
+              <TimePicker
+                label="Choose a time"
+                value={previewTime}
+                minutesStep={5}
+                renderInput={(props) => <TextField {...props} type="time" size={"small"}/>}
+                onChange={handlePreviewTimeChange}
+              />
             </div>
-        <Thermometer smallestF={-20} largestF={120}/>
+
+            <div className={"very-wide-input"}>
+              <TimezonePicker changeTimezone={handlePreviewTimezoneChange} defaultTimezone={previewTimezone}/>
+            </div>
+          </div>
+          <Thermometer smallestF={-20} largestF={120}/>
         </div>
       </UtilitiesBarWrapper>
     </>
