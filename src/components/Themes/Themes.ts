@@ -17,6 +17,7 @@ const getTextColor = (name: keyof typeof colors) => {
 }
 
 const getBGColor = (name: keyof typeof colors) => {
+  console.log("getting bg for " + name);
   return name === 'light' ? colors[name].brightestColor : colors[name].darkestColor;
 }
 
@@ -32,7 +33,7 @@ const muiObj = (name: keyof typeof colors) => {
           backgroundColor: getBGColor(name),
           "&.Mui-selected": {
             color: getTextColor(name),
-            backgroundColor: colors[name].lightColor,
+            backgroundColor: getBGColor(name),
             "&.Mui-focusVisible": {
               // the currently selected option in the list of options
               color: getTextColor(name),
@@ -50,6 +51,14 @@ const muiObj = (name: keyof typeof colors) => {
 }
 
 const colors = {
+  dark: {
+    brightestColor: '#55b9c3',
+    lightColor: '#286F5B',
+    darkColor: '#252424',
+    darkestColor: '#0a0a0a',
+    disabledButton: '#000000',
+    contrast: '#dd1e33'
+  },
   light: {
     brightestColor: '#ffffff',
     lightColor: '#e8e8e8',
@@ -109,38 +118,29 @@ export const lightTheme: DefaultTheme = {
 export const darkTheme: DefaultTheme = {
   palette: {
     utilitiesBar: {
-      bg: '#ffffff',
-      thermometerBg: '#ffffff',
-      mercury: '#ffffff',
-      bigLine: '#ffffff',
-      thinLine: '#efefef',
-      number: '#efefef',
+      bg: colors.dark.darkColor,
+      thermometerBg: colors.dark.darkestColor,
+      mercury: colors.dark.contrast,
+      bigLine: colors.dark.brightestColor,
+      thinLine: colors.dark.lightColor,
+      number: colors.dark.brightestColor,
     },
-    bgClocks: '#252932',
-    bgInfo: '#000fff',
-    a: '#ffffff',
-    textCopy: '#ECEFF4',
-    textHeader: "#ffffff",
+    bgClocks: colors.dark.darkestColor,
+    bgInfo: colors.dark.darkColor,
+    a: colors.dark.contrast,
+    textCopy: colors.dark.brightestColor,
+    textHeader: colors.dark.brightestColor,
     button: {
-      bg: "#3B4252",
-      text: '#000000',
-      active: '#ffffff',
-      hover: "#4C566A",
-      disabled: "#000000",
+      bg: colors.dark.lightColor,
+      text: colors.dark.darkestColor,
+      active: colors.dark.lightColor,
+      hover: colors.dark.contrast,
+      disabled: colors.dark.disabledButton,
     },
   },
   mui: {
     ...createTheme({
-      components: {
-        MuiOutlinedInput: {
-          styleOverrides: {
-            root: {
-              color: 'red',
-              backgroundColor: '#ffffff',
-            }
-          }
-        }
-      }
+      components: muiObj('dark')
     })
   }
 };
