@@ -14,7 +14,7 @@ const Settings: FC = () => {
     }
 
     return (
-    <>
+    <div className="settings-page">
       <div className="settings-container">
         <h3>App color theme</h3>
         <ul className="hidden-li app-theme-choices">
@@ -24,7 +24,7 @@ const Settings: FC = () => {
           <li><ThemeButton onClick={() => handlePaletteClick(themeNames.blue)}>THEME: Blue</ThemeButton></li>
           </ul>
       </div>
-  </>
+    </div>
   )
 }
 

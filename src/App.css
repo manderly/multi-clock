@@ -43,6 +43,16 @@ body {
   flex-direction: row;
 }
 
+.header-app-link {
+  margin-top:4px;
+  margin-left:4px;
+}
+
+.header-settings-gear {
+  margin-top:4px;
+  margin-right:4px;
+}
+
 .preview-time-settings-dropdowns {
   display:flex;
   flex-direction:row;
@@ -112,10 +122,6 @@ h3 {
   justify-content:space-between;
 }
 
-.header-button {
-  padding-left:15px;
-}
-
 .app-subtitle {
   font-size:.6em;
   line-height:.6em;
@@ -131,12 +137,14 @@ h3 {
 .header-clock-container {
   width:100%;
   display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding-left:5px;
+  flex-direction:row;
+  justify-content:space-between;
 }
 
 .header-clock-and-date {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
   padding-bottom:10px;
 }
 
@@ -273,7 +281,15 @@ h3 {
 
 .time-stamp-display {
   font-size:2.0em;
-  line-height:1em;
+  line-height:1.18em;
+}
+
+.my-clock .time-stamp-display {
+  font-size:2.8em;
+}
+
+.my-clock .meridiem {
+  font-size:1.8em;
 }
 
 .blue-border {
@@ -365,6 +381,13 @@ h3 {
   flex: 0 0 120px;
   padding-left:6px;
   line-height:32px;
+}
+
+.settings-page {
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-content:start;
 }
 
 .settings-container {

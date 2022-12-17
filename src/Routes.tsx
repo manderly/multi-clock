@@ -50,18 +50,22 @@ const Routes: FC = () => {
       <div className="App">
         <header style={clockTimePaletteStyles}>
           <div className="header-clock-container">
-            <div>
-              {userTimezone.label}
+            <div className="header-app-link">
+              <Link to="/" style={clockTimePaletteStyles}>Multi Clock</Link>
             </div>
-            <div className="header-clock-and-date" onClick={() => onClickMyOwnTime()}>
-              <TimeOfDay time={browserTime} meridiem={meridiem} styles={clockTimePaletteStyles}/>
-              <div className="browser-date">{browserDate}</div> 
-            </div>
-          </div>
 
-          <div className="pull-right">
-            <Link to="/settings" style={clockTimePaletteStyles} className="header-button"><SettingsIcon/></Link>
-            <Link to="/" style={clockTimePaletteStyles}>Multi Clock</Link>
+            <div className="header-clock-and-date my-clock" onClick={() => onClickMyOwnTime()}>
+              {userTimezone.label}
+              <TimeOfDay
+                  time={browserTime}
+                  meridiem={meridiem}
+                  styles={clockTimePaletteStyles}/>
+              <div className="browser-date">{browserDate}</div>
+            </div>
+
+            <div className="header-settings-gear">
+              <Link to="/settings" style={clockTimePaletteStyles} className="header-button"><SettingsIcon/></Link>
+            </div>
           </div>
         </header>
 
