@@ -10,10 +10,7 @@ import { TimeContext } from '../../contexts/TimeContext';
 import TimezonePicker  from '../../components/TimezonePicker/TimezonePicker';
 
 import { Modal } from '../../components';
-import { ThemeButton } from '../../components';
-
-import ClearIcon from '@mui/icons-material/Clear';
-import EditIcon from '@mui/icons-material/Edit';
+import TextField from '@mui/material/TextField';
 
 import Nickname from './components/Nickname';
 import Timezone from './components/Timezone';
@@ -32,6 +29,8 @@ interface IClockSingle {
 
 const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTimezone, showPreviewTimeGlobal, handleRemoveClock }) => {
 
+  const randomPlaceholders = ["Chicago, IL", "San Diego, CA", "Anchorage, AK", "Seattle, WA", "West Coast team", "Friends", "Family", "Colleagues", "Seattle Team", "Europe Team", "East Coast team", "Home"];
+
   const { hoursPref, showOtherSecondsPref } = useContext(SettingsContext);
   const { now, previewTime, previewMeridiem, previewTimezone} = useContext(TimeContext);
 
@@ -40,6 +39,7 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
   const [timezone, setTimezone] = useState(clockTimezone);
   const [offset, setOffset] = useState('');
   const [showClockSettingsModal, setShowClockSettingsModal] = useState(false);
+  const [randomNicknamePlaceholder, setRandomNicknamePlaceholder] = useState(randomPlaceholders[1]);
 
   const [showPreviewTimeLocal, setShowPreviewTimeLocal] = useState(showPreviewTimeGlobal);
 
@@ -124,6 +124,12 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
 
   const handleNicknameChange = (e: any) => {
     setNickname(e.target.value as string);
+
+    // so we get a different nickname every time the user clears the field
+    if (nickname.length === 0) {
+      const randIdx = Math.floor(Math.random()*randomPlaceholders.length);
+      setRandomNicknamePlaceholder(randomPlaceholders[randIdx]);
+    }
   }
 
   const handleNicknameKeyDown = (e: any) => {
@@ -143,17 +149,10 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
     }
   }, [editingNickname]);
 
-  const handleClearNicknameClick = (e: any) => {
-    // clear nickname, use timezone label
-    setNickname(clockTimezone.label);
-  }
-
-  const handleEditingNicknameClick = (e: any) => {
-    setEditingNickname(!editingNickname);
-  }
-
   const handleEditingNicknameBlur = (e: any) => {
-    setEditingNickname(!editingNickname);
+    if (nickname.length === 0) {
+      setNickname(clockTimezone.label);
+    }
   }
 
   const handleTimezoneChange = (option: any) => {
@@ -197,23 +196,20 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-    
-      <label className="modal-label">Nickname</label>
+
       <div className="modal-line">
       {editingNickname ? 
             <input ref={nicknameRef} type="text" aria-label="nickname clock" value={nickname} onKeyDown={handleNicknameKeyDown} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
             : 
             <div className="edit-clock-name-row">
-
-              <div>
-                <Button type='button' variant="link" className="nickname-button" onClick={handleEditingNicknameClick}>{nickname === '' ? `${timezone.label}` : `${nickname}`}</Button>
-              </div>
-
-              <div className="edit-clock-name-buttons">
-                <ThemeButton type='button' size="sm" aria-label="clear nickname" onClick={handleClearNicknameClick}><ClearIcon/></ThemeButton>
-                <ThemeButton type='button' size="sm" aria-label="edit nickname" onClick={handleEditingNicknameClick}><EditIcon/></ThemeButton>
-              </div>
-
+                <TextField
+                    id="outlined-basic"
+                    label="Clock nickname"
+                    variant="outlined"
+                    onChange={handleNicknameChange}
+                    onBlur={handleEditingNicknameBlur}
+                    placeholder={randomNicknamePlaceholder}
+                    value={nickname}/>
             </div>
           }
         </div>
