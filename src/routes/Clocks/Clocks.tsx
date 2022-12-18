@@ -85,19 +85,7 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTimeGlobal, showPreviewTimeGlob
 
   useEffect(() => {
     localStorageUtils.put("clocks", clocks);
-  }, [clocks])
-
-  const handleSetAllToUSClick = () => {
-    localStorageUtils.delete("clocks");
-    // set existing clocks or create new ones to get to 4 clocks representing 4 US time zones
-    const USClocks = [];
-
-    for (let i = 0; i < 4; i++) {
-        let USClock = createClock(usTimeZones[i], USCityNames[i]);
-        USClocks.push(USClock);
-    }
-    setClocks(USClocks);
-  }
+  }, [clocks]);
 
   const addClock = () => {
     if (clocks.length < 8) {
@@ -106,7 +94,7 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTimeGlobal, showPreviewTimeGlob
         return [...prev, createClock(usTimeZones[0], USCityNames[0])];
       })
     }
-  }
+  };
 
   const removeClock = (removeID: number) => {
     let newArr = clocks.filter((clock: any) => {
@@ -144,7 +132,7 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTimeGlobal, showPreviewTimeGlob
             <div className={"wide-input"}>
               <Tooltip title={"Translate a time in one timezone to other timezones"}>
                 <FormControlLabel
-                    control={<MUISwitch defaultChecked color="default" />}
+                    control={<MUISwitch checked={showPreviewTimeGlobal} color="default" />}
                     onChange={handleTogglePreviewTimeGlobal}
                     label="Preview a time" />
                 </Tooltip>

@@ -1,4 +1,4 @@
-import { FC, CSSProperties, useContext, useState } from 'react';
+import {FC, CSSProperties, useContext, useState, useEffect} from 'react';
 import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
 import { Modal } from './components';
 import Clocks from './routes/Clocks/Clocks';
@@ -18,15 +18,18 @@ import TimeOfDay from './components/TimeOfDay/TimeOfDay';
 
 import { TimezoneOption } from './data';
 import {Tooltip} from "@mui/material";
+import localStorageUtils from "./utils/localStorage";
 
 const Routes: FC = () => {
 
   const { hoursPref, showMySecondsPref, userTimezone } = useContext(SettingsContext);
-  const { now, handlePreviewTimeChange, previewTime } = useContext(TimeContext);
+  const { now } = useContext(TimeContext);
 
   const [showPreviewTimeModal, setShowPreviewTimeModal] = useState(false);
-  const [showPreviewTimeGlobal, setShowPreviewTimeGlobal] = useState(true);
-  const [previewTimezone, setPreviewTimezone] = useState(userTimezone);
+  const [showPreviewTimeGlobal, setShowPreviewTimeGlobal] = useState(() => {
+    const initialValue = localStorageUtils.get("showPreviewModeGlobal") as boolean;
+    return initialValue || false;
+  });
 
   const { formattedDateHeader: browserDate, formattedTime: browserTime, meridiem, timePalette } = useFormatDate(now, userTimezone.value, hoursPref, showMySecondsPref)
 
@@ -39,12 +42,9 @@ const Routes: FC = () => {
     setShowPreviewTimeModal(true);
   }
 
-  const handlePreviewTimezoneChange = (tz: TimezoneOption) => {
-    setPreviewTimezone(tz);
-  }
-
   const handleTogglePreviewTimeGlobal = () => {
-    setShowPreviewTimeGlobal(prev => !prev)
+    setShowPreviewTimeGlobal(prev => !prev);
+    localStorageUtils.put("showPreviewModeGlobal", !showPreviewTimeGlobal);
   }
 
   return (
@@ -105,7 +105,7 @@ const Routes: FC = () => {
         </div>
 
         <footer className="footer">
-          <div><a href="https://github.com/manderly/multi-clock" className="no-underline">Mandi Burley 2022</a></div> 
+          <div><a href="https://github.com/manderly/multi-clock" className="no-underline">Mandi Burley 2022</a></div>
           <div><a href="https://github.com/manderly/multi-clock"><GitHubIcon/></a></div>
         </footer>
 
