@@ -340,33 +340,6 @@ h3 {
   flex:1;
 }
 
-.red-btn {
-  color:red;
-}
-
-.calculator-container {
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  margin: 10px;
-}
-
-.calculator-input {
-  width:80% !important;
-}
-
-.calculator-buttons-container {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-.calculator-result-item {
-  flex: 0 0 120px;
-  padding-left:6px;
-  line-height:32px;
-}
-
 .settings-page {
   width:100%;
   display:flex;
@@ -417,15 +390,6 @@ h3 {
 
 .timezone-picker-list li {
   list-style:none;
-}
-
-/* Thermometer */
-
-.thermometer-container {
-  margin:2px 0 2px 0;
-  height:50px;
-  display:flex;
-  flex-direction: row;
 }
 
 @media only screen and (min-width: 781px) {

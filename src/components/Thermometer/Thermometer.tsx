@@ -2,6 +2,12 @@ import {FC, useEffect, useState} from 'react';
 import styled from "styled-components";
 
 const ThermometerWrapper = styled.div(({theme}) => ({
+    '.thermometer-container': {
+        margin:'2px 0 2px 0',
+        height: '50px',
+        display: 'flex',
+        flexDirection: 'row',
+    },
     '.thermometer': {
         padding: '10px',
         width:'100%',
