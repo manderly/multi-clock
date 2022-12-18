@@ -1,4 +1,5 @@
-import { FC, CSSProperties } from 'react';
+import {CSSProperties, forwardRef, ForwardedRef} from 'react';
+
 interface ITimeOfDay {
   time: string;
   meridiem: string;
@@ -6,8 +7,10 @@ interface ITimeOfDay {
   styles: CSSProperties;
 }
 
-const TimeOfDay: FC<ITimeOfDay> = ({ time, meridiem, onClick, styles }) => {
-  return <div 
+const TimeOfDay = forwardRef(({ time, meridiem, onClick, styles, ...props }: ITimeOfDay, ref: ForwardedRef<HTMLDivElement>) => {
+  return <div
+        {...props}
+        ref={ref}
         style={styles}
         className="clock-time-container timezone-select-button"
         aria-label="clock timestamp"
@@ -18,7 +21,6 @@ const TimeOfDay: FC<ITimeOfDay> = ({ time, meridiem, onClick, styles }) => {
             <div className="meridiem">{meridiem}</div>
           </div>
       </div>
-
-}
+})
 
 export default TimeOfDay;

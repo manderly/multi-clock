@@ -16,6 +16,7 @@ import {TimeContext} from "../../contexts/TimeContext";
 import styled from "styled-components";
 
 import AddIcon from '@mui/icons-material/Add';
+import {Tooltip} from "@mui/material";
 
 const UtilitiesBarWrapper = styled.div(({theme}) => ({
   '.utilities-container': {
@@ -141,10 +142,12 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTimeGlobal, showPreviewTimeGlob
         <div className={"utilities-container"}>
           <div className="preview-time-settings-dropdowns">
             <div className={"wide-input"}>
-              <FormControlLabel
-                  control={<MUISwitch defaultChecked color="default" />}
-                  onChange={handleTogglePreviewTimeGlobal}
-                  label="Preview mode" />
+              <Tooltip title={"Translate a time in one timezone to other timezones"}>
+                <FormControlLabel
+                    control={<MUISwitch defaultChecked color="default" />}
+                    onChange={handleTogglePreviewTimeGlobal}
+                    label="Preview a time" />
+                </Tooltip>
             </div>
             <div className={"wide-input"}>
               <TimePicker

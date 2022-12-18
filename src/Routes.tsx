@@ -12,10 +12,12 @@ import { SettingsContext } from './contexts/SettingsContext';
 import SettingsIcon from '@mui/icons-material/Settings';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
+
 import ManageClockSettings from './components/ManageClockSettings/ManageClockSettings';
 import TimeOfDay from './components/TimeOfDay/TimeOfDay';
 
 import { TimezoneOption } from './data';
+import {Tooltip} from "@mui/material";
 
 const Routes: FC = () => {
 
@@ -55,11 +57,12 @@ const Routes: FC = () => {
             </div>
 
             <div className="header-clock-and-date my-clock" onClick={() => onClickMyOwnTime()}>
-              {userTimezone.label}
-              <TimeOfDay
-                  time={browserTime}
-                  meridiem={meridiem}
-                  styles={clockTimePaletteStyles}/>
+              <Tooltip title={userTimezone.label}>
+                <TimeOfDay
+                    time={browserTime}
+                    meridiem={meridiem}
+                    styles={clockTimePaletteStyles}/>
+              </Tooltip>
               <div className="browser-date">{browserDate}</div>
             </div>
 
