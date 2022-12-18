@@ -9,7 +9,7 @@ import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill";
 import './App.css';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import MuiThemeProvider from '@mui/material/styles/ThemeProvider';
+import { ThemeProvider as MuiThemeProvider } from '@mui/material';
 
 function App() {
   const [theme, setTheme] = useState(() => {
@@ -19,7 +19,7 @@ function App() {
 
   const [muiTheme, setMuiTheme] = useState(() => {
     const saved = localStorageUtils.get("themePref");
-    return themeMap[saved].mui || themeMap[themeNames.light].mui;
+    return themeMap[saved]?.mui || themeMap[themeNames.light].mui;
   });
 
   const handleSetPaletteInApp = (themeName: string) => {

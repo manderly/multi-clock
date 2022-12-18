@@ -91,7 +91,6 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
   }
 
   const handleInputChange = (e: any) => {
-    console.log(e.target.vaue);
     setUserInput(e.target.value as string);
   }
 
@@ -104,10 +103,10 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
 
   return (
     <div>
-    {/* <label data-testid='current timezone'>Current: {`(GMT ${timezone.utc}) ${timezone.label}`}</label> */}
     <FormControl fullWidth>
         <InputLabel id="time-zone-input">Time zone</InputLabel>
         <Select
+          data-testid={"timezone-picker"}
           aria-label='choose timezone'
           label="Timezone"
           value={userInput}

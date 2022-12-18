@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
 import { Modal } from './components';
 import Clocks from './routes/Clocks/Clocks';
 import Settings from './routes/Settings/Settings';
-import Utils from './routes/Utils/Utils';
 import { useFormatDate } from './hooks/useFormatDate';
 
 import { TimeContext } from './contexts/TimeContext';
@@ -12,11 +11,9 @@ import { SettingsContext } from './contexts/SettingsContext';
 import SettingsIcon from '@mui/icons-material/Settings';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
-
 import ManageClockSettings from './components/ManageClockSettings/ManageClockSettings';
 import TimeOfDay from './components/TimeOfDay/TimeOfDay';
 
-import { TimezoneOption } from './data';
 import {Tooltip} from "@mui/material";
 import localStorageUtils from "./utils/localStorage";
 
@@ -59,6 +56,7 @@ const Routes: FC = () => {
             <div className="header-clock-and-date my-clock" onClick={() => onClickMyOwnTime()}>
               <Tooltip title={userTimezone.label}>
                 <TimeOfDay
+                    data-testid={"users-time"}
                     time={browserTime}
                     meridiem={meridiem}
                     styles={clockTimePaletteStyles}/>
@@ -95,10 +93,6 @@ const Routes: FC = () => {
 
             <Route path="/settings">
               <Settings />
-            </Route>
-
-            <Route path="/utils">
-              <Utils />
             </Route>
 
           </Switch>

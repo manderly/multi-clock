@@ -17,6 +17,15 @@ describe('Clocks component', () => {
     showPreviewTimeGlobal: false,
   }
 
+  const getRender = () => (
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <ThemeProvider theme={themeMap["light"]}>
+          <TimeProvider>
+            <Clocks {...props} /></TimeProvider>
+        </ThemeProvider>
+      </LocalizationProvider>
+  );
+
   beforeEach(() => {
     MockDate.set(new Date(1474463400000));
     global.localStorage.clear();    
@@ -30,15 +39,6 @@ describe('Clocks component', () => {
     render(getRender());
     expect(screen.getAllByTestId('single-clock')).toHaveLength(4);
   })
-
-  const getRender = () => (
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <ThemeProvider theme={themeMap["light"]}>
-          <TimeProvider>
-            <Clocks {...props} /></TimeProvider>
-        </ThemeProvider>
-      </LocalizationProvider>
-  );
 
   it('Should add another clock when Add Clock button is clicked', () => {
     render(getRender());
