@@ -1,6 +1,4 @@
 import { FC, CSSProperties } from 'react';
-import { Button } from 'react-bootstrap';
-
 interface ITimeOfDay {
   time: string;
   meridiem: string;

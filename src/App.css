@@ -156,23 +156,6 @@ h3 {
   text-decoration: none;
 }
 
-.bg-evening button {
-  color:white;
-}
-
-.bg-sunset button {
-  color:black;
-}
-
-.bg-night {
-  background-color:#282c34;
-  color:white;
-}
-
-.bg-night button {
-  color:white;
-}
-
 .navigation-links a {
   font-size:1em;
   color:black;
@@ -246,10 +229,6 @@ h3 {
 .clock-manage-button-container {
   display:flex;
   justify-content:center;
-}
-
-.modal-line {
-  /*min-height:42px;*/
 }
 
 .modal-label {
@@ -449,95 +428,13 @@ h3 {
   flex-direction: row;
 }
 
-.therm-unit {
-  width:100%;
-  display:flex;
-  flex-direction: column-reverse;
-  position: relative;
-}
-
-.therm-number {
-  display: none;
-  margin: 0 auto 0 auto;
-  font-size:8px;
-}
-
-.therm-unit-c {
-  justify-content: flex-end;
-}
-
-.therm-unit-f {
-  justify-content: flex-start;
-}
-
-.letter {
-  margin-left:6px;
-}
-
-.mercury {
-  margin: 1px 0 1px 0;
-  height:4px;
-  background-color:red;
-}
-
 @media only screen and (min-width: 781px) {
   /* Hide all by default, unhide based on screen width */
-  .therm-line {
-    height: 50%;
-    margin:0 auto 0 auto;
-    display:block;
-    border-right: 1px solid gray;
-  }
-
-  /****** Line and number treatment - both bars ******/
-
-  /* So the first/last lines display */
-  /*.thermometer-container .therm-unit:first-of-type .therm-line-c,*/
-  /*.thermometer-container .therm-unit:first-of-type .therm-line-f,*/
-  /*.thermometer-container .therm-unit:last-of-type .therm-line-c, */
-  /*.thermometer-container .therm-unit:last-of-type .therm-line-f*/
-  /* {*/
-  /*  display: block;*/
-  /*  border-right: 2px solid black;*/
-  /*  height:70%;*/
-  /*}*/
-
-  /* So the first/last number displays */
-  /*.thermometer-container .therm-unit:first-of-type .therm-number-c,*/
-  /*.thermometer-container .therm-unit:first-of-type .therm-number-f,*/
-  /*.thermometer-container .therm-unit:last-of-type .therm-number-c, */
-  /*.thermometer-container .therm-unit:last-of-type .therm-number-f {*/
-  /*  display: block;*/
-  /*}*/
-
-  /* Line and number treatment for Celcius */
-  /*.thermometer-container .therm-unit:nth-of-type(5n) .therm-line-c {*/
-  /*  border-right: 2px solid black;*/
-  /*  height:70%;*/
-  /*}*/
-
-  /*.thermometer-container .therm-unit:nth-of-type(5n) .therm-number-c {*/
-  /*  display: block;*/
-  /*  position: absolute;*/
-  /*  bottom: 2px;*/
-  /*  text-align: center;*/
-  /*  transform: translateX(-10%);*/
-  /*  width: 12px;*/
-  /*}*/
-
-  /* Line and number treatment for Fahrenheit */
-  /*.thermometer-container .therm-unit:nth-of-type(5n+1) .therm-line-f {*/
-  /*  border-right: 2px solid black;*/
-  /*  height:70%;*/
-  /*}*/
-
-  /*.thermometer-container .therm-unit:nth-of-type(5n+1) .therm-number-f {*/
-  /*  display: block;*/
-  /*  position: absolute;*/
-  /*  text-align: center;*/
-  /*  top: 2px;*/
-  /*  transform: translateX(-25%);*/
-  /*  width: 13px;*/
+  /*.therm-line {*/
+  /*  height: 50%;*/
+  /*  margin:0 auto 0 auto;*/
+  /*  display:block;*/
+  /*  border-right: 1px solid gray;*/
   /*}*/
 }
 
@@ -603,93 +500,6 @@ h3 {
   .browser-time {
     text-align:center;
     font-size:2em;
-  }
-
-  /* Hide all by default, unhide based on screen width */
-  .therm-line {
-    height:50%;
-    margin:0 auto 0 auto;
-    display:none;
-    border-right: 1px solid gray;
-  }
-
-  /****** Line and number treatment - both bars ******/
-
-  /* So the first/last lines display */
-  .thermometer-container .therm-unit:first-of-type .therm-line-c,
-  .thermometer-container .therm-unit:first-of-type .therm-line-f,
-  .thermometer-container .therm-unit:last-of-type .therm-line-c, 
-  .thermometer-container .therm-unit:last-of-type .therm-line-f
-   {
-    display: block;
-    border-right: 2px solid black;
-    height:70%;
-  }
-
-  /* So the first/last number displays */
-  .thermometer-container .therm-unit:first-of-type .therm-number-c,
-  .thermometer-container .therm-unit:first-of-type .therm-number-f,
-  .thermometer-container .therm-unit:last-of-type .therm-number-c, 
-  .thermometer-container .therm-unit:last-of-type .therm-number-f {
-    display: block;
-  }
-
-  /****** Line and number treatment for Celcius ******/
-
-  /* So we count by 2's on a narrow screen */
-  .thermometer-container .therm-unit:nth-of-type(2n) .therm-line-c {
-    display: block;
-  }
-
-  /* So every 10th line is bolded and has a number under it */
-  .thermometer-container .therm-unit:nth-of-type(10n) .therm-line-c {
-    display: block;
-    border-right: 2px solid black;
-    height:70%;
-  }
-
-  .thermometer-container .therm-unit .therm-number-c {
-    display: none;
-    position: absolute;
-    bottom: 2px;
-    text-align: center;
-    transform: translateX(-10%);
-    width: 12px;
-  }
-
-  /* So every 10th Celcius value displays */
-  .thermometer-container .therm-unit:nth-of-type(10n) .therm-number-c {
-    display: block;
-    position: absolute;
-    bottom: 2px;
-    text-align: center;
-    transform: translateX(-10%);
-    width: 12px;
-  }
-
-  /* Line and number treatment for Fahrenheit */
-  .therm-line-f {
-    height: 50%;
-    display: none;
-  }
-
-  .thermometer-container .therm-unit:nth-of-type(2n+1) .therm-line-f {
-    display: block;
-  }
-
-  .thermometer-container .therm-unit:nth-of-type(10n+1) .therm-line-f {
-    display:block;
-    border-right: 2px solid black;
-    height:70%;
-  }
-
-  .thermometer-container .therm-unit:nth-of-type(10n+1) .therm-number-f {
-    display: block;
-    position: absolute;
-    text-align: center;
-    top: 2px;
-    transform: translateX(-25%);
-    width: 13px;
   }
 }
 

@@ -197,7 +197,7 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
       </Modal.Header>
       <Modal.Body>
 
-      <div className="modal-line">
+      <div>
       {editingNickname ? 
             <input ref={nicknameRef} type="text" aria-label="nickname clock" value={nickname} onKeyDown={handleNicknameKeyDown} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
             : 

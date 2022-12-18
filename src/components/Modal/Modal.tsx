@@ -7,8 +7,7 @@ const Modal = styled(BootstrapModal)`
   }
   
   .btn-close {
-    // it's an image, this won't work 
-    // color: ${props => props.theme.palette.button.text};
+    // the "x" is an image and difficult to change the color of 
     background-color:${props => props.theme.palette.button.hover};
   }
   
