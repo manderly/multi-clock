@@ -159,7 +159,7 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTimeGlobal, showPreviewTimeGlob
               <TimezonePicker changeTimezone={handlePreviewTimezoneChange} defaultTimezone={previewTimezone}/>
             </div>
           </div>
-          <Thermometer smallestF={-20} largestF={120}/>
+          <Thermometer smallestF={-10} largestF={110}/>
         </div>
       </UtilitiesBarWrapper>
     </>

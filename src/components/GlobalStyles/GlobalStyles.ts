@@ -2,6 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
   body {
+    font-size:18px;
     background: ${({ theme }) => theme.palette.bgClocks};
     color: ${({ theme }) => theme.palette.textCopy};
     font-family: "Twemoji Country Flags", Tahoma, Helvetica, Arial, sans-serif;
@@ -10,6 +11,10 @@ export const GlobalStyles = createGlobalStyle`
 
   h1, h2, h3 {
     color: ${({ theme }) => theme.palette.textHeader};
+  }
+  
+  h3 {
+    font-weight: normal;
   }
 
   a {

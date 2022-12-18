@@ -4,7 +4,6 @@ import styled from "styled-components";
 const ThermometerWrapper = styled.div(({theme}) => ({
     '.thermometer-container': {
         margin:'2px 0 2px 0',
-        height: '50px',
         display: 'flex',
         flexDirection: 'row',
     },
@@ -23,18 +22,29 @@ const ThermometerWrapper = styled.div(({theme}) => ({
         display: 'flex',
         flexDirection: 'column-reverse',
         position: 'relative',
+        height:'60px',
+        alignItems:'center',
     },
+    /* All lines, C and F, thick and thin */
     '.therm-line': {
-        height: '50%',
-        display: 'block',
-        margin: '0 auto 0 auto',
+        height: '60%',
         fontSize: '8px',
-        borderRight: `1px solid ${theme.palette.utilitiesBar.thinLine}`
+        borderRight: `1px solid ${theme.palette.utilitiesBar.thinLine}`,
     },
-    '.therm-unit-c': {
-        justifyContent: 'flex-end',
+    '.therm-unit.therm-unit-c': {
+        flexDirection: 'column',
     },
-    '.therm-unit-f': {
+    '.therm-unit.therm-unit-c:nth-of-type(5n), .therm-unit.therm-unit-c:first-of-type, .therm-unit.therm-unit-c:last-of-type': {
+        flexDirection: 'column-reverse',
+        '.therm-line': {
+            height:'100%',
+        }
+    },
+    '.thermostat-container .therm-unit-c': {
+        display: 'block',
+        justifyContent: 'flex-start',
+    },
+    '.thermostat-container .therm-unit-f': {
         justifyContent: 'flex-start',
     },
     '.letter': {
@@ -46,10 +56,9 @@ const ThermometerWrapper = styled.div(({theme}) => ({
         color: `${theme.palette.utilitiesBar.number}`
     },
     /* Celsius and Fahrenheit - first/last lines */
-    '.thermometer-container .therm-unit:first-of-type .therm-line-c,.thermometer-container .therm-unit:first-of-type .therm-line-f,.thermometer-container .therm-unit:last-of-type .therm-line-c,.thermometer-container .therm-unit:last-of-type .therm-line-f': {
+    '.thermometer-container .therm-unit:first-of-type .therm-line-c, .thermometer-container .therm-unit:first-of-type .therm-line-f,.thermometer-container .therm-unit:last-of-type .therm-line-c,.thermometer-container .therm-unit:last-of-type .therm-line-f': {
         display: 'block',
         borderRight: `2px solid ${theme.palette.utilitiesBar.bigLine}`,
-        height: '70%'
     },
     /* Celsius and Fahrenheit - first/last numbers */
     '.thermometer-container .therm-unit:first-of-type .therm-number-c,.thermometer-container .therm-unit:first-of-type .therm-number-f,.thermometer-container .therm-unit:last-of-type .therm-number-c,.thermometer-container .therm-unit:last-of-type .therm-number-f': {
@@ -59,77 +68,106 @@ const ThermometerWrapper = styled.div(({theme}) => ({
     '.thermometer-container .therm-unit:nth-of-type(5n) .therm-line-c': {
         display: 'block',
         borderRight: `2px solid ${theme.palette.utilitiesBar.bigLine}`,
-        height: '70%',
     },
     /* Celsius numbers */
     '.thermometer-container .therm-unit:nth-of-type(5n) .therm-number-c': {
         display: 'block',
-        position: 'absolute',
         bottom: '2px',
         textAlign: 'center',
-        transform: 'translateX(-10%)',
         width: '12px',
     },
-    /* Line and number treatment for Fahrenheit */
+    /* F thick lines */
     '.thermometer-container .therm-unit:nth-of-type(5n+1) .therm-line-f': {
+        display: 'block',
         borderRight: `2px solid ${theme.palette.utilitiesBar.bigLine}`,
         height:'70%',
     },
+    /* F numbers */
     '.thermometer-container .therm-unit:nth-of-type(5n+1) .therm-number-f': {
         display: 'block',
         position: 'absolute',
         textAlign: 'center',
-        top: '2px',
+        top: '3px',
         transform: 'translateX(-25%)',
         width: '13px',
     },
     '@media only screen and (max-width: 780px)': {
         /****** Line and number treatment for Celsius ******/
         /* Hide all by default, unhide based on screen width */
-        '.therm-line': {
-            height:'50%',
-            margin:'0 auto 0 auto',
+        '.thermometer-container .therm-unit-c .therm-line-c': {
             display: 'none',
-        },
-        /* Count by 2's on a narrow screen */
-        '.thermometer-container .therm-unit-c:nth-of-type(2n) .therm-line-c': {
-            display: 'block',
-        },
-        /* Every 10th line is bolded and has a number under it */
-        '.thermometer-container .therm-unit:nth-of-type(10n) .therm-line-c': {
-            display: 'block',
-            height: '70%',
         },
         '.thermometer-container .therm-unit-c .therm-number-c': {
             display: 'none',
-            position: 'absolute',
-            bottom: '2px',
-            textAlign: 'center',
-            transform: 'translateX(-10%)',
-            width: '12px',
         },
-        /* Show every 10th Celsius value */
-        '.thermometer-container .therm-unit-c:nth-of-type(10n) .therm-number-c': {
-            display: 'block',
-            position: 'absolute',
-            bottom: '2px',
-            textAlign: 'center',
-            transform: 'translateX(-10%)',
-            width: '12px',
+        '.thermometer-container .therm-unit-f .therm-line-f': {
+            display: 'none',
         },
-        /* Show every 5th F thin line */
-        '.thermometer-container .therm-unit:nth-of-type(5n+1) .therm-line-f': {
+        '.thermometer-container .therm-unit-f .therm-number-f': {
+            display: 'none',
+        },
+        '.therm-line': {
+            height: '50%',
+            display: 'none',
+            margin: '0 auto 0 auto',
+            fontSize: '8px',
+            borderRight: `1px solid ${theme.palette.utilitiesBar.thinLine}`
+        },
+        /* Celsius thin lines */
+        '.thermometer-container .therm-unit-c:nth-of-type(1n) .therm-line-c': {
             display: 'block',
+            borderRight: `1px solid ${theme.palette.utilitiesBar.thinLine}`,
             height: '70%',
         },
-        /* Show every 10th F thin line */
-        '.thermometer-container .therm-unit:nth-of-type(10n+1) .therm-number-f': {
+        /* Celsius thick lines */
+        '.thermometer-container .therm-unit-c:nth-of-type(5n) .therm-line-c': {
+            display: 'block',
+            borderRight: `2px solid ${theme.palette.utilitiesBar.bigLine}`,
+        },
+        /* Celsius numbers */
+        '.thermometer-container .therm-unit-c:nth-of-type(5n) .therm-number-c': {
             display: 'block',
             position: 'absolute',
+            bottom: '2px',
             textAlign: 'center',
-            top: '2px',
-            transform: 'translateX(-25%)',
-            width: '13px',
+            transform: 'translateX(-10%)',
+            width: '12px',
+        },
+        /* F thin lines */
+        '.thermometer-container .therm-unit-f:nth-of-type(2n) .therm-line-f': {
+            display: 'block',
+            borderRight: `1px solid ${theme.palette.utilitiesBar.thinLine}`,
+        },
+        /* F bold lines */
+        '.thermometer-container .therm-unit-f:nth-of-type(10n+1) .therm-line-f': {
+            display: 'block',
+        },
+        /* F numbers */
+        '.thermometer-container .therm-unit-f:nth-of-type(20n+1) .therm-number-f': {
+            display: 'block',
+        },
+        /* Celsius and Fahrenheit - first/last lines and numbers */
+        '.thermometer-container .therm-unit-c:first-of-type .therm-line-c': {
+            display: 'block',
+            borderRight: `2px solid ${theme.palette.utilitiesBar.bigLine}`,
+        },
+        '.thermometer-container .therm-unit-c:last-of-type .therm-line-c': {
+            display: 'block',
+            borderRight: `2px solid ${theme.palette.utilitiesBar.bigLine}`,
+        },
+        '.thermometer-container .therm-unit-f:first-of-type .therm-line-f': {
+            display: 'block',
+            borderRight: `2px solid ${theme.palette.utilitiesBar.bigLine}`,
+        },
+        '.thermometer-container .therm-unit-f:last-of-type .therm-line-f': {
+            display: 'block',
+            borderRight: `2px solid ${theme.palette.utilitiesBar.bigLine}`,
+        },
+        '.thermometer-container .therm-unit-c:first-of-type .therm-number-c': {
+            display: 'block',
+        },
+        '.thermometer-container .therm-unit-f:last-of-type .therm-number-f': {
+            display: 'block',
         }
     }
 }));
