@@ -34,7 +34,7 @@ const ThermometerWrapper = styled.div(({theme}) => ({
     '.therm-unit.therm-unit-c': {
         flexDirection: 'column',
     },
-    '.therm-unit.therm-unit-c:nth-of-type(5n), .therm-unit.therm-unit-c:first-of-type, .therm-unit.therm-unit-c:last-of-type': {
+    '.therm-unit.therm-unit-c:nth-of-type(5n+1), .therm-unit.therm-unit-c:first-of-type, .therm-unit.therm-unit-c:last-of-type': {
         flexDirection: 'column-reverse',
         '.therm-line': {
             height:'100%',
@@ -65,12 +65,12 @@ const ThermometerWrapper = styled.div(({theme}) => ({
         display: 'block',
     },
     /* Celsius thick lines */
-    '.thermometer-container .therm-unit:nth-of-type(5n) .therm-line-c': {
+    '.thermometer-container .therm-unit:nth-of-type(5n+1) .therm-line-c': {
         display: 'block',
         borderRight: `2px solid ${theme.palette.utilitiesBar.bigLine}`,
     },
     /* Celsius numbers */
-    '.thermometer-container .therm-unit:nth-of-type(5n) .therm-number-c': {
+    '.thermometer-container .therm-unit:nth-of-type(5n+1) .therm-number-c': {
         display: 'block',
         bottom: '2px',
         textAlign: 'center',
@@ -94,21 +94,21 @@ const ThermometerWrapper = styled.div(({theme}) => ({
     '@media only screen and (max-width: 780px)': {
         /****** Line and number treatment for Celsius ******/
         /* Hide all by default, unhide based on screen width */
-        '.thermometer-container .therm-unit-c .therm-line-c': {
-            display: 'none',
-        },
-        '.thermometer-container .therm-unit-c .therm-number-c': {
-            display: 'none',
-        },
+        // '.thermometer-container .therm-unit-c .therm-line-c': {
+        //     display: 'none',
+        // },
+        // '.thermometer-container .therm-unit-c .therm-number-c': {
+        //     display: 'none',
+        // },
         '.thermometer-container .therm-unit-f .therm-line-f': {
             display: 'none',
         },
         '.thermometer-container .therm-unit-f .therm-number-f': {
             display: 'none',
         },
+        /* All lines, C and F, thick and thin */
         '.therm-line': {
-            height: '50%',
-            display: 'none',
+            height: '60%',
             margin: '0 auto 0 auto',
             fontSize: '8px',
             borderRight: `1px solid ${theme.palette.utilitiesBar.thinLine}`
@@ -120,18 +120,16 @@ const ThermometerWrapper = styled.div(({theme}) => ({
             height: '70%',
         },
         /* Celsius thick lines */
-        '.thermometer-container .therm-unit-c:nth-of-type(5n) .therm-line-c': {
+        '.thermometer-container .therm-unit-c:nth-of-type(10n+1) .therm-line-c': {
             display: 'block',
             borderRight: `2px solid ${theme.palette.utilitiesBar.bigLine}`,
         },
         /* Celsius numbers */
-        '.thermometer-container .therm-unit-c:nth-of-type(5n) .therm-number-c': {
+        '.thermometer-container .therm-unit-c:nth-of-type(10n+1) .therm-number-c': {
             display: 'block',
             position: 'absolute',
             bottom: '2px',
             textAlign: 'center',
-            transform: 'translateX(-10%)',
-            width: '12px',
         },
         /* F thin lines */
         '.thermometer-container .therm-unit-f:nth-of-type(2n) .therm-line-f': {
@@ -178,7 +176,7 @@ interface IThermometer {
 }
 
 const convertFtoC = (degreesF: number): number => {
-  return Math.floor(((degreesF - 32)/1.8));
+  return Math.floor(((degreesF - 32) * (5/9)));
 };
 
 const generateThermometerLines = (start: number, end: number, scale: 'f' | 'c') => {
