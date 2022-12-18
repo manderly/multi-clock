@@ -51,7 +51,15 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
   previewTimeAsDate.setSeconds(0);
 
   // makes the "main" clock, the one that shows right now in that time zone
-  const { formattedDateHeader, formattedDateClock, formattedTime, meridiem, formattedPreviewTime, formattedPreviewMeridiem, timezoneAdjustedPreviewTime, timezoneAdjustedPreviewTimeMeridiem, timePalette } = useFormatDate(now, timezone.value, hoursPref, showOtherSecondsPref, previewTimeAsDate);
+  const {
+    formattedDateClock,
+    formattedTime,
+    meridiem,
+    formattedPreviewTime,
+    formattedPreviewMeridiem,
+    timezoneAdjustedPreviewTime,
+    timezoneAdjustedPreviewTimeMeridiem,
+    timePalette } = useFormatDate(now, timezone.value, hoursPref, showOtherSecondsPref, previewTimeAsDate);
 
   const nicknameRef = useRef<HTMLInputElement | null>(null);
 
@@ -70,8 +78,13 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
       // user is "east" of clock's timezone
       diff = parsedClockTimezoneUTCOffset - parsedUserTimezoneUTCOffset;
     }
-    const sign = parsedUserTimezoneUTCOffset > parsedClockTimezoneUTCOffset ? '-' : '+' 
-    return `${sign}${diff} hr${diff > 1 ? 's' : ''}`;
+
+    if (diff === 0) {
+      return '';
+    } else {
+      const sign = parsedUserTimezoneUTCOffset > parsedClockTimezoneUTCOffset ? '-' : '+';
+      return `${sign}${diff} hr${diff > 1 ? 's' : ''}`;
+    }
   }
 
   useEffect(() => {
@@ -170,7 +183,6 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
     <>
       <div className='clock-container' style={clockTimePaletteStyles}>
         <Nickname text={nickname} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
-        <Timezone text={timezone.label} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
         <TimeOfDay time={bigTime} meridiem={meridiemValue} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
         <div className='clock-extra-info-container' onClick={handleTogglePreviewTime}>
           {!showPreviewTimeLocal && <DateDisplay date={formattedDateClock} offset={offset} />}
@@ -182,6 +194,7 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
               timezoneAdjustedPreviewTimeMeridiem={timezoneAdjustedPreviewTimeMeridiem}
           />}
         </div>
+        <Timezone text={timezone.label} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
       </div>
 
       <Modal
