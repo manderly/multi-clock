@@ -8,11 +8,17 @@ import TimeProvider from '../../contexts/TimeContext';
 
 import { ThemeProvider } from 'styled-components'
 import { themeMap } from '../../components/Themes/Themes';
+import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
+import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 
 describe('Clocks component', () => {
+  const props = {
+    handleTogglePreviewTimeGlobal: jest.fn(),
+    showPreviewTimeGlobal: false,
+  }
+
   beforeEach(() => {
     MockDate.set(new Date(1474463400000));
-
     global.localStorage.clear();    
   })
 
@@ -20,87 +26,54 @@ describe('Clocks component', () => {
     MockDate.reset();
   })
 
-  it('Should have four clocks by defaullt', () => {
-    render(<ThemeProvider theme={themeMap["light"]}><TimeProvider><Clocks /></TimeProvider></ThemeProvider>);
-    // looks for names, times, and dates
-    expect(screen.getAllByRole('button', {name: 'clock nickname display'})).toHaveLength(4);
-    expect(screen.getAllByRole('heading', {name: 'time'})).toHaveLength(4);
-    expect(screen.getAllByRole('heading', {name: 'clock date display'})).toHaveLength(4);
+  it('Should have four clocks by default', () => {
+    render(getRender());
+    expect(screen.getAllByTestId('single-clock')).toHaveLength(4);
   })
 
-  it('Should create four United States clocks when the All US Clocks button is pressed', () => {
-    render(<ThemeProvider theme={themeMap["light"]}><TimeProvider><Clocks /></TimeProvider></ThemeProvider>);
-    const allUSClocksButton = screen.getByRole('button', {name: /🇺🇸 U.S. Timezones/i});
-    userEvent.click(allUSClocksButton);
-    // check that the 4 clocks have the correct city names
-    const clocks = screen.getAllByRole('button', {name: 'clock nickname display'});
-    expect(clocks).toHaveLength(4);
-    expect(clocks[0]).toHaveTextContent('Seattle, WA');
-    expect(clocks[1]).toHaveTextContent('Denver, CO');
-    expect(clocks[2]).toHaveTextContent('Chicago, IL');
-    expect(clocks[3]).toHaveTextContent('New York, NY');
-
-    // check that the 4 clocks have staggered times
-    const times = screen.getAllByRole('heading', {name: 'time'});
-    expect(times).toHaveLength(4);
-    expect(times[0]).toHaveTextContent('6:10 am');
-    expect(times[1]).toHaveTextContent('7:10 am');
-    expect(times[2]).toHaveTextContent('8:10 am');
-    expect(times[3]).toHaveTextContent('9:10 am');
-  })
+  const getRender = () => (
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <ThemeProvider theme={themeMap["light"]}>
+          <TimeProvider>
+            <Clocks {...props} /></TimeProvider>
+        </ThemeProvider>
+      </LocalizationProvider>
+  );
 
   it('Should add another clock when Add Clock button is clicked', () => {
-    render(<ThemeProvider theme={themeMap["light"]}><TimeProvider><Clocks /></TimeProvider></ThemeProvider>);
-    fireEvent.click(screen.getByText('Add Clock'));
-    expect(screen.getAllByRole('heading', {name: 'clock date display'})).toHaveLength(5);
+    render(getRender());
+    fireEvent.click(screen.getByTestId('add-clock-button'));
+    expect(screen.getAllByTestId('single-clock')).toHaveLength(5);
   })
 
   it('Should delete a clock', () => {
-    // due to the mocking of Date, each clock displays the following times:
-    // 6:10 am, 8:10 am, 3:10 pm, 11:10 pm
-    // deleting the first clock means we expect to no longer have the 6:10 clock on the screen
-    const expected = '6:10 am';
-    render(<ThemeProvider theme={themeMap["light"]}><TimeProvider><Clocks /></TimeProvider></ThemeProvider>);
-    // verify the clock to delete is present
-    const clockToDelete = screen.getByText(expected);
-    expect(clockToDelete).toBeInTheDocument();
-    // get all the clock modal links
-    const clockModalLinks = screen.getAllByRole('button', {name: 'clock timestamp'});
-    userEvent.click(clockModalLinks[0]);
-    // modal should be open now
+    const expected = '6:10';
+    render(getRender());
+    userEvent.click(screen.getByText(expected));
     const deleteButton = screen.getByRole('button', {name: 'delete clock button'});
     userEvent.click(deleteButton);
-    // modal should close after clicking delete
-    expect(screen.getAllByRole('heading', {name: 'clock date display'})).toHaveLength(3);
-    const deletedClock = screen.queryByText(expected);
-    expect(deletedClock).not.toBeInTheDocument();
+    expect(screen.queryByText(expected)).not.toBeInTheDocument();
   })
 
   it('Should rename a clock from the clock management modal with enter', () => {
-    render(<ThemeProvider theme={themeMap["light"]}><TimeProvider><Clocks /></TimeProvider></ThemeProvider>);
-    const clockModalLinks = screen.getAllByRole('button', {name: 'clock timestamp'});
-    userEvent.click(clockModalLinks[0]);
-    // modal should be open now
-    const changeNicknameButton = screen.getByRole('button', {name: 'edit nickname'});
-    userEvent.click(changeNicknameButton);
-    const clockNameInput = screen.getByRole('textbox', {name: 'nickname clock'});
+    render(getRender());
+    userEvent.click(screen.getByText('6:10'));
+    // ok to use on-screen user-readable label here
+    const clockNameInput = screen.getByRole('textbox', {name: 'Clock nickname'});
     userEvent.clear(clockNameInput);
     userEvent.type((clockNameInput), `Test Name${specialChars.enter}`);
-    // check that name is changed in modal and on the clock face underneath modal
-    expect(screen.getAllByText('Test Name')).toHaveLength(2);
+    userEvent.click(screen.getByRole('button', {name: 'Close'}));
+    expect(screen.getAllByText('Test Name')).toHaveLength(1);
   })
 
   it('Should rename a clock from the clock management modal with escape', () => {
-    render(<ThemeProvider theme={themeMap["light"]}><TimeProvider><Clocks /></TimeProvider></ThemeProvider>);
-    const clockModalLinks = screen.getAllByRole('button', {name: 'clock timestamp'});
-    userEvent.click(clockModalLinks[0]);
-    // modal should be open now
-    const changeNicknameButton = screen.getByRole('button', {name: 'edit nickname'});
-    userEvent.click(changeNicknameButton);
-    const clockNameInput = screen.getByRole('textbox', {name: 'nickname clock'});
+    render(getRender());
+    userEvent.click(screen.getByText('6:10'));
+    // ok to use on-screen user-readable label here
+    const clockNameInput = screen.getByRole('textbox', {name: 'Clock nickname'});
     userEvent.clear(clockNameInput);
-    userEvent.type((clockNameInput), `Esc Test${specialChars.escape}`);
-    expect(screen.getAllByText('Esc Test')).toHaveLength(2);
+    userEvent.type((clockNameInput), `Esc Test${specialChars.escape}`); // closes modal
+    expect(screen.getAllByText('Esc Test')).toHaveLength(1);
   })
 
 })

@@ -1,7 +1,10 @@
 import { Button as BootstrapButton } from 'react-bootstrap';
 import styled from 'styled-components';
 
-const ThemeButton = styled(BootstrapButton)`
+const ThemeButton = styled(BootstrapButton).withConfig({
+    shouldForwardProp: (prop) =>
+        prop !== 'outlined'
+    })`
   &:focus {
     ${props => props.outlined ? '' : 'background-color:' + props.theme.palette.button.active};
     border-color:${props => props.theme.palette.button.active};

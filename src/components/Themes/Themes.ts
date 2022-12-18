@@ -17,7 +17,6 @@ const getTextColor = (name: keyof typeof colors) => {
 }
 
 const getBGColor = (name: keyof typeof colors) => {
-  console.log("getting bg for " + name);
   return name === 'light' ? colors[name].brightestColor : colors[name].darkestColor;
 }
 

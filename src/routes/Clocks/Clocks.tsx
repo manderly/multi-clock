@@ -120,7 +120,8 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTimeGlobal, showPreviewTimeGlob
             hidden={clocks.length >= 8}
             variant={"outlined"}
             outlined={true}
-            aria-label="button-add-clock"
+            data-testid={'add-clock-button'}
+            aria-label="add clock"
             onClick={addClock}>
           <AddIcon/>
         </ThemeButton>

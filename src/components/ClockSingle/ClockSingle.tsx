@@ -181,7 +181,7 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
   const bigTime = showPreviewTimeLocal ? timezoneAdjustedPreviewTime : formattedTime;
   return (
     <>
-      <div className='clock-container' style={clockTimePaletteStyles}>
+      <div className='clock-container' data-testid={'single-clock'} style={clockTimePaletteStyles}>
         <Nickname text={nickname} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
         <TimeOfDay time={bigTime} meridiem={meridiemValue} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
         <div className='clock-extra-info-container' onClick={handleTogglePreviewTime}>

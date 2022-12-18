@@ -222,7 +222,7 @@ const generateThermometerLines = (start: number, end: number, scale: 'f' | 'c') 
   return range.map((e: number, i: number) => {
     const thermClass = `therm-unit therm-unit-${scale}`;
     return (
-      <div className={thermClass}>
+      <div className={thermClass} key={`therm-${e}-${i}`}>
         {scale === 'c' ? <div className={`therm-number therm-number-${scale}`}>{e}</div> : undefined}
         <div className={`therm-line therm-line-${scale}`} key={`${scale}-${e}`}></div>
         {scale === 'f' ? <div className={`therm-number therm-number-${scale}`}>{e}</div> : undefined}
