@@ -9,7 +9,7 @@ import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import TimeProvider from "../../contexts/TimeContext";
 import SettingsProvider from "../../contexts/SettingsContext";
 
-describe('Settings', () => {
+describe('Manage clock settings', () => {
 
     const props = {
         handleSetHours: jest.fn(),

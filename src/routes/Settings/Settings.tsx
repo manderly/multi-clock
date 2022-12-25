@@ -18,10 +18,18 @@ const Settings: FC = () => {
       <div className="settings-container">
         <h3>App color theme</h3>
         <ul className="hidden-li app-theme-choices">
-          <li><ThemeButton onClick={() => handlePaletteClick(themeNames.light)}>THEME: LIGHT</ThemeButton></li>
-          <li><ThemeButton onClick={() => handlePaletteClick(themeNames.dark)}>THEME: DARK</ThemeButton></li>
-          <li><ThemeButton onClick={() => handlePaletteClick(themeNames.berry)}>THEME: Berry</ThemeButton></li>
-          <li><ThemeButton onClick={() => handlePaletteClick(themeNames.blue)}>THEME: Blue</ThemeButton></li>
+          <li><ThemeButton
+              onClick={() => handlePaletteClick(themeNames.light)}
+              className={"settings-theme-button"}>THEME: Light</ThemeButton></li>
+          <li><ThemeButton
+              onClick={() => handlePaletteClick(themeNames.dark)}
+              className={"settings-theme-button"}>THEME: Dark</ThemeButton></li>
+          <li><ThemeButton
+              onClick={() => handlePaletteClick(themeNames.berry)}
+              className={"settings-theme-button"}>THEME: Berry</ThemeButton></li>
+          <li><ThemeButton
+              onClick={() => handlePaletteClick(themeNames.blue)}
+              className={"settings-theme-button"}>THEME: Blue</ThemeButton></li>
           </ul>
       </div>
     </div>

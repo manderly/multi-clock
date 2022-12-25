@@ -264,7 +264,7 @@
 }
 
 .time-stamp-display {
-  font-size:2.0em;
+  font-size:1.9em;
   line-height:1.18em;
 }
 
@@ -349,6 +349,13 @@
 
 .settings-container {
   margin: 10px;
+  padding:10px;
+  border:1px solid;
+  border-radius:10px;
+}
+
+.settings-theme-button {
+  width:150px;
 }
 
 .previous-calculations-title {

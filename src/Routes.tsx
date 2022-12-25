@@ -92,7 +92,7 @@ const Routes: FC = () => {
             </Route>
 
             <Route path="/settings">
-              <Settings />
+              <Settings/>
             </Route>
 
           </Switch>

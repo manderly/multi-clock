@@ -32,7 +32,7 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
   const randomPlaceholders = ["Chicago, IL", "San Diego, CA", "Anchorage, AK", "Seattle, WA", "West Coast team", "Friends", "Family", "Colleagues", "Seattle Team", "Europe Team", "East Coast team", "Home"];
 
   const { hoursPref, showOtherSecondsPref } = useContext(SettingsContext);
-  const { now, previewTime, previewMeridiem, previewTimezone} = useContext(TimeContext);
+  const { now, previewTime, previewTimezone} = useContext(TimeContext);
 
   const [nickname, setNickname] = useState(name);
   const [editingNickname, setEditingNickname] = useState(false);
