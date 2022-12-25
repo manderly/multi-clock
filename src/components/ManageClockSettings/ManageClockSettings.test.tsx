@@ -10,12 +10,7 @@ import TimeProvider from "../../contexts/TimeContext";
 import SettingsProvider from "../../contexts/SettingsContext";
 
 describe('Manage clock settings', () => {
-
-    const props = {
-        handleSetHours: jest.fn(),
-        handleMySecondsCheckbox: jest.fn(),
-    }
-
+    
     const getRender = () => (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <ThemeProvider theme={themeMap["light"]}>

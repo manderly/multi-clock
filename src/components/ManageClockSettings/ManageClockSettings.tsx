@@ -40,7 +40,7 @@ const ManageClockSettings: FC = () => {
 
     return (
         <div className="preview-timezone-modal-contents">
-            <div className="settings-container">
+            <div>
                 <Form>
                     <Form.Check
                         inline
