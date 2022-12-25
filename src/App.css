@@ -91,7 +91,7 @@
 
 .hidden-li {
   list-style: none;
-  padding-left:0px;
+  padding-left:0;
 }
 
 .no-underline {
@@ -111,8 +111,8 @@
 }
 
 .app-title-tiny {
-  margin:0px;
-  padding: 6px 6px 0px 6px;
+  margin:0;
+  padding: 6px 6px 0 6px;
   font-size:1em;
   display:flex;
   justify-content:space-between;
@@ -124,7 +124,7 @@
 }
 
 .page {
-  padding:0px;
+  padding:0;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -173,7 +173,6 @@
 .clocks-quick-options {
   display:flex;
   flex-flow:row;
-  justify-content:right;
   padding:10px;
   gap:20px;
   justify-content:start;
@@ -218,8 +217,8 @@
 }
 
 .timezone-select-button {
-  padding:0px !important;
-  border:0px !important;
+  padding:0 !important;
+  border:0 !important;
 }
 
 .time-col-container {
@@ -284,6 +283,10 @@
   padding:10px;
   height:82px;
   cursor:pointer;
+}
+
+.clock-modal-name-input {
+  width:230px;
 }
 
 .clock-link-nickname {
@@ -375,7 +378,7 @@
   height:300px;
   position:relative;
   overflow-y:auto;
-  padding-left:0px;
+  padding-left:0;
   border: 1px solid #e6ebec;
   border-radius: 0 0 3px 3px;
   background-color:white;
@@ -408,9 +411,9 @@
   .clocks-row-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap:0px;
-    gap:0px;
-    margin:0px;
+    grid-gap:0;
+    gap:0;
+    margin:0;
   }
 
   .clock-extra-info-container {
@@ -437,7 +440,7 @@
   .name-clock-link {
     text-align:left !important;
     width:180px;
-    padding:0px !important;
+    padding:0 !important;
   }
 
   .clock-manage-button-container {
@@ -445,7 +448,7 @@
   }
 
   .time-col-container {
-    padding-top:0px;
+    padding-top:0;
   }
 
   .time-stamp-display {

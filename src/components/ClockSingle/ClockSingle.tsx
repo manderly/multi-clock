@@ -162,7 +162,7 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
     }
   }, [editingNickname]);
 
-  const handleEditingNicknameBlur = (e: any) => {
+  const handleEditingNicknameBlur = () => {
     if (nickname.length === 0) {
       setNickname(clockTimezone.label);
     }
@@ -215,6 +215,7 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
             id="outlined-basic"
             label="Clock nickname"
             variant="outlined"
+            className={"clock-modal-name-input"}
             onKeyDown={handleNicknameKeyDown}
             onChange={handleNicknameChange}
             onBlur={handleEditingNicknameBlur}
