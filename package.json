@@ -37,6 +37,7 @@
     "build": "react-scripts build",
     "test": "DEBUG_PRINT_LIMIT=10000 react-scripts test",
     "test:watch": "DEBUG_PRINT_LIMIT=10000 react-scripts test --coverage",
+    "test:coverage": "DEBUG_PRINT_LIMIT=10000 react-scripts test --watchAll=false --coverage",
     "test:all": "DEBUG_PRINT_LIMIT=10000 react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "server": "node server.js"
