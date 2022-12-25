@@ -184,7 +184,7 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
       <div className='clock-container' data-testid={'single-clock'} style={clockTimePaletteStyles}>
         <Nickname text={nickname} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
         <TimeOfDay time={bigTime} meridiem={meridiemValue} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
-        <div className='clock-extra-info-container' onClick={handleTogglePreviewTime}>
+        <div className='clock-extra-info-container' data-testid={'toggle-preview-time'} onClick={handleTogglePreviewTime}>
           {!showPreviewTimeLocal && <DateDisplay date={formattedDateClock} offset={offset} />}
           {showPreviewTimeLocal && <PreviewTime
               previewTime={formattedPreviewTime}
@@ -210,21 +210,16 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
       </Modal.Header>
       <Modal.Body>
 
-      <div>
-      {editingNickname ? 
-            <input ref={nicknameRef} type="text" aria-label="nickname clock" value={nickname} onKeyDown={handleNicknameKeyDown} onChange={handleNicknameChange} onBlur={handleEditingNicknameBlur}/>
-            : 
-            <div className="edit-clock-name-row">
-                <TextField
-                    id="outlined-basic"
-                    label="Clock nickname"
-                    variant="outlined"
-                    onChange={handleNicknameChange}
-                    onBlur={handleEditingNicknameBlur}
-                    placeholder={randomNicknamePlaceholder}
-                    value={nickname}/>
-            </div>
-          }
+      <div className="edit-clock-name-row">
+        <TextField
+            id="outlined-basic"
+            label="Clock nickname"
+            variant="outlined"
+            onKeyDown={handleNicknameKeyDown}
+            onChange={handleNicknameChange}
+            onBlur={handleEditingNicknameBlur}
+            placeholder={randomNicknamePlaceholder}
+            value={nickname}/>
         </div>
       
         <div className="modal-line">

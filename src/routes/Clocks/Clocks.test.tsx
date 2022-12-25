@@ -15,6 +15,7 @@ describe('Clocks component', () => {
   const props = {
     handleTogglePreviewTimeGlobal: jest.fn(),
     showPreviewTimeGlobal: false,
+    setShowClockSettingsModal: jest.fn(),
   }
 
   const getRender = () => (
@@ -53,27 +54,55 @@ describe('Clocks component', () => {
     const deleteButton = screen.getByRole('button', {name: 'delete clock button'});
     userEvent.click(deleteButton);
     expect(screen.queryByText(expected)).not.toBeInTheDocument();
+    expect(screen.getAllByTestId('single-clock')).toHaveLength(3);
   })
 
-  it('Should rename a clock from the clock management modal with enter', () => {
-    render(getRender());
-    userEvent.click(screen.getByText('6:10'));
-    // ok to use on-screen user-readable label here
-    const clockNameInput = screen.getByRole('textbox', {name: 'Clock nickname'});
-    userEvent.clear(clockNameInput);
-    userEvent.type((clockNameInput), `Test Name${specialChars.enter}`);
-    userEvent.click(screen.getByRole('button', {name: 'Close'}));
-    expect(screen.getAllByText('Test Name')).toHaveLength(1);
-  })
+  describe('Clock management modal', () => {
+    it('Should open the clock management modal when the user clicks the clock nickname', () => {
+      render(getRender());
+      const clockNicknameButtons = screen.getAllByRole('button', {name: 'single clock nickname button'});
+      userEvent.click(clockNicknameButtons[0]);
+      expect(screen.getByText('Manage clock')).toBeInTheDocument();
+    });
 
-  it('Should rename a clock from the clock management modal with escape', () => {
+    it('Should rename a clock from the clock management modal with enter', () => {
+      render(getRender());
+      userEvent.click(screen.getByText('6:10'));
+      // ok to use on-screen user-readable label here
+      const clockNameInput = screen.getByRole('textbox', {name: 'Clock nickname'});
+      userEvent.clear(clockNameInput);
+      userEvent.type((clockNameInput), `Test Name${specialChars.enter}`);
+      userEvent.click(screen.getByRole('button', {name: 'Close'}));
+      expect(screen.getAllByText('Test Name')).toHaveLength(1);
+    });
+
+    it('Should rename a clock from the clock management modal with escape', () => {
+      render(getRender());
+      userEvent.click(screen.getByText('6:10'));
+      // ok to use on-screen user-readable label here
+      const clockNameInput = screen.getByRole('textbox', {name: 'Clock nickname'});
+      userEvent.clear(clockNameInput);
+      userEvent.type((clockNameInput), `Esc Test${specialChars.escape}`); // closes modal
+      expect(screen.getAllByText('Esc Test')).toHaveLength(1);
+    });
+
+    it('Should name a clock after its timezone if the user empties the nickname field', () => {
+      render(getRender());
+      userEvent.click(screen.getByText('6:10'));
+      const clockNameInput = screen.getByRole('textbox', {name: 'Clock nickname'});
+      userEvent.clear(clockNameInput);
+      userEvent.tab();
+      expect(screen.getByText('Manage clock')).toBeInTheDocument(); // verify modal didn't close
+      expect(clockNameInput).toHaveValue('🇺🇸 U.S. Pacific Time'); // verify timezone was autofilled into empty field
+    });
+  });
+
+  it('Should preview a time in a specified timezone', () => {
     render(getRender());
-    userEvent.click(screen.getByText('6:10'));
-    // ok to use on-screen user-readable label here
-    const clockNameInput = screen.getByRole('textbox', {name: 'Clock nickname'});
-    userEvent.clear(clockNameInput);
-    userEvent.type((clockNameInput), `Esc Test${specialChars.escape}`); // closes modal
-    expect(screen.getAllByText('Esc Test')).toHaveLength(1);
+    const clickTogglePreviewTimeAll = screen.getAllByTestId('toggle-preview-time');
+    userEvent.click(clickTogglePreviewTimeAll[0]);
+    expect(clickTogglePreviewTimeAll[0]).toHaveTextContent('When it is 7:30am in 🇺🇸 U.S. Pacific Time, it will be 5:30am here.');
+    expect(clickTogglePreviewTimeAll[1]).not.toHaveTextContent('When it is');
   })
 
 })

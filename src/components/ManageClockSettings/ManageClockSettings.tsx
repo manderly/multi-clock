@@ -17,7 +17,7 @@ const ManageClockSettings: FC = () => {
         handleShowOtherSeconds,
         getBrowserTZ} = useContext(SettingsContext);
 
-    const handleFormChange = (e: any) => {
+    const handleHoursChange = (e: any) => {
         handleSetHours(Number(e?.target?.value));
     }
 
@@ -44,7 +44,7 @@ const ManageClockSettings: FC = () => {
                 <Form>
                     <Form.Check
                         inline
-                        onChange={handleFormChange}
+                        onChange={handleHoursChange}
                         checked={hoursPref === 12}
                         value={12}
                         aria-label='option-12-hours'
@@ -55,7 +55,7 @@ const ManageClockSettings: FC = () => {
                     />
                     <Form.Check
                         inline
-                        onChange={handleFormChange}
+                        onChange={handleHoursChange}
                         checked={hoursPref === 24}
                         value={24}
                         aria-label='option-24-hours'
@@ -91,7 +91,7 @@ const ManageClockSettings: FC = () => {
                     <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={userTimezone}/>
                 </div>
                 <br/>
-                <ThemeButton onClick={handleSetToBrowserTimezone}>Use Browser Timezone</ThemeButton>
+                <ThemeButton onClick={handleSetToBrowserTimezone} name={'use browser timezone'}>Use Browser Timezone</ThemeButton>
             </div>
         </div>
     )
