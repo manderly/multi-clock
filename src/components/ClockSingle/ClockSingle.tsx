@@ -185,14 +185,16 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
 
   const meridiemValue = hoursPref === 12 ? meridiem : '';
 
-  const bigTime = showPreviewTimeLocal ? timezoneAdjustedPreviewTime : formattedTime;
+  // 12/26 test: made it so the large time is always the current time
+  // const bigTime = showPreviewTimeLocal ? timezoneAdjustedPreviewTime : formattedTime;
+
   return (
     <>
       <div className='clock-container' data-testid={'single-clock'} style={clockTimePaletteStyles}>
         <Nickname text={nickname} onClick={() => setShowClockSettingsModal(true)} styles={buttonStyles}/>
         <Timezone text={timezone.label} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
 
-        <TimeOfDay time={bigTime} meridiem={meridiemValue} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
+        <TimeOfDay time={formattedTime} meridiem={meridiemValue} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
         <div className='clock-extra-info-container' data-testid={'toggle-preview-time'} onClick={handleTogglePreviewTime}>
           {!showPreviewTimeLocal && <DateDisplay date={formattedDateClock} offset={offset} />}
           {showPreviewTimeLocal && <PreviewTime
@@ -232,7 +234,7 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
         </div>
       
         <div className="modal-line">
-          <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={timezone}/>
+          <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={timezone} customLabel={"Clock time zone"}/>
           <br/>
           <div className="delete-clock-div">
             <Button size="sm" variant="link" aria-label="delete clock button" onClick={handleRemoveClock}>Delete clock</Button>

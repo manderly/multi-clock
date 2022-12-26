@@ -124,7 +124,7 @@ describe('Clocks component', () => {
     render(getRender());
     const clickTogglePreviewTimeAll = screen.getAllByTestId('toggle-preview-time');
     userEvent.click(clickTogglePreviewTimeAll[0]);
-    expect(clickTogglePreviewTimeAll[0]).toHaveTextContent('When it is 7:30am in 🇺🇸 U.S. Pacific Time, it will be 5:30am here.');
+    expect(clickTogglePreviewTimeAll[0]).toHaveTextContent('7:30am in 🇺🇸 U.S. Pacific Time is 5:30am here.');
     expect(clickTogglePreviewTimeAll[1]).not.toHaveTextContent('When it is');
   })
 
