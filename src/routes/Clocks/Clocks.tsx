@@ -16,6 +16,9 @@ import {TimeContext} from "../../contexts/TimeContext";
 import styled from "styled-components";
 
 import AddIcon from '@mui/icons-material/Add';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 import {Tooltip} from "@mui/material";
 
 const UtilitiesBarWrapper = styled.div(({theme}) => ({
@@ -131,16 +134,8 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTimeGlobal, showPreviewTimeGlob
         <div className={"utilities-container"}>
           <div className="preview-time-settings-dropdowns">
             <div className={"wide-input"}>
-              <Tooltip title={"Translate a time in one timezone to other timezones"}>
-                <FormControlLabel
-                    control={<MUISwitch checked={showPreviewTimeGlobal} color="default" />}
-                    onChange={handleTogglePreviewTimeGlobal}
-                    label="Preview a time" />
-                </Tooltip>
-            </div>
-            <div className={"wide-input"}>
               <TimePicker
-                label="Choose a time"
+                label="When it is..."
                 value={previewTime}
                 minutesStep={5}
                 renderInput={(props) => <TextField {...props} type="time" size={"small"}/>}
@@ -148,8 +143,17 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTimeGlobal, showPreviewTimeGlob
               />
             </div>
             <div className={"very-wide-input"}>
-              <TimezonePicker changeTimezone={handlePreviewTimezoneChange} defaultTimezone={previewTimezone}/>
+              <TimezonePicker
+                changeTimezone={handlePreviewTimezoneChange}
+                defaultTimezone={previewTimezone}
+                customLabel={"In this time zone..."}
+              />
             </div>
+            <Tooltip title={"Translate a time in one time zone to other time zones"}>
+              <div className={"centerIconVertically"} onClick={handleTogglePreviewTimeGlobal}>
+                {showPreviewTimeGlobal ? <VisibilityIcon /> : <VisibilityOffIcon/> }
+              </div>
+            </Tooltip>
           </div>
           <Thermometer smallestF={-40} largestF={110}/>
         </div>

@@ -7,13 +7,15 @@ import InputLabel from '@mui/material/InputLabel';
 import { FC } from 'react';
 import { TimezoneOption, allTimezones } from '../../data';
 
-const SCROLL_OFFSET = 3; 
+const SCROLL_OFFSET = 3;
+
 interface ITimezonePicker {
   changeTimezone: (tz: TimezoneOption) => void;
   defaultTimezone: TimezoneOption;
+  customLabel?: string;
 }
 
-const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) => {
+const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone, customLabel}) => {
 
   const formatTimezoneLabel = (zone: TimezoneOption): string => {
     return `(GMT ${zone.utc}) ${zone.label}`;
@@ -104,11 +106,11 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone}) 
   return (
     <div>
     <FormControl fullWidth>
-        <InputLabel id="time-zone-input">Time zone</InputLabel>
+        <InputLabel id="time-zone-input">{customLabel ?? "Time zone"}</InputLabel>
         <Select
           data-testid={"timezone-picker"}
           aria-label='choose timezone'
-          label="Timezone"
+          label={customLabel ?? "Time zone"}
           value={userInput}
           size={"small"}
           onChange={handleInputChange} 

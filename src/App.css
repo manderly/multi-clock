@@ -38,6 +38,11 @@
   width:400px;
 }
 
+.centerIconVertically {
+  display:flex;
+  align-items:center;
+}
+
 .flexRow {
   display:flex;
   flex-direction: row;
@@ -300,7 +305,7 @@
 }
 
 .clock-link-timezone {
-  font-size:.7em !important;
+  font-size:.6em !important;
   border:none !important;
   width:100%;
   white-space: nowrap;

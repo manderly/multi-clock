@@ -133,7 +133,14 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
     backgroundColor: timePalette.bg,
     color: timePalette.text,
     borderColor: timePalette.text,
+    border: 'none',
   };
+
+  const buttonStyles: CSSProperties = {
+    ...clockTimePaletteStyles,
+    borderRadius: '0',
+    borderBottom: '1px solid',
+  }
 
   const handleNicknameChange = (e: any) => {
     setNickname(e.target.value as string);
@@ -182,7 +189,9 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
   return (
     <>
       <div className='clock-container' data-testid={'single-clock'} style={clockTimePaletteStyles}>
-        <Nickname text={nickname} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
+        <Nickname text={nickname} onClick={() => setShowClockSettingsModal(true)} styles={buttonStyles}/>
+        <Timezone text={timezone.label} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
+
         <TimeOfDay time={bigTime} meridiem={meridiemValue} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
         <div className='clock-extra-info-container' data-testid={'toggle-preview-time'} onClick={handleTogglePreviewTime}>
           {!showPreviewTimeLocal && <DateDisplay date={formattedDateClock} offset={offset} />}
@@ -194,7 +203,6 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
               timezoneAdjustedPreviewTimeMeridiem={timezoneAdjustedPreviewTimeMeridiem}
           />}
         </div>
-        <Timezone text={timezone.label} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
       </div>
 
       <Modal
