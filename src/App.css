@@ -241,7 +241,7 @@
 
 .delete-clock-div {
   display:flex;
-  justify-content:right;
+  justify-content:left;
 }
 
 .select-timezone {

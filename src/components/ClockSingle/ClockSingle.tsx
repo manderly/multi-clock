@@ -89,7 +89,7 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
 
   useEffect(() => {
     setOffset(calculateOffset(userTimezone));
-  }, [userTimezone])
+  }, [userTimezone, timezone])
 
   useEffect(() => {
     if (nickname) {
@@ -164,7 +164,7 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
 
   const handleEditingNicknameBlur = () => {
     if (nickname.length === 0) {
-      setNickname(clockTimezone.label);
+      setNickname(timezone.value);
     }
   }
 

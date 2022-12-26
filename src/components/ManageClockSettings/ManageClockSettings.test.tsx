@@ -10,7 +10,7 @@ import TimeProvider from "../../contexts/TimeContext";
 import SettingsProvider from "../../contexts/SettingsContext";
 
 describe('Manage clock settings', () => {
-    
+
     const getRender = () => (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <ThemeProvider theme={themeMap["light"]}>
