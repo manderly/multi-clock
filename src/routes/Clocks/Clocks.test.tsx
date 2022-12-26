@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
+import {fireEvent, render, screen, waitFor, waitForElementToBeRemoved, within} from '@testing-library/react';
 import  userEvent, { specialChars } from '@testing-library/user-event';
 
 import Clocks from './Clocks';
@@ -22,7 +22,8 @@ describe('Clocks component', () => {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <ThemeProvider theme={themeMap["light"]}>
           <TimeProvider>
-            <Clocks {...props} /></TimeProvider>
+            <Clocks {...props} />
+          </TimeProvider>
         </ThemeProvider>
       </LocalizationProvider>
   );
@@ -94,6 +95,28 @@ describe('Clocks component', () => {
       userEvent.tab();
       expect(screen.getByText('Manage clock')).toBeInTheDocument(); // verify modal didn't close
       expect(clockNameInput).toHaveValue('🇺🇸 U.S. Pacific Time'); // verify timezone was autofilled into empty field
+    });
+
+    // 12/25/2022 stale timezone picker bug
+    it('Should remember which timezone the user picked through modal close/reopen', async () => {
+      render(getRender());
+      userEvent.click(screen.getByText('9:10'));
+      const modal = await screen.findByRole('dialog');
+      const modalContents = within(modal);
+      expect(modalContents.getByText('Manage clock')).toBeInTheDocument();
+      userEvent.click(modalContents.getByRole('button', { name: '(GMT -05:00) 🇺🇸 U.S. Eastern'}));
+      const listbox = within(screen.getByRole('listbox', { hidden: true }));
+      userEvent.click(listbox.getByText('(GMT +10:30) 🇦🇺 Adelaide, Australia'));
+      expect(modalContents.queryByRole('button', { name: '(GMT -05:00) 🇺🇸 U.S. Eastern'})).toBeFalsy();
+      expect(within(modal).getByText('(GMT +10:30) 🇦🇺 Adelaide, Australia')).toBeInTheDocument();
+
+      // close and reopen modal
+      userEvent.click(within(modal).getByRole('button', {name: 'Close'}));
+      await waitForElementToBeRemoved(modal);
+      userEvent.click(screen.getByText('10:40'));
+      const reopenedModal = await screen.findByRole('dialog');
+      expect(within(reopenedModal).getByText('Manage clock')).toBeInTheDocument();
+      expect(within(reopenedModal).getByText('(GMT +10:30) 🇦🇺 Adelaide, Australia')).toBeInTheDocument();
     });
   });
 

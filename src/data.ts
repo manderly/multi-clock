@@ -149,7 +149,7 @@ export const Asia: readonly TimezoneOption[] = [
 ]
 
 export const usTimeZones = [NorthAmerica[0],NorthAmerica[1],NorthAmerica[3],NorthAmerica[4]];
-export const defaultTimeZones = [NorthAmerica[0], NorthAmerica[4], Europe[1], Australia[2]];
+export const defaultTimeZones = [NorthAmerica[0], NorthAmerica[1], NorthAmerica[3], NorthAmerica[4]];
 export interface GroupedOption {
   readonly label: string;
   readonly options: readonly TimezoneOption[];

@@ -224,7 +224,7 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
         </div>
       
         <div className="modal-line">
-          <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={clockTimezone}/>
+          <TimezonePicker changeTimezone={handleTimezoneChange} defaultTimezone={timezone}/>
           <br/>
           <div className="delete-clock-div">
             <Button size="sm" variant="link" aria-label="delete clock button" onClick={handleRemoveClock}>Delete clock</Button>
