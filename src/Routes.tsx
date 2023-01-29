@@ -1,4 +1,4 @@
-import {FC, CSSProperties, useContext, useState, useEffect} from 'react';
+import {FC, CSSProperties, useContext, useState } from 'react';
 import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
 import { Modal } from './components';
 import Clocks from './routes/Clocks/Clocks';

@@ -180,7 +180,7 @@
   flex-flow:row;
   padding:10px;
   gap:20px;
-  justify-content:start;
+  justify-content:flex-start;
 }
 
 .clocks-row-container {
@@ -242,6 +242,7 @@
 .nickname-button {
   padding:0 !important;
   text-decoration:none !important;
+  border:0;
 }
 
 .delete-clock-div {
@@ -294,7 +295,7 @@
   width:230px;
 }
 
-.clock-link-nickname {
+.clock-nickname-button {
   height:32px;
   font-size:.6em !important;
   text-decoration: none !important;
@@ -302,6 +303,9 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  border:0 !important;
+  border-radius: 0 !important;
+  border-bottom:0.12em solid !important;
 }
 
 .clock-link-timezone {
@@ -352,7 +356,7 @@
   width:100%;
   display:flex;
   flex-direction:column;
-  align-content:start;
+  align-content:flex-start;
 }
 
 .settings-container {

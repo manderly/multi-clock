@@ -1,4 +1,4 @@
-import { FC, CSSProperties, useState, useEffect, useContext, useRef } from 'react';
+import { FC, CSSProperties, useState, useEffect, useContext } from 'react';
 
 import { TimezoneOption } from '../../data';
 
@@ -29,18 +29,17 @@ interface IClockSingle {
 
 const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTimezone, showPreviewTimeGlobal, handleRemoveClock }) => {
 
-  const randomPlaceholders = ["Chicago, IL", "San Diego, CA", "Anchorage, AK", "Seattle, WA", "West Coast team", "Friends", "Family", "Colleagues", "Seattle Team", "Europe Team", "East Coast team", "Home"];
+  const randomPlaceholders = ["Friends", "Family", "Colleagues", "Home"];
 
   const { hoursPref, showOtherSecondsPref } = useContext(SettingsContext);
   const { now, previewTime, previewTimezone} = useContext(TimeContext);
 
   const [nickname, setNickname] = useState(name);
-  const [editingNickname, setEditingNickname] = useState(false);
+  const [candidateNickname, setCandidateNickname] = useState(name);
   const [timezone, setTimezone] = useState(clockTimezone);
   const [offset, setOffset] = useState('');
   const [showClockSettingsModal, setShowClockSettingsModal] = useState(false);
   const [randomNicknamePlaceholder, setRandomNicknamePlaceholder] = useState(randomPlaceholders[1]);
-
   const [showPreviewTimeLocal, setShowPreviewTimeLocal] = useState(showPreviewTimeGlobal);
 
   useEffect(() => {
@@ -60,8 +59,6 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
     timezoneAdjustedPreviewTime,
     timezoneAdjustedPreviewTimeMeridiem,
     timePalette } = useFormatDate(now, timezone.value, hoursPref, showOtherSecondsPref, previewTimeAsDate);
-
-  const nicknameRef = useRef<HTMLInputElement | null>(null);
 
   const calculateOffset = (userTimezone: TimezoneOption) => {
     const userTimezoneParts = userTimezone.utc.split(':');
@@ -133,45 +130,51 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
     backgroundColor: timePalette.bg,
     color: timePalette.text,
     borderColor: timePalette.text,
-    border: 'none',
   };
 
   const buttonStyles: CSSProperties = {
     ...clockTimePaletteStyles,
-    borderRadius: '0',
-    borderBottom: '1px solid',
+  }
+
+  const handleOpenClockSettingsModal = () => {
+    setShowClockSettingsModal(true);
+  }
+
+  const handleCloseClockSettingsModal = () => {
+    setShowClockSettingsModal(false);
   }
 
   const handleNicknameChange = (e: any) => {
-    setNickname(e.target.value as string);
+    setCandidateNickname(e.target.value as string);
 
-    // so we get a different nickname every time the user clears the field
-    if (nickname.length === 0) {
+    // so we get a different nickname PLACEHOLDER
+    // every time the user clears the field
+    if (candidateNickname.length === 0) {
       const randIdx = Math.floor(Math.random()*randomPlaceholders.length);
       setRandomNicknamePlaceholder(randomPlaceholders[randIdx]);
     }
   }
 
   const handleNicknameKeyDown = (e: any) => {
-    if (e.key === 'Enter') {
-      setEditingNickname(false);
-    } else if (e.key === 'Escape') {
-      setNickname(e.target.value);
-      setEditingNickname(false);
+    if (e.key === 'Enter' || e.key === 'Escape') {
+      if (candidateNickname.length === 0) {
+        setNickname(randomNicknamePlaceholder);
+        setCandidateNickname(randomNicknamePlaceholder);
+      } else {
+        setNickname(e.target.value);
+      }
+      handleCloseClockSettingsModal();
     } else {
-      setNickname(e.target.value);
+      setCandidateNickname(e.target.value);
     } 
   }
 
-  useEffect(() => {
-    if (nicknameRef && nicknameRef.current) {
-      nicknameRef.current.focus();
-    }
-  }, [editingNickname]);
-
   const handleEditingNicknameBlur = () => {
-    if (nickname.length === 0) {
-      setNickname(timezone.value);
+    if (candidateNickname.length === 0) {
+      setNickname(randomNicknamePlaceholder);
+      setCandidateNickname(randomNicknamePlaceholder);
+    } else {
+      setNickname(candidateNickname);
     }
   }
 
@@ -191,10 +194,13 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
   return (
     <>
       <div className='clock-container' data-testid={'single-clock'} style={clockTimePaletteStyles}>
-        <Nickname text={nickname} onClick={() => setShowClockSettingsModal(true)} styles={buttonStyles}/>
-        <Timezone text={timezone.label} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
+        <Nickname
+            text={nickname}
+            onClick={() => handleOpenClockSettingsModal()}
+            styles={buttonStyles}/>
+        <Timezone text={timezone.label} onClick={() => handleOpenClockSettingsModal()} styles={clockTimePaletteStyles}/>
 
-        <TimeOfDay time={formattedTime} meridiem={meridiemValue} onClick={() => setShowClockSettingsModal(true)} styles={clockTimePaletteStyles}/>
+        <TimeOfDay time={formattedTime} meridiem={meridiemValue} onClick={() => handleOpenClockSettingsModal()} styles={clockTimePaletteStyles}/>
         <div className='clock-extra-info-container' data-testid={'toggle-preview-time'} onClick={handleTogglePreviewTime}>
           {!showPreviewTimeLocal && <DateDisplay date={formattedDateClock} offset={offset} />}
           {showPreviewTimeLocal && <PreviewTime
@@ -209,7 +215,7 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
 
       <Modal
         show={showClockSettingsModal}
-        onHide={() => setShowClockSettingsModal(false)}
+        onHide={() => handleCloseClockSettingsModal()}
         dialogClassName="modal-90w"
         aria-labelledby="example-custom-modal-styling-title"
       >
@@ -230,7 +236,7 @@ const ClockSingle: FC<IClockSingle> = ({ name, uniqueID, clockTimezone, userTime
             onChange={handleNicknameChange}
             onBlur={handleEditingNicknameBlur}
             placeholder={randomNicknamePlaceholder}
-            value={nickname}/>
+            value={candidateNickname}/>
         </div>
       
         <div className="modal-line">

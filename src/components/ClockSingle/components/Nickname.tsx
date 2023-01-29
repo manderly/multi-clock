@@ -15,7 +15,7 @@ const Nickname: FC<INickname> = ({ text, onClick, styles }) => {
       size="sm" 
       aria-label="single clock nickname button"
       style={styles} 
-      className="clock-link-nickname clickable" 
+      className="clock-nickname-button clickable"
       onClick={onClick}>
         {`${text}`}
       </Button>

@@ -7,8 +7,6 @@ import localStorageUtils from '../../utils/localStorage';
 import { SettingsContext } from '../../contexts/SettingsContext';
 
 import ClockSingle from '../../components/ClockSingle/ClockSingle';
-import FormControlLabel from "@mui/material/FormControlLabel";
-import MUISwitch from "@mui/material/Switch";
 import {TimePicker} from "@mui/x-date-pickers/TimePicker";
 import TextField from "@mui/material/TextField";
 import {TimeContext} from "../../contexts/TimeContext";
@@ -84,8 +82,6 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTimeGlobal, showPreviewTimeGlob
     return initialValue || createDefaultClocks();
   });
 
-  const [previewTimezone, setPreviewTimezone] = useState(userTimezone);
-
   useEffect(() => {
     localStorageUtils.put("clocks", clocks);
   }, [clocks]);
@@ -145,7 +141,7 @@ const Clocks: FC<IClocks> = ({handleTogglePreviewTimeGlobal, showPreviewTimeGlob
             <div className={"very-wide-input"}>
               <TimezonePicker
                 changeTimezone={handlePreviewTimezoneChange}
-                defaultTimezone={previewTimezone}
+                defaultTimezone={userTimezone}
                 customLabel={"In this time zone..."}
               />
             </div>

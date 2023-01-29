@@ -28,13 +28,11 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone, c
   }
 
   const [focused, setFocused] = useState(0);
-  const [prevFocused, setPrevFocused] = useState(0);
   const [userInput, setUserInput] = useState(formatTimezoneLabel(defaultTimezone));
   const [timezone, setTimezone] = useState(defaultTimezone);
   const [isOpen, setIsOpen] = useState(false);
   const [filteredTimezones, setFilteredTimezones] = useState(allTimezones);
 
-  const inputRef = useRef<HTMLInputElement | null>(null);
   const listRef = useRef<HTMLUListElement>(null);
 
   const renderTimezoneList = useMemo(() => Object.values(filteredTimezones).map((zone, idx) => {
@@ -49,6 +47,7 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone, c
         {formatTimezoneLabel(zone)}
       </MenuItem>
     )
+    // linter wants filteredTimezones in here, but it breaks the select
   }), []);
 
   useEffect(() => {
@@ -72,7 +71,6 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone, c
     // timezone changed, recalculate focused index"
     let trueFocusIdx = calculateFocused();
     setFocused(trueFocusIdx);
-    setPrevFocused(trueFocusIdx);
   }, [timezone])
 
   useEffect(() => {
@@ -84,7 +82,7 @@ const TimezonePicker: FC<ITimezonePicker> = ({changeTimezone, defaultTimezone, c
   const calculateFocused = (): number => {
     // determine the selected timezone's index in the complete list of timezones
     let trueIdx = 0;
-    allTimezones.map((tz, idx) => {
+    allTimezones.forEach((tz, idx) => {
       if (tz.value === timezone.value) {
         trueIdx = idx;
       }
