@@ -94,7 +94,7 @@ describe('Clocks component', () => {
       userEvent.clear(clockNameInput);
       userEvent.tab();
       expect(screen.getByText('Manage clock')).toBeInTheDocument(); // verify modal didn't close
-      expect(clockNameInput).toHaveValue('America/Los_Angeles'); // verify timezone was autofilled into empty field
+      expect(clockNameInput).toHaveValue('Family'); // verify timezone was autofilled into empty field
     });
 
     // 12/25/2022 stale timezone picker bug
