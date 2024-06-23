@@ -1,6 +1,6 @@
 # Multi Clock web app
 
-[See it on Heroku](https://lotsa-clocks.herokuapp.com/)
+[Try the app on Netlify](https://lotsa-clocks.netlify.app/)
 
 <img src="https://github.com/manderly/multi-clock/blob/main/screenshots/december-2021.png" width="600">
 
