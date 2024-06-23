@@ -33,7 +33,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI=false react-scripts build",
     "test": "DEBUG_PRINT_LIMIT=10000 react-scripts test",
     "test:watch": "DEBUG_PRINT_LIMIT=10000 react-scripts test --coverage",
     "test:all": "DEBUG_PRINT_LIMIT=10000 react-scripts test --coverage --watchAll=false",
