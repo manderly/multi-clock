@@ -15,9 +15,8 @@
 
 ```npm run test:coverage```
 
-## To deploy to Heroku:
-
-Just update the 'main' branch and it should redeploy automatically.
+## To deploy:
+Netlify: Just update the 'main' branch and it should redeploy automatically.
 
 ## Change log
 
